@@ -1,0 +1,20 @@
+{
+    "name": "unb-libraries/php-testgen",
+    "description": "Auto-generate automated testing.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Patrick Schilf",
+            "email": "pschilf@unb.ca"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "TestGen\\": "src"
+        }
+    }
+}
