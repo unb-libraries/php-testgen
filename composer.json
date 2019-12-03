@@ -5,6 +5,10 @@
     "license": "MIT",
     "authors": [
         {
+            "name":"UNB Libraries",
+            "email": "libsupport@unb.ca"
+        },
+        {
             "name": "Patrick Schilf",
             "email": "pschilf@unb.ca"
         }
