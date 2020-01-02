@@ -15,7 +15,7 @@ class DirectoryTest extends TestCase {
   /**
    * Root path at which to create test folders.
    */
-  const TEST_ROOT = __DIR__ . '/../tmp/';
+  const TEST_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
 
   /**
    * Overrides @see TestCase::setUpBeforeClass()
@@ -94,6 +94,17 @@ class DirectoryTest extends TestCase {
   }
 
   /**
+   * Adding a file to a directory instance must create a file in the filesystem.
+   */
+  public function testCreateFile() {
+    $path = self::TEST_ROOT . 'testgen';
+    $filename = 'testfile.txt';
+    $directory = new Directory($path);
+    $directory->put($filename, TRUE);
+    $this->assertFileIsReadable($path . DIRECTORY_SEPARATOR . $filename);
+  }
+
+  /**
    * Overrides @see TestCase::tearDown()
    *
    * Remove the test root created during setUp().
@@ -109,17 +120,16 @@ class DirectoryTest extends TestCase {
    * @param string $path
    *   The path at which to find the folder to clear.
    * @param bool $remove
-   *   Whether to remove the to be cleared folder itself.
+   *   Whether to also remove the folder, which is to be cleared.
    */
   protected function clearDirectory($path, $remove = FALSE) {
     foreach (new \DirectoryIterator($path) as $item) {
+      $filepath = $item->getPath() . DIRECTORY_SEPARATOR . $item->getFilename();
       if ($item->isDir() && !$item->isDot()) {
-        $this->clearDirectory(
-          $item->getPath() . '/' . $item->getFilename(), TRUE
-        );
+        $this->clearDirectory($filepath, TRUE);
       }
       elseif ($item->isFile()) {
-        \unlink($item->getPath());
+        \unlink($filepath);
       }
     }
 

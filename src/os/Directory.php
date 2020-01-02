@@ -156,6 +156,35 @@ class Directory extends \Directory {
   }
 
   /**
+   * Whether this directory can be written to.
+   *
+   * @return bool
+   *   True if this directory allows write operations. False otherwise.
+   */
+  public function isWritable() {
+    return \is_writable($this->systemPath());
+  }
+
+  /**
+   * Put a file with the given name inside this directory.
+   *
+   * @param string $filename
+   *   Filename without directory path.
+   * @param bool $close
+   *   Whether the created file should immediately be closed.
+   */
+  public function put($filename, $close = FALSE) {
+    $filepath = $this->systemPath() . $filename;
+    if ($this->isWritable()) {
+      $file = \fopen($filepath, 'x+');
+      \chmod($filepath, $this->permissions());
+      if ($close) {
+        \fclose($file);
+      }
+    }
+  }
+
+  /**
    * Join the directory's path with the given path.
    *
    * @param string $path
