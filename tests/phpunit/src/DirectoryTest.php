@@ -45,8 +45,8 @@ class DirectoryTest extends FileSystemTestCase {
     $dir1 = new Directory($path);
     $dir2 = new Directory($dir1->systemPath() . 'dir2');
 
-    $this->assertEquals(\fileperms($path), $dir1->permissions());
-    $this->assertEquals(\fileperms($path), $dir2->permissions());
+    $this->assertEquals(0744, $dir1->permissions());
+    $this->assertEquals(0744, $dir2->permissions());
   }
 
   /**

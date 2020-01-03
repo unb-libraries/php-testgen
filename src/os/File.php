@@ -57,7 +57,7 @@ class File {
    *
    */
   public function permissions() {
-    return \fileperms($this->path());
+    return \octdec(substr(sprintf('%o', \fileperms($this->path())), -3));
   }
 
   /**
@@ -84,6 +84,7 @@ class File {
       else {
         $this->handle = \fopen($this->path(), 'x+');
         \chmod($this->path(), $this->directory()->permissions());
+        \clearstatcache();
       }
     }
     return $this->handle;

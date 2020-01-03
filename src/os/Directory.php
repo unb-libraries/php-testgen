@@ -64,7 +64,9 @@ class Directory extends \Directory {
 
         $resolved_path =  $parent . $dirname;
         if (!\file_exists($resolved_path)) {
-          \mkdir($resolved_path, \fileperms($parent));
+          $parent_permissions = self::unixPermissions($parent);
+          \mkdir($resolved_path, $parent_permissions);
+          \clearstatcache();
         }
       }
     }
@@ -150,7 +152,20 @@ class Directory extends \Directory {
    *
    */
   public function permissions() {
-    return \fileperms($this->path);
+    return self::unixPermissions($this->systemPath());
+  }
+
+  /**
+   * Retrieve the permissions to the given path in UNIX format.
+   *
+   * @param $path
+   *   The path for which to determine permissions.
+   *
+   * @return int
+   *   Decimal that is equivalent to octal UNIX permissions.
+   */
+  private static function unixPermissions($path) {
+    return \octdec(substr(sprintf('%o', \fileperms($path)), -3));
   }
 
   /**
