@@ -83,6 +83,7 @@ class File {
       }
       else {
         $this->handle = \fopen($this->path(), 'x+');
+        \chmod($this->path(), $this->directory()->permissions());
       }
     }
     return $this->handle;
@@ -95,17 +96,11 @@ class File {
    *   Name of the file.
    * @param Directory $directory
    *   Directory which contains the file.
-   * @param string $permissions
-   *   Filesystem permissions.
    */
-  public function __construct($name, Directory $directory, $permissions = '') {
+  public function __construct($name, Directory $directory) {
     $this->name = $name;
     $this->directory = $directory;
     $this->handle = $this->handle();
-    if (!$permissions) {
-      $permissions = $this->directory()->permissions();
-    }
-    \chmod($this->path(), $permissions);
   }
 
   /**

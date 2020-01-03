@@ -29,12 +29,9 @@ class Directory extends \Directory {
    * @param $path
    *   The path to map to the directory instance. If pointing
    *   at a non-existing path, a new directory will be created.
-   * @param int $permissions
-   *   Permissions to assign to a new directory. Ignored if the
-   *   given path points at an already existing directory.
    */
-  public function __construct($path, $permissions = 0) {
-    $this->path = $this->mapOrCreate($path, $permissions);
+  public function __construct($path) {
+    $this->path = $this->mapOrCreate($path);
   }
 
   /**
@@ -42,15 +39,12 @@ class Directory extends \Directory {
    *
    * @param $path
    *   The path to map or under which to create the directory.
-   * @param int $permissions
-   *   Permissions for new directories. Ignored if path points
-   *   at an existing directory.
    *
    * @return string
    *   Resolved, absolute path to the directory. Ends with a path
    *   delimiter, i.e. '/' (Unix) or '\' (Windows).
    */
-  protected function mapOrCreate($path, $permissions = 0) {
+  protected function mapOrCreate($path) {
     if (empty($path)) {
       // TODO: This is not OS independent.
       $resolved_path = DIRECTORY_SEPARATOR;
@@ -65,15 +59,12 @@ class Directory extends \Directory {
         $unresolved_parent = \implode(
           DIRECTORY_SEPARATOR, $parent_segments
         );
-        $parent = $this->mapOrCreate($unresolved_parent, $permissions);
+        $parent = $this->mapOrCreate($unresolved_parent);
         $dirname = $segments[count($segments) - 1];
 
         $resolved_path =  $parent . $dirname;
         if (!\file_exists($resolved_path)) {
-          if (!$permissions) {
-            $permissions = \fileperms($parent);
-          }
-          \mkdir($resolved_path, $permissions);
+          \mkdir($resolved_path, \fileperms($parent));
         }
       }
     }
