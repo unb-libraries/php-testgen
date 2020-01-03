@@ -2,7 +2,6 @@
 
 namespace TestGen\Test;
 
-use PHPUnit\Framework\TestCase;
 use TestGen\os\Directory;
 
 /**
@@ -10,142 +9,52 @@ use TestGen\os\Directory;
  *
  * @package TestGen\Test
  */
-class DirectoryTest extends TestCase {
-
-  /**
-   * Root path at which to create test folders.
-   */
-  const TEST_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
-
-  /**
-   * Overrides @see TestCase::setUpBeforeClass()
-   *
-   * Create a temporary folder in which to test creating test folders.
-   */
-  public static function setUpBeforeClass(): void {
-    parent::setUpBeforeClass();
-    \mkdir(self::TEST_ROOT, 0777, TRUE);
-  }
+class DirectoryTest extends FileSystemTestCase {
 
   /**
    * Any directory instance must reflect an existing filesystem folder.
    */
   public function testDirectoryExists() {
-    $path = self::TEST_ROOT . 'testgen';
+    $path = self::root() . 'testgen';
     $directory = new Directory($path);
-    $this->assertDirectoryExists($path);
+    $this->assertDirectoryExists($directory->systemPath());
   }
 
   /**
    * A directory instance must not any corrupt filesystem content.
    */
   public function testDirectoryIsIntact() {
-    // TODO: Implement this.
-    $this->markTestIncomplete("To be tested: 
-      Directory instances must not any corrupt filesystem content.");
+    $dir_path = self::root() . 'testgen';
+    $file_path1 = $dir_path . DIRECTORY_SEPARATOR . 'test1';
+
+    \mkdir($dir_path, \fileperms(self::root()));
+    \fopen($file_path1, 'x');
+    new Directory($dir_path);
+
+    $this->assertFileExists($file_path1);
   }
 
   /**
-   * Absolute directory paths must end with an OS dependent separator.
+   * Existing directories must not have their permissions changed. New Directories must inherit their parent's permissions.
    */
-  public function testAbsolutePathEndsWithSeparator() {
-    // TODO: Implement this.
-    $this->markTestIncomplete("To be tested: 
-      Absolute directory paths must end with an OS dependent separator.");
-  }
+  public function testPermissions() {
+    $path = self::root() . 'dir1';
+    $permissions = 0744;
+    \mkdir($path, $permissions);
 
-  /**
-   * Local directory paths must ebd with an OS dependent separator.
-   */
-  public function testLocalPathEndsWithSeparator() {
-    // TODO: Implement this.
-    $this->markTestIncomplete("To be tested: 
-      Local directory paths must ebd with an OS dependent separator.");
+    $dir1 = new Directory($path);
+    $dir2 = new Directory($dir1->systemPath() . 'dir2');
+
+    $this->assertEquals(\fileperms($path), $dir1->permissions());
+    $this->assertEquals(\fileperms($path), $dir2->permissions());
   }
 
   /**
    * A directory's parent must reflect its absolute path without its local.
    */
   public function testParentDirectoryPath() {
-    // TODO: Implement this.
-    $this->markTestIncomplete("To be tested: 
-      A directory's parent must reflect its absolute path without its local.");
-  }
-
-  /**
-   * Creating a directory instance must assign permissions implicitly.
-   *
-   * Implicit permissions must reflect a directory's parent's
-   * file system permissions.
-   */
-  public function testImplicitPermissions() {
-    // TODO: Implement this.
-    $this->markTestIncomplete("To be tested: 
-      Creating a directory instance must assign permissions implicitly.");
-  }
-
-  /**
-   * Explicitly assigned permissions must reflect filesystem permissions.
-   */
-  public function testExplicitPermissions() {
-    // TODO: Implement this.
-    $this->markTestIncomplete("To be tested: 
-      Explicitly assigned permissions must reflect filesystem permissions.");
-  }
-
-  /**
-   * Adding a file to a directory instance must create a file in the filesystem.
-   */
-  public function testCreateFile() {
-    $path = self::TEST_ROOT . 'testgen';
-    $filename = 'testfile.txt';
-    $directory = new Directory($path);
-    $directory->put($filename, TRUE);
-    $this->assertFileIsReadable($path . DIRECTORY_SEPARATOR . $filename);
-  }
-
-  /**
-   * Overrides @see TestCase::tearDown()
-   *
-   * Remove the test root created during setUp().
-   */
-  protected function tearDown(): void {
-    parent::tearDown();
-    $this->clearDirectory(self::TEST_ROOT);
-  }
-
-  /**
-   * Remove all contents from the folder at the given path.
-   *
-   * @param string $path
-   *   The path at which to find the folder to clear.
-   * @param bool $remove
-   *   Whether to also remove the folder, which is to be cleared.
-   */
-  protected function clearDirectory($path, $remove = FALSE) {
-    foreach (new \DirectoryIterator($path) as $item) {
-      $filepath = $item->getPath() . DIRECTORY_SEPARATOR . $item->getFilename();
-      if ($item->isDir() && !$item->isDot()) {
-        $this->clearDirectory($filepath, TRUE);
-      }
-      elseif ($item->isFile()) {
-        \unlink($filepath);
-      }
-    }
-
-    if ($remove) {
-      \rmdir($path);
-    }
-  }
-
-  /**
-   * Overrides @see TestCase::tearDownAfterClass()
-   *
-   * Remove the test root.
-   */
-  public static function tearDownAfterClass(): void {
-    parent::tearDownAfterClass();
-    \rmdir(self::TEST_ROOT);
+    $dir = new Directory(self::root() . 'dir');
+    $this->assertEquals(\realpath(self::root()) . DIRECTORY_SEPARATOR, $dir->parentPath());
   }
 
 }

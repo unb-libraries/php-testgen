@@ -131,11 +131,11 @@ class Directory extends \Directory {
    */
   public function parentPath() {
     if (isset($this->parent)) {
-      $path = $this->parent->path;
+      $path = $this->parent->systemPath();
     }
     else {
-      $segments = \explode(DIRECTORY_SEPARATOR, $this->path);
-      $base = \array_slice($segments, 0, \count($segments) - 1);
+      $segments = \explode(DIRECTORY_SEPARATOR, $this->systemPath());
+      $base = \array_slice($segments, 0, \count($segments) - 2);
       $path = \implode(DIRECTORY_SEPARATOR, $base) . DIRECTORY_SEPARATOR;
     }
     return $path;
