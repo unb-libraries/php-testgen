@@ -2,9 +2,7 @@
 
 namespace TestGen\generate;
 
-use TestGen\model\TestModel;
 use TestGen\os\Directory;
-use TestGen\render\TestCaseRenderer;
 
 /**
  * Controller type class for generating test cases.
@@ -15,6 +13,7 @@ class TestGenerator {
 
   // TODO: Make this configurable
   const OUTPUT_ROOT = __DIR__ . '/../../tests/features/';
+  const TEMPLATE_ROOT = __DIR__ . '/../../templates/';
 
   /**
    * Directory instance under which to store created test cases.
@@ -25,34 +24,53 @@ class TestGenerator {
   protected $outputRoot;
 
   /**
+   * Directory instance under which templates are stored.
+   *
+   * @var Directory
+   *   A Directory instance.
+   */
+  protected $templateRoot;
+
+  /**
+   * Getter for outputRoot.
+   *
+   * @return Directory
+   *   A Directory instance.
+   */
+  protected function outPutRoot() {
+    return $this->outputRoot;
+  }
+
+  /**
+   * Getter for templateRoot.
+   *
+   * @return Directory
+   *   A Directory instance.
+   */
+  protected function templateRoot() {
+    return $this->templateRoot;
+  }
+
+  /**
    * Create a new TestGenerator instance.
    *
    * @param string $output_root
    *   Path to the output root
+   * @param string $template_root
+   *   Path to the template root
    */
-  public function __construct($output_root = self::OUTPUT_ROOT) {
+  public function __construct($output_root = self::OUTPUT_ROOT, $template_root = self::TEMPLATE_ROOT) {
     $this->outputRoot = new Directory($output_root);
+    $this->templateRoot = new Directory($template_root);
   }
 
   /**
    * Generate test cases.
-   *
-   * @return bool
-   *   True if test cases were successfully generated. False otherwise.
    */
   public function generate() {
-    $model = new TestModel('route', 'behat');
-    $renderer = new TestCaseRenderer();
-    $template = $renderer->render($model);
-
-    $feature_filename = $model->getId() . '.feature';
-    if ($file = fopen($this->outputRoot->join($feature_filename), 'w')) {
-      fwrite($file, $template);
-      fclose($file);
-      return TRUE;
+    foreach ($this->templateRoot()->files() as $template) {
+      $template->copy($this->outPutRoot());
     }
-
-    return FALSE;
   }
 
 }

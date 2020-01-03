@@ -17,6 +17,13 @@ class Directory extends \Directory {
   protected $parent;
 
   /**
+   * Iterator for directory content.
+   *
+   * @var \DirectoryIterator
+   */
+  protected $iterator;
+
+  /**
    * Create a new directory.
    *
    * @param $path
@@ -195,8 +202,34 @@ class Directory extends \Directory {
     return \file_exists($this->systemPath() . $filename)
         && \is_file($path);
   }
+
+  /**
+   * Retrieve all files contained in this directory.
+   *
+   * @return File[]
+   *   Array of File instances.
+   */
+  public function files() {
+    $files = [];
+    foreach ($this->iterator() as $file) {
+      if ($file->isFile() && !$file->isDot()) {
+        $files[] = $this->put($file->getFilename());
       }
     }
+    return $files;
+  }
+
+  /**
+   * Retrieve a DirectoryIterator to iterator over this directory's content.
+   *
+   * @return \DirectoryIterator
+   *   A DirectoryIterator instance.
+   */
+  protected function iterator() {
+    if (!isset($this->iterator)) {
+      $this->iterator = new \DirectoryIterator($this->systemPath());
+    }
+    return $this->iterator;
   }
 
   /**
