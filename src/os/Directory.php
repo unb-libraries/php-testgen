@@ -170,16 +170,31 @@ class Directory extends \Directory {
    *
    * @param string $filename
    *   Filename without directory path.
-   * @param bool $close
-   *   Whether the created file should immediately be closed.
+   *
+   * @return File
+   *   A File instance.
    */
-  public function put($filename, $close = FALSE) {
-    $filepath = $this->systemPath() . $filename;
+  public function put($filename) {
     if ($this->isWritable()) {
-      $file = \fopen($filepath, 'x+');
-      \chmod($filepath, $this->permissions());
-      if ($close) {
-        \fclose($file);
+      return new File($filename, $this);
+    }
+    return NULL;
+  }
+
+  /**
+   * Whether a file with the given name exists inside this directory.
+   *
+   * @param $filename
+   *   The filename to search for.
+   *
+   * @return bool
+   *   True if a file with the provided name exists. False otherwise.
+   */
+  public function containsFile($filename) {
+    $path = $this->systemPath() . $filename;
+    return \file_exists($this->systemPath() . $filename)
+        && \is_file($path);
+  }
       }
     }
   }
