@@ -2,6 +2,11 @@
 
 namespace TestGen\os;
 
+/**
+ * Class to interact with a file in the filesystem.
+ *
+ * @package TestGen\os
+ */
 class File {
 
   const CONTENT_REPLACE = 0;
@@ -46,6 +51,16 @@ class File {
    */
   public function path() {
     return $this->directory()->systemPath() . $this->name();
+  }
+
+  /**
+   * Retrieve the file extension.
+   *
+   * @return string
+   *   A file extension string, e.g. ".php".
+   */
+  public function extension() {
+    return \pathinfo($this->path())['extension'];
   }
 
   /**
