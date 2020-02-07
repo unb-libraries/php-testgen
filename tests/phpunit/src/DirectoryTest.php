@@ -57,4 +57,14 @@ class DirectoryTest extends FileSystemTestCase {
     $this->assertEquals(\realpath(self::root()) . DIRECTORY_SEPARATOR, $dir->parentPath());
   }
 
+  /**
+   * Test that a directory instance discovers all files in its filesystem counterpart.
+   */
+  public function testListFiles() {
+    $dir = new Directory(self::root() . 'dir');
+    fopen($dir->systemPath() . 'file1', 'w');
+    fopen($dir->systemPath() . 'file2', 'w');
+    $this->assertEquals(2, count($dir->files()));
+  }
+
 }

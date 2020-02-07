@@ -24,6 +24,13 @@ class Directory extends \Directory {
   protected $iterator;
 
   /**
+   * Files in this directory.
+   *
+   * @var File[]
+   */
+  protected $files;
+
+  /**
    * Create a new directory.
    *
    * @param $path
@@ -184,29 +191,49 @@ class Directory extends \Directory {
    * @param string $filename
    *   Filename without directory path.
    *
-   * @return File
-   *   A File instance.
+   * @return File|false
+   *   A File instance. FALSE if directory is not writable.
    */
   public function put($filename) {
     if ($this->isWritable()) {
-      return new File($filename, $this);
+      if (!array_key_exists($filename, $this->files())) {
+        $file = new File($filename, $this);
+        $this->files[$filename] = $file;
+      }
+      return $this->files()[$filename];
     }
-    return NULL;
+    return FALSE;
+  }
+
+  /**
+   * Find the file instance with the given name inside this directory.
+   *
+   * @param string $filename
+   *   Name of the file to find.
+   *
+   * @return File|false
+   *   An instance of File, if one could be found. Otherwise FALSE.
+   */
+  public function find($filename) {
+    if ($this->containsFile($filename)) {
+      return $this->files()[$filename];
+    }
+    return FALSE;
   }
 
   /**
    * Whether a file with the given name exists inside this directory.
    *
-   * @param $filename
-   *   The filename to search for.
+   * @param string|File $file
+   *   The file object or name to search for.
    *
    * @return bool
-   *   True if a file with the provided name exists. False otherwise.
+   *   TRUE if the given file instance or name is part of this directory. FALSE otherwise.
    */
-  public function containsFile($filename) {
-    $path = $this->systemPath() . $filename;
-    return \file_exists($this->systemPath() . $filename)
-        && \is_file($path);
+  public function containsFile($file) {
+    return is_string($file)
+      ? array_key_exists($file, $this->files())
+      : $this->containsFile($file->name());
   }
 
   /**
@@ -216,13 +243,22 @@ class Directory extends \Directory {
    *   Array of File instances.
    */
   public function files() {
-    $files = [];
+    if (!isset($this->files)) {
+      $this->files = [];
+      $this->scan();
+    }
+    return $this->files;
+  }
+
+  /**
+   * Scan the directory for files.
+   */
+  protected function scan() {
     foreach ($this->iterator() as $file) {
       if ($file->isFile() && !$file->isDot()) {
-        $files[] = $this->put($file->getFilename());
+        $this->put($file->getFilename());
       }
     }
-    return $files;
   }
 
   /**

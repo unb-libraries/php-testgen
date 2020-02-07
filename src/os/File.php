@@ -57,7 +57,7 @@ class File {
    * Retrieve the file extension.
    *
    * @return string
-   *   A file extension string, e.g. ".php".
+   *   A file extension string, e.g. "php".
    */
   public function extension() {
     return \pathinfo($this->path())['extension'];
