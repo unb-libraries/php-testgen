@@ -8,6 +8,7 @@ use TestGen\generate\TestGenerator;
 use TestGen\model\Model;
 use TestGen\os\Directory;
 use TestGen\os\File;
+use TestGen\Test\render\TestEngine;
 
 /**
  * Test the TestGenerator class.
@@ -71,7 +72,10 @@ class GeneratorTest extends FileSystemTestCase {
   protected function setUp(): void {
     parent::setUp();
     $this->generator = new TestGenerator(
-      $this->outputRoot(), $this->modelRoot(), $this->templateRoot());
+      new TestEngine(),
+      $this->outputRoot(),
+      $this->modelRoot(),
+      $this->templateRoot());
   }
 
   /**

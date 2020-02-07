@@ -5,6 +5,7 @@ namespace TestGen\generate;
 use TestGen\model\Model;
 use TestGen\os\Directory;
 use TestGen\os\File;
+use TestGen\render\RenderEngine;
 
 /**
  * Controller type class for generating test cases.
@@ -36,6 +37,11 @@ class TestGenerator {
    * @var Directory
    */
   protected $outputRoot;
+
+  /**
+   * @var RenderEngine
+   */
+  protected $renderer;
 
   /**
    * Retrieve the model root.
@@ -94,6 +100,26 @@ class TestGenerator {
   }
 
   /**
+   * Retrieve the currently used render engine.
+   *
+   * @return RenderEngine
+   *   The render engine.
+   */
+  public function getRenderer() {
+    return $this->renderer;
+  }
+
+  /**
+   * Assign the given render to the generator.
+   *
+   * @param RenderEngine $engine
+   *   The render engine to use.
+   */
+  public function setRenderer(RenderEngine $engine) {
+    $this->renderer = $engine;
+  }
+
+  /**
    * Assign a output root.
    *
    * @param string|Directory $output_root
@@ -109,6 +135,8 @@ class TestGenerator {
   /**
    * Create a new TestGenerator instance.
    *
+   * @param RenderEngine $engine
+   *   The render engine to render templates.
    * @param string|Directory $output_root
    *   Directory instance or path to a directory.
    * @param string|Directory $model_root
@@ -116,10 +144,12 @@ class TestGenerator {
    * @param string|Directory $template_root
    *   Directory instance or path to a directory.
    */
-  public function __construct($output_root = self::OUTPUT_ROOT, $model_root = self::MODEL_ROOT, $template_root = self::TEMPLATE_ROOT) {
+  public function __construct(RenderEngine $engine, $output_root = self::OUTPUT_ROOT, $model_root = self::MODEL_ROOT, $template_root =
+  self::TEMPLATE_ROOT) {
     $this->setModelRoot($model_root);
     $this->setTemplateRoot($template_root);
     $this->setOutputRoot($output_root);
+    $this->renderer = $engine;
   }
 
   /**
@@ -128,7 +158,7 @@ class TestGenerator {
   public function generate() {
     foreach ($this->discoverModels() as $model) {
       if ($template = $this->findTemplate($model)) {
-        $this->render($template);
+        $this->render($model, $template);
       }
     }
   }
@@ -175,11 +205,20 @@ class TestGenerator {
   /**
    * Render the given template file.
    *
+   * @param Model $model
+   *   The model to render.
    * @param File $template
    *   The template file to render.
    */
-  protected function render(File $template) {
-    $template->copy($this->getOutputRoot());
+  protected function render(Model $model, File $template) {
+    $test_case = $this->getOutputRoot()->put($template->name());
+    $content = $this->getRenderer()->render($template, [
+      'model' => [
+        $model->getId(),
+        $model->getType(),
+      ],
+    ]);
+    $test_case->setContent($content);
   }
 
 }
