@@ -8,8 +8,10 @@ Feature: Test Use Case
   I need to be able to generate a test
 
   Scenario: Create new feature
-    Given I am a developer
-    When I develop a feature
-    And I generate a test case
-    Then this file should be placed inside my test directory
+    Given I am logged in.
+    When I go to {{model.id}}
+    Then I should receive a HTTP 200 response.
+
+
+
 
