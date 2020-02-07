@@ -7,6 +7,7 @@ use Symfony\Component\Yaml\Yaml;
 use TestGen\generate\TestGenerator;
 use TestGen\model\Model;
 use TestGen\os\Directory;
+use TestGen\os\File;
 
 /**
  * Test the TestGenerator class.
@@ -74,6 +75,22 @@ class GeneratorTest extends FileSystemTestCase {
   }
 
   /**
+   * Test that for each discovered model, for which a template exists, a test will be placed in the output folder.
+   */
+  public function testGenerateTestCaseForEachValidModelAndTemplate() {
+    $this->getGenerator()->generate();
+    $expected_number_of_tests = 0;
+    foreach ($this->modelRoot()->files() as $model_definition) {
+      if ($model = Model::createFromFile($model_definition)) {
+        if ($template = $this->getPrivateMethodResult($this->getGenerator(), 'findTemplate', $model)) {
+          $expected_number_of_tests++;
+        }
+      }
+    }
+    $this->assertEquals($expected_number_of_tests, count($this->outputRoot()->files()));
+  }
+
+  /**
    * Test that all valid YAML files inside the configured model root can be turned into model instances.
    */
   public function testDiscoverModels() {
@@ -109,6 +126,20 @@ class GeneratorTest extends FileSystemTestCase {
     }
     catch (ParseException $e) {
       return FALSE;
+    }
+  }
+
+  /**
+   * Test that a template for a model can be found.
+   */
+  public function testFindTemplate() {
+    $model = new Model('test_model', 'example');
+    $template = $this->getPrivateMethodResult($this->getGenerator(), 'findTemplate', $model);
+    if ($this->templateRoot()->containsFile('test_model.example.feature') || $this->templateRoot()->containsFile('example.feature')) {
+      $this->assertInstanceOf(File::class, $template);
+    }
+    else {
+      $this->assertFalse($template);
     }
   }
 

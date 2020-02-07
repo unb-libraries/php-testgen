@@ -3,6 +3,7 @@
 namespace TestGen\Test;
 
 use TestGen\os\Directory;
+use TestGen\os\File;
 
 /**
  * Test creating and interacting with instances of the Directory class.
@@ -65,6 +66,17 @@ class DirectoryTest extends FileSystemTestCase {
     fopen($dir->systemPath() . 'file1', 'w');
     fopen($dir->systemPath() . 'file2', 'w');
     $this->assertEquals(2, count($dir->files()));
+  }
+
+  /**
+   * Test that an existing file inside a folder can be found by its name.
+   */
+  public function testFindFile() {
+    $dir = new Directory(self::root() . 'dir');
+    $dir->put('file1');
+
+    $this->assertInstanceOf(File::class, $dir->find('file1'));
+    $this->assertFalse($dir->find('file2'));
   }
 
 }

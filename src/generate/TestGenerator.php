@@ -103,7 +103,7 @@ class TestGenerator {
     if (is_string($output_root)) {
       $output_root = new Directory($output_root);
     }
-    $this->templateRoot = $output_root;
+    $this->outputRoot = $output_root;
   }
 
   /**
@@ -126,7 +126,11 @@ class TestGenerator {
    * Generate test cases.
    */
   public function generate() {
-    
+    foreach ($this->discoverModels() as $model) {
+      if ($template = $this->findTemplate($model)) {
+        $this->render($template);
+      }
+    }
   }
 
   /**
@@ -145,6 +149,37 @@ class TestGenerator {
     return $models;
   }
 
+  /**
+   * Find a template for the given model.
+   *
+   * @param Model $model
+   *   The model.
+   *
+   * @return FALSE|\TestGen\os\File
+   *   The template file, if one was found. FALSE otherwise.
+   */
+  protected function findTemplate(Model $model) {
+    $filename_candidates = [
+      sprintf('%s.%s.%s', $model->getId(), $model->getType(), 'feature'),
+      sprintf('%s.%s', $model->getType(), 'feature'),
+    ];
+
+    foreach ($filename_candidates as $filename) {
+      if ($template = $this->getTemplateRoot()->find($filename)) {
+        return $template;
+      }
+    }
+    return FALSE;
+  }
+
+  /**
+   * Render the given template file.
+   *
+   * @param File $template
+   *   The template file to render.
+   */
+  protected function render(File $template) {
+    $template->copy($this->getOutputRoot());
   }
 
 }
