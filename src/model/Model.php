@@ -52,7 +52,8 @@ class Model {
    * @param string $type
    *   The model type.
    */
-  public function __construct($id, $type) {
+  public function __construct($id = '', $type = '') {
+    // TODO: Do NOT accept empty ID and type.
     $this->id = $id;
     $this->type = $type;
   }
