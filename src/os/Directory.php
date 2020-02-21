@@ -197,7 +197,7 @@ class Directory extends \Directory {
   public function put($filename) {
     if ($this->isWritable()) {
       if (!array_key_exists($filename, $this->files())) {
-        $file = new File($filename, $this);
+        $file = FileSystemFactory::createFile($filename, $this);
         $this->files[$filename] = $file;
       }
       return $this->files()[$filename];
