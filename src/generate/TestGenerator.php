@@ -318,15 +318,7 @@ class TestGenerator {
    */
   protected function render(Model $model, File $template) {
     $test_case = $this->getOutputRoot()->put($template->name());
-
-    // TODO: This is only temporary.
-    $context_model = new \stdClass();
-    $context_model->id = $model->getId();
-    $context_model->type = $model->getType();
-
-    $content = $this->getRenderer()->render($template, [
-      'model' => $context_model,
-    ]);
+    $content = $this->getRenderer()->render($template, $model->getProperties());
     $test_case->setContent($content);
   }
 

@@ -5,6 +5,7 @@ namespace TestGen\Test;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use TestGen\generate\TestGenerator;
+use TestGen\model\ModelDefinition;
 use TestGen\model\ModelFactory;
 use TestGen\os\Directory;
 use TestGen\os\File;
@@ -134,7 +135,8 @@ class GeneratorTest extends FileSystemTestCase {
    * Test that a template for a model can be found.
    */
   public function testFindTemplate() {
-    $model = new ExampleModel('test_model', [
+    $model_definition = new ModelDefinition('example', ExampleModel::class);
+    $model = new ExampleModel('test_model', $model_definition, [
       'property1' => 'foo',
       'property2'=> 'bar',
     ]);

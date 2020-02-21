@@ -55,7 +55,7 @@ class ModelFactory {
         }
         $options = array_intersect_key($model_description, $definition->getOptions());
         $properties = array_merge($requirements, $options);
-        return new $class($model_description['id'], $properties);
+        return new $class($model_description['id'], $definition, $properties);
       }
     }
     return FALSE;
