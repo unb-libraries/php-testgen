@@ -12,8 +12,8 @@ use TestGen\os\YamlFile;
 
 class ModelFactoryTest extends TestCase {
 
-  const MODEL_TYPE_ID = 'page';
-  const MODEL_CLASS = PageModel::class;
+  const MODEL_TYPE_ID = 'example';
+  const MODEL_CLASS = ExampleModel::class;
   const MODEL_DEFINITION_CLASS = ModelDefinition::class;
   const MODEL_DIR = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'models';
 
@@ -55,22 +55,35 @@ class ModelFactoryTest extends TestCase {
    */
   protected function setUp(): void {
     $this->modelsDirectory = new Directory(self::MODEL_DIR);
-    $model_definition = new ModelDefinition(self::MODEL_TYPE_ID, self::MODEL_CLASS, ['url']);
+    $model_definition = new ModelDefinition(self::MODEL_TYPE_ID, self::MODEL_CLASS, [
+      'property1',
+      'property2',
+    ], [
+      'option1',
+    ]);
     $this->factory = new ModelFactory([$model_definition]);
     parent::setUp();
   }
 
   /**
-   * Test that a model can be manufactured from a given model definition.
+   * Test that a valid model description will be mapped to the expected class.
    */
   public function testCreateModel() {
-    $model_description = new YamlFile('test_model.example.yml', $this->getModelsDirectory());
-    /** @var PageModel $example_model */
+    $model_description = new YamlFile('valid_model.example.yml', $this->getModelsDirectory());
+    /** @var ExampleModel $example_model */
     $example_model = $this->getModelFactory()->createFromFile($model_description);
-
     $this->assertInstanceOf(self::MODEL_CLASS, $example_model);
     $this->assertEquals(self::MODEL_TYPE_ID, $example_model->getType());
-    $this->assertEquals($model_description->parse()['url'], $example_model->getUrl());
+  }
+
+  /**
+   * Test that an invalid model description will not be mapped to any class.
+   */
+  public function testCreateModelFails() {
+    $model_description = new YamlFile('invalid_model.example.yml', $this->getModelsDirectory());
+    /** @var PageModel $example_model */
+    $example_model = $this->getModelFactory()->createFromFile($model_description);
+    $this->assertFalse($example_model);
   }
 
   /**

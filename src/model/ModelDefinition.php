@@ -46,4 +46,11 @@ class ModelDefinition {
     return $this->options;
   }
 
+  public function getProperties() {
+    return array_merge(
+        array_values($this->getRequirements()),
+        array_keys($this->getOptions())
+    );
+  }
+
 }

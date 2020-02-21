@@ -41,8 +41,8 @@ class ModelFactory {
    */
   public function createFromFile(ParsableFile $file) {
     $model_description = $file->parse();
-    if ($model_description && ($type = $model_description['type']) && ($id = $model_description['id'])) {
-      $definition = $this->getDefinition($type);
+    if ($model_description && array_key_exists('id', $model_description) && array_key_exists('type', $model_description)) {
+      $definition = $this->getDefinition($model_description['type']);
       if ($definition && ($class = $definition->getModelClass())) {
         $requirements = [];
         foreach ($definition->getRequirements() as $property) {
@@ -55,7 +55,7 @@ class ModelFactory {
         }
         $options = array_intersect_key($model_description, $definition->getOptions());
         $properties = array_merge($requirements, $options);
-        return new $class($id, $properties);
+        return new $class($model_description['id'], $properties);
       }
     }
     return FALSE;

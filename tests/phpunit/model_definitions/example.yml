@@ -1,0 +1,7 @@
+type: example
+class: 'TestGen\Test\model\ExampleModel'
+requirements:
+  - property1
+  - property2
+options:
+  option1: TRUE
