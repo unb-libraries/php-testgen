@@ -2,6 +2,8 @@
 
 namespace TestGen\model;
 
+use TestGen\os\ParsableFile;
+
 /**
  * Factory to build models from model definitions.
  *
@@ -29,19 +31,34 @@ class ModelFactory {
   /**
    * Create a model of the given type.
    *
-   * @param $type
-   *   The type of model to create.
+   * @param ParsableFile $file
+   *   A parsable file containing a description
+   *   of the model to create.
    *
-   * @return mixed|null
+   * @return mixed|false
    *   An instance of the created model.
-   *   NULL if no model could be created for the given type.
+   *   FALSE if no model could be created for the given type.
    */
-  public function create($type) {
-    if ($definition = $this->getDefinition($type)) {
-      $class = $definition->getModelClass();
-      return new $class();
+  public function createFromFile(ParsableFile $file) {
+    $model_description = $file->parse();
+    if ($model_description && ($type = $model_description['type']) && ($id = $model_description['id'])) {
+      $definition = $this->getDefinition($type);
+      if ($definition && ($class = $definition->getModelClass())) {
+        $requirements = [];
+        foreach ($definition->getRequirements() as $property) {
+          if (array_key_exists($property, $model_description)) {
+            $requirements[$property] = $model_description[$property];
+          }
+          else {
+            return FALSE;
+          }
+        }
+        $options = array_intersect_key($model_description, $definition->getOptions());
+        $properties = array_merge($requirements, $options);
+        return new $class($id, $properties);
+      }
     }
-    return NULL;
+    return FALSE;
   }
 
   /**
@@ -64,8 +81,8 @@ class ModelFactory {
    */
   public function addDefinition(ModelDefinition $definition) {
     $definitions = $this->modelDefinitions;
-    if (!array_key_exists($definition->getId(), $definitions)) {
-      $this->modelDefinitions[$definition->getId()] = $definition;
+    if (!array_key_exists($definition->getType(), $definitions)) {
+      $this->modelDefinitions[$definition->getType()] = $definition;
     }
   }
 

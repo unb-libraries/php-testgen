@@ -1,0 +1,8 @@
+type: page
+class: '\TestGen\model\PageModel'
+# Required model properties
+requirements:
+  - url
+# Optional model properties
+options:
+  private: FALSE

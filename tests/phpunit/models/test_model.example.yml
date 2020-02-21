@@ -1,2 +1,4 @@
-id: 'test_model'
-type: 'example'
+id: 'test_page'
+type: 'page'
+url: '/path/to/an/example-page'
+private: 'FALSE'
