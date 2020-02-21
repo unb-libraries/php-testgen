@@ -2,15 +2,12 @@
 
 namespace TestGen\model;
 
-use Symfony\Component\Yaml\Yaml;
-use TestGen\os\File;
-
 /**
- * Class Model.
+ * Base class for models.
  *
  * @package TestGen\model
  */
-class Model {
+abstract class Model {
 
   /**
    * The model ID.
@@ -18,13 +15,6 @@ class Model {
    * @var string
    */
   protected $id;
-
-  /**
-   * The model type.
-   *
-   * @var string
-   */
-  protected $type;
 
   /**
    * Retrieve the model ID.
@@ -40,44 +30,35 @@ class Model {
    *
    * @return string
    */
-  public function getType() {
-    return $this->type;
-  }
+  abstract public function getType();
 
   /**
    * Create a new model instance.
    *
    * @param string $id
    *   The model ID.
-   * @param string $type
+   * @param array $properties
    *   The model type.
    */
-  public function __construct($id = '', $type = '') {
-    // TODO: Do NOT accept empty ID and type.
+  final public function __construct($id, array $properties) {
     $this->id = $id;
-    $this->type = $type;
+    foreach ($properties as $property => $value) {
+      $this->trySet($property, $value);
+    }
   }
 
-  /**
-   * Create a model instance from parsing a YAML file.
-   *
-   * @param File $model_definition
-   *   The file containing the model definition.
-   *
-   * @return Model|null
-   *   The created model instance.
-   *   NULL if no model could be created from the given file.
-   */
-  public static function createFromFile(File $model_definition) {
+  private function trySet($property, $value) {
     try {
-      $yaml = Yaml::parse($model_definition->content());
-      return new Model(
-          $yaml['id'],
-          $yaml['type']
-      );
+      $setter = [$this, $setter_name = 'set' . ucfirst($property)];
+      if (is_callable($setter)) {
+        $this->$setter_name($value);
+      }
+      else {
+        $this->$property = $value;
+      }
     }
     catch (\Exception $e) {
-      return NULL;
+      // TODO: Release a debug or log notice.
     }
   }
 
