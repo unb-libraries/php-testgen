@@ -5,9 +5,10 @@ namespace TestGen\Test;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use TestGen\generate\TestGenerator;
-use TestGen\model\Model;
+use TestGen\model\ModelFactory;
 use TestGen\os\Directory;
 use TestGen\os\File;
+use TestGen\Test\model\ExampleModel;
 use TestGen\Test\render\TestEngine;
 
 /**
@@ -57,6 +58,16 @@ class GeneratorTest extends FileSystemTestCase {
   }
 
   /**
+   * Retrieve the directory containing the test model definitions.
+   *
+   * @return Directory
+   *   A directory.
+   */
+  protected function modelDefinitionRoot() {
+    return new Directory(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'model_definitions');
+  }
+
+  /**
    * Retrieve the output directory.
    *
    * @return Directory
@@ -72,39 +83,25 @@ class GeneratorTest extends FileSystemTestCase {
   protected function setUp(): void {
     parent::setUp();
     $this->generator = new TestGenerator(
+      new ModelFactory(),
       new TestEngine(),
       $this->outputRoot(),
       $this->modelRoot(),
+      $this->modelDefinitionRoot(),
       $this->templateRoot());
-  }
-
-  /**
-   * Test that for each discovered model, for which a template exists, a test will be placed in the output folder.
-   */
-  public function testGenerateTestCaseForEachValidModelAndTemplate() {
-    $this->getGenerator()->generate();
-    $expected_number_of_tests = 0;
-    foreach ($this->modelRoot()->files() as $model_definition) {
-      if ($model = Model::createFromFile($model_definition)) {
-        if ($template = $this->getPrivateMethodResult($this->getGenerator(), 'findTemplate', $model)) {
-          $expected_number_of_tests++;
-        }
-      }
-    }
-    $this->assertEquals($expected_number_of_tests, count($this->outputRoot()->files()));
   }
 
   /**
    * Test that all valid YAML files inside the configured model root can be turned into model instances.
    */
-  public function testDiscoverModels() {
+  public function testDiscoverModelDescriptions() {
     $expected_number_of_models = 0;
     foreach ($this->modelRoot()->files() as $model_file) {
       if ($this->isValidYml($model_file->path())) {
         $expected_number_of_models++;
       }
     }
-    $models = $this->getPrivateMethodResult($this->getGenerator(), 'discoverModels');
+    $models = $this->getPrivateMethodResult($this->getGenerator(), 'discoverModelDescriptions');
     $this->assertEquals($expected_number_of_models, count($models));
   }
 
@@ -137,7 +134,11 @@ class GeneratorTest extends FileSystemTestCase {
    * Test that a template for a model can be found.
    */
   public function testFindTemplate() {
-    $model = new Model('test_model', 'example');
+    $model = new ExampleModel('test_model', [
+      'property1' => 'foo',
+      'property2'=> 'bar',
+    ]);
+
     $template = $this->getPrivateMethodResult($this->getGenerator(), 'findTemplate', $model);
     if ($this->templateRoot()->containsFile('test_model.example.feature') || $this->templateRoot()->containsFile('example.feature')) {
       $this->assertInstanceOf(File::class, $template);

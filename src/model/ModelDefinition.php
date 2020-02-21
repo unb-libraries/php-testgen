@@ -13,11 +13,13 @@ class ModelDefinition {
 
   public static function createFromFile(ParsableFile $model_definition_file) {
     if ($parsed_file = $model_definition_file->parse()) {
-      if ($id = $parsed_file['id']
-          && $model_class = $parsed_file['model_class']
-          && $requirements = $parsed_file['requirements']
-          && $options = $parsed_file['options']) {
-        return new static($id, $model_class);
+      if (count(array_intersect(['type', 'class', 'requirements', 'options'], array_keys($parsed_file))) === 4) {
+        return new static(
+          $parsed_file['type'],
+          $parsed_file['class'],
+          $parsed_file['requirements'],
+          $parsed_file['options']
+        );
       }
     }
     return NULL;

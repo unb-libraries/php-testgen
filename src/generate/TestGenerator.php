@@ -3,8 +3,11 @@
 namespace TestGen\generate;
 
 use TestGen\model\Model;
+use TestGen\model\ModelDefinition;
+use TestGen\model\ModelFactory;
 use TestGen\os\Directory;
 use TestGen\os\File;
+use TestGen\os\ParsableFile;
 use TestGen\render\RenderEngine;
 
 /**
@@ -17,7 +20,8 @@ class TestGenerator {
   // TODO: Make this configurable
   const OUTPUT_ROOT = __DIR__ . '/../../tests/features/';
   const TEMPLATE_ROOT = __DIR__ . '/../../templates/';
-  const MODEL_ROOT =__DIR__ . '/../../models/';
+  const MODEL_ROOT = __DIR__ . '/../../models/';
+  const MODEL_DEFINITION_ROOT = __DIR__ . '/../../model_definitions/';
 
   /**
    * Root folder for models.
@@ -25,6 +29,13 @@ class TestGenerator {
    * @var Directory
    */
   protected $modelRoot;
+
+  /**
+   * Root folder for model definitions.
+   *
+   * @var Directory
+   */
+  protected $modelDefinitionRoot;
 
   /**
    * Root folder for templates.
@@ -42,6 +53,13 @@ class TestGenerator {
    * @var RenderEngine
    */
   protected $renderer;
+
+  /**
+   * The model factory.
+   *
+   * @var ModelFactory
+   */
+  protected $modelFactory;
 
   /**
    * Retrieve the model root.
@@ -64,6 +82,29 @@ class TestGenerator {
       $model_root = new Directory($model_root);
     }
     $this->modelRoot = $model_root;
+  }
+
+  /**
+   * Retrieve the model definition root.
+   *
+   * @return Directory
+   *   A directory instance.
+   */
+  public function getModelDefinitionRoot() {
+    return $this->modelDefinitionRoot;
+  }
+
+  /**
+   * Assign a model definition root.
+   *
+   * @param string|Directory $model_definition_root
+   *   A directory instance or the path to a directory.
+   */
+  public function setModelDefinitionRoot($model_definition_root) {
+    if (is_string($model_definition_root)) {
+      $model_definition_root = new Directory($model_definition_root);
+    }
+    $this->modelDefinitionRoot = $model_definition_root;
   }
 
   /**
@@ -133,20 +174,51 @@ class TestGenerator {
   }
 
   /**
+   * Retrieve the model factory instance.
+   *
+   * @return ModelFactory
+   *   A model factory instance.
+   */
+  public function getModelFactory() {
+    return $this->modelFactory;
+  }
+
+  /**
+   * Set the model factory.
+   *
+   * @param $model_factory
+   *   A model factory instance.
+   */
+  public function setModelFactory($model_factory) {
+    $this->modelFactory = $model_factory;
+    foreach ($this->discoverModelDefinitions() as $parsable_file) {
+      if ($model_definition = ModelDefinition::createFromFile($parsable_file)) {
+        $this->modelFactory->addDefinition($model_definition);
+      }
+    }
+  }
+
+  /**
    * Create a new TestGenerator instance.
    *
+   * @param ModelFactory $model_factory
+   *   The model factory.
    * @param RenderEngine $engine
    *   The render engine to render templates.
    * @param string|Directory $output_root
    *   Directory instance or path to a directory.
    * @param string|Directory $model_root
    *   Directory instance or path to a directory.
+   * @param string|Directory $model_definition_root
+   *   Directory instance or path to a directory.
    * @param string|Directory $template_root
    *   Directory instance or path to a directory.
    */
-  public function __construct(RenderEngine $engine, $output_root = self::OUTPUT_ROOT, $model_root = self::MODEL_ROOT, $template_root =
-  self::TEMPLATE_ROOT) {
+  public function __construct(ModelFactory $model_factory, RenderEngine $engine, $output_root = self::OUTPUT_ROOT, $model_root = self::MODEL_ROOT,
+                              $model_definition_root = self::MODEL_DEFINITION_ROOT, $template_root = self::TEMPLATE_ROOT) {
+    $this->modelFactory = $model_factory;
     $this->setModelRoot($model_root);
+    $this->setModelDefinitionRoot($model_definition_root);
     $this->setTemplateRoot($template_root);
     $this->setOutputRoot($output_root);
     $this->renderer = $engine;
@@ -156,7 +228,7 @@ class TestGenerator {
    * Generate test cases.
    */
   public function generate() {
-    foreach ($this->discoverModels() as $model) {
+    foreach ($this->loadModels() as $model) {
       if ($template = $this->findTemplate($model)) {
         $this->render($model, $template);
       }
@@ -164,19 +236,53 @@ class TestGenerator {
   }
 
   /**
-   * Discover and load models.
+   * Load models.
    *
    * @return Model[]
    *   An array of model instances.
    */
-  protected function discoverModels() {
+  protected function loadModels() {
     $models = [];
-    foreach ($this->getModelRoot()->files() as $model_definition) {
-      if ($model = Model::createFromFile($model_definition)) {
+    foreach ($this->discoverModelDescriptions() as $model_description) {
+      if ($model = $this->getModelFactory()->createFromFile($model_description)) {
         $models[$model->getId()] = $model;
       }
     }
     return $models;
+  }
+
+  /**
+   * Discover parsable model description files.
+   *
+   * @return ParsableFile[]
+   *   An array of parsable files.
+   */
+  protected function discoverModelDescriptions() {
+    $model_descriptions = [];
+    foreach ($this->getModelRoot()->files() as $model_description) {
+      // TODO: Remove this unnecessary, hard coded dependency.
+      if ($model_description instanceof ParsableFile) {
+        $model_descriptions[] = $model_description;
+      }
+    }
+    return $model_descriptions;
+  }
+
+  /**
+   * Discover parsable model definition files.
+   *
+   * @return ParsableFile[]
+   *   An array of parsable files.
+   */
+  protected function discoverModelDefinitions() {
+    $model_definitions = [];
+    foreach ($this->getModelDefinitionRoot()->files() as $model_definition) {
+      // TODO: Remove this unnecessary, hard coded dependency.
+      if ($model_definition instanceof ParsableFile) {
+        $model_definitions[] = $model_definition;
+      }
+    }
+    return $model_definitions;
   }
 
   /**

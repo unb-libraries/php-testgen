@@ -1,0 +1,28 @@
+# Behat Page Access Test
+# Ref : phase2/behat-suite
+
+Feature: Visit a page
+  As an internet user
+  In order to use a website
+  I need to be able to access its pages
+
+{% if private %}
+
+  Scenario: Grant acccess to authenticated users
+    Given I am logged in
+    When I go to {{url}}
+    Then I should get an HTTP 200 response
+
+  Scenario: Deny acccess to unauthenticated users
+    Given I am not logged in
+    When I go to {{url}}
+    Then I should get an HTTP 403 response
+
+{% else %}
+
+  Scenario: Grant acccess to everyone
+    Given I am not logged in
+    When I go to {{url}}
+    Then I should get an HTTP 200 response
+
+{% endif %}
