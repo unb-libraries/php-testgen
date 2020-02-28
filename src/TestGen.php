@@ -61,4 +61,40 @@ final class TestGen {
     return static::$container;
   }
 
+  /**
+   * The test generator.
+   *
+   * @return \TestGen\generate\TestGenerator
+   *   The generator service.
+   */
+  public static function generator() {
+    /** @var \TestGen\generate\TestGenerator $generator */
+    $generator = static::container()->get('testgen.generator');
+    return $generator;
+  }
+
+  /**
+   * The model builder.
+   *
+   * @return \TestGen\model\ModelFactory
+   *   A model factory service instance.
+   */
+  public static function modelBuilder() {
+    /** @var \TestGen\model\ModelFactory $builder */
+    $builder = static::container()->get('model_builder');
+    return $builder;
+  }
+
+  /**
+   * The render engine.
+   *
+   * @return \TestGen\render\RenderEngine
+   *   The render engine.
+   */
+  public static function renderer() {
+    /** @var \TestGen\render\RenderEngine $renderer */
+    $renderer = static::container()->get('render_engine');
+    return $renderer;
+  }
+
 }

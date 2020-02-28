@@ -17,12 +17,6 @@ use TestGen\render\RenderEngine;
  */
 class TestGenerator {
 
-  // TODO: Make this configurable
-  const OUTPUT_ROOT = __DIR__ . '/../../tests/features/';
-  const TEMPLATE_ROOT = __DIR__ . '/../../templates/';
-  const MODEL_ROOT = __DIR__ . '/../../models/';
-  const MODEL_DEFINITION_ROOT = __DIR__ . '/../../model_definitions/';
-
   /**
    * Root folder for models.
    *
@@ -205,22 +199,15 @@ class TestGenerator {
    *   The model factory.
    * @param RenderEngine $engine
    *   The render engine to render templates.
-   * @param string|Directory $output_root
-   *   Directory instance or path to a directory.
-   * @param string|Directory $model_root
-   *   Directory instance or path to a directory.
    * @param string|Directory $model_definition_root
    *   Directory instance or path to a directory.
    * @param string|Directory $template_root
    *   Directory instance or path to a directory.
    */
-  public function __construct(ModelFactory $model_factory, RenderEngine $engine, $output_root = self::OUTPUT_ROOT, $model_root = self::MODEL_ROOT,
-                              $model_definition_root = self::MODEL_DEFINITION_ROOT, $template_root = self::TEMPLATE_ROOT) {
+  public function __construct(ModelFactory $model_factory, RenderEngine $engine, $model_definition_root, $template_root) {
     $this->modelFactory = $model_factory;
-    $this->setModelRoot($model_root);
     $this->setModelDefinitionRoot($model_definition_root);
     $this->setTemplateRoot($template_root);
-    $this->setOutputRoot($output_root);
     $this->renderer = $engine;
   }
 

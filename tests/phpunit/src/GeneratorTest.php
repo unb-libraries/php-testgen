@@ -83,13 +83,14 @@ class GeneratorTest extends FileSystemTestCase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->generator = new TestGenerator(
+    $generator = new TestGenerator(
       new ModelFactory(),
       new TestEngine(),
-      $this->outputRoot(),
-      $this->modelRoot(),
       $this->modelDefinitionRoot(),
       $this->templateRoot());
+    $generator->setModelRoot($this->modelRoot());
+    $generator->setOutputRoot($this->outputRoot());
+    $this->generator = $generator;
   }
 
   /**
