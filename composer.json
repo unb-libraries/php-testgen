@@ -17,7 +17,7 @@
     "prefer-stable": true,
     "require": {
         "symfony/yaml": "^5.0",
-        "twig/twig": "^3.0"
+        "twig/twig": "^1.4"
     },
     "autoload": {
         "psr-4": {
