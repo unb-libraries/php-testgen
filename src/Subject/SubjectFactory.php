@@ -2,6 +2,7 @@
 
 namespace Tozart\Subject;
 
+use Tozart\os\File;
 use Tozart\os\ParsableFile;
 
 /**
@@ -31,7 +32,7 @@ class SubjectFactory {
   /**
    * Create a model of the given type.
    *
-   * @param ParsableFile $file
+   * @param \Tozart\os\File $file
    *   A parsable file containing a description
    *   of the model to create.
    *
@@ -39,9 +40,12 @@ class SubjectFactory {
    *   An instance of the created model.
    *   FALSE if no model could be created for the given type.
    */
-  public function createFromFile(ParsableFile $file) {
-    $model_description = $file->parse();
-    if ($model_description && array_key_exists('id', $model_description) && array_key_exists('type', $model_description)) {
+  public function createFromFile(File $file) {
+    if (!$model_description = $this->parse($file)) {
+      return NULL;
+    }
+
+    if (array_key_exists('id', $model_description) && array_key_exists('type', $model_description)) {
       $definition = $this->getModel($model_description['type']);
       if ($definition && ($class = $definition->getModelClass())) {
         $requirements = [];
@@ -59,6 +63,15 @@ class SubjectFactory {
       }
     }
     return FALSE;
+  }
+
+  protected function parse($file) {
+    try {
+      return $file->parse();
+    }
+    catch (\Exception $e) {
+      return NULL;
+    }
   }
 
   /**

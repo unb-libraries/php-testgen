@@ -5,6 +5,10 @@ parameters:
 services:
   subject_factory:
     class: '\Tozart\Subject\SubjectFactory'
+  subject_manager:
+    class: '\Tozart\Subject\SubjectManager'
+    arguments:
+      - '@subject_factory'
   printer:
     class: '\Tozart\render\TwigPrinter'
     arguments: ['%template_root%']

@@ -74,10 +74,22 @@ final class Tozart {
   }
 
   /**
-   * The model builder.
+   * The subject manager service.
+   *
+   * @return \Tozart\Subject\SubjectManager
+   *   A subject manager service instance.
+   */
+  public static function subjectManager() {
+    /** @var \Tozart\Subject\SubjectManager $subject_manager */
+    $subject_manager = static::container()->get('subject_manager');
+    return $subject_manager;
+  }
+
+  /**
+   * The subject factory service.
    *
    * @return \Tozart\Subject\SubjectFactory
-   *   A model factory service instance.
+   *   A subject factory service instance.
    */
   public static function subjectFactory() {
     /** @var \Tozart\Subject\SubjectFactory $factory */

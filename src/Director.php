@@ -53,7 +53,7 @@ class Director {
    *
    * @var SubjectFactory
    */
-  protected $modelFactory;
+  protected $subjectFactory;
 
   /**
    * Retrieve the model root.
@@ -173,8 +173,8 @@ class Director {
    * @return SubjectFactory
    *   A model factory instance.
    */
-  public function getModelFactory() {
-    return $this->modelFactory;
+  public function getSubjectFactory() {
+    return $this->subjectFactory;
   }
 
   /**
@@ -183,11 +183,11 @@ class Director {
    * @param $model_factory
    *   A model factory instance.
    */
-  public function setModelFactory($model_factory) {
-    $this->modelFactory = $model_factory;
+  public function setSubjectFactory($model_factory) {
+    $this->subjectFactory = $model_factory;
     foreach ($this->discoverModelDefinitions() as $parsable_file) {
       if ($model_definition = SubjectModel::createFromFile($parsable_file)) {
-        $this->modelFactory->addModel($model_definition);
+        $this->subjectFactory->addModel($model_definition);
       }
     }
   }
@@ -205,7 +205,7 @@ class Director {
    *   Directory instance or path to a directory.
    */
   public function __construct(SubjectFactory $model_factory, Printer $engine, $model_definition_root, $template_root) {
-    $this->modelFactory = $model_factory;
+    $this->subjectFactory = $model_factory;
     $this->setModelDefinitionRoot($model_definition_root);
     $this->setTemplateRoot($template_root);
     $this->renderer = $engine;
@@ -231,7 +231,7 @@ class Director {
   protected function loadModels() {
     $models = [];
     foreach ($this->discoverModelDescriptions() as $model_description) {
-      if ($model = $this->getModelFactory()->createFromFile($model_description)) {
+      if ($model = $this->getSubjectFactory()->createFromFile($model_description)) {
         $models[$model->getId()] = $model;
       }
     }
