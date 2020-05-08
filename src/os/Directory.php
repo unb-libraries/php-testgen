@@ -2,12 +2,16 @@
 
 namespace Tozart\os;
 
+use Tozart\os\DependencyInjection\FileSystemTrait;
+
 /**
  * Class to interact with a directory in the filesystem.
  *
  * @package Tozart\os
  */
 class Directory extends \Directory {
+
+  use FileSystemTrait;
 
   /**
    * The parent directory.
@@ -197,7 +201,7 @@ class Directory extends \Directory {
   public function put($filename) {
     if ($this->isWritable()) {
       if (!array_key_exists($filename, $this->files())) {
-        $file = FileSystemFactory::createFile($filename, $this);
+        $file = $this->fileSystem()->file($filename, $this);
         $this->files[$filename] = $file;
       }
       return $this->files()[$filename];

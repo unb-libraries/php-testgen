@@ -3,6 +3,8 @@ parameters:
   template_root: '%TOZART_ROOT%/templates'
 
 services:
+  filesystem:
+    class: '\Tozart\os\FileSystemFactory'
   subject_factory:
     class: '\Tozart\Subject\SubjectFactory'
   subject_manager:

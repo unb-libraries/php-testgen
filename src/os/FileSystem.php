@@ -2,7 +2,7 @@
 
 namespace Tozart\os;
 
-class FileSystemFactory {
+class FileSystem {
 
   // TODO: This is not a permanent solution.
   protected const CLASS_MAP = [
@@ -11,12 +11,12 @@ class FileSystemFactory {
     'yml' => YamlFile::class,
   ];
 
-  public static function createDir($path) {
+  public function dir($path) {
     $dir_class = self::CLASS_MAP['dir'];
     return new $dir_class($path);
   }
 
-  public static function createFile($name, Directory $directory) {
+  public function file($name, Directory $directory) {
     $file_path = $directory->systemPath() . $name;
     $extension = pathinfo($file_path, PATHINFO_EXTENSION);
     if ($extension && array_key_exists($extension, self::CLASS_MAP)) {

@@ -61,6 +61,12 @@ final class Tozart {
     return static::$container;
   }
 
+  public static function fileSystem() {
+    /** @var \Tozart\os\FileSystem $file_system */
+    $file_system = static::container()->get('file_system');
+    return $file_system;
+  }
+
   /**
    * The test generator.
    *

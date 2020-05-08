@@ -4,9 +4,12 @@ namespace Tozart\Subject;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Tozart\os\DependencyInjection\FileSystemTrait;
 use Tozart\os\Directory;
 
 class SubjectManager {
+
+  use FileSystemTrait;
 
   protected $_subjects;
 
@@ -46,12 +49,12 @@ class SubjectManager {
   /**
    * Add a subject root.
    *
-   * @param \Tozart\os\Directory|string $subject_root
+   * @param mixed $subject_root
    *   A directory object or a string.
    */
   public function addSubjectRoot($subject_root) {
     if (is_string($subject_root)) {
-      $subject_root = new Directory($subject_root);
+      $subject_root = $this->fileSystem()->dir($subject_root);
     }
     $this->_subjectRoots[$subject_root->systemPath()] = $subject_root;
   }
