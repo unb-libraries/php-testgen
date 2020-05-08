@@ -1,12 +1,12 @@
 <?php
 
-namespace TestGen\os;
+namespace Tozart\os;
 
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class to process a YAML file.
- * @package TestGen\os
+ * @package Tozart\os
  */
 class YamlFile extends ParsableFile {
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace TestGen\os;
+namespace Tozart\os;
 
 /**
  * Class to interact with a directory in the filesystem.
  *
- * @package TestGen\os
+ * @package Tozart\os
  */
 class Directory extends \Directory {
 

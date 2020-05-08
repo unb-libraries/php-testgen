@@ -1,21 +1,21 @@
 <?php
 
-namespace TestGen\generate;
+namespace Tozart;
 
-use TestGen\model\Model;
-use TestGen\model\ModelDefinition;
-use TestGen\model\ModelFactory;
-use TestGen\os\Directory;
-use TestGen\os\File;
-use TestGen\os\ParsableFile;
-use TestGen\render\RenderEngine;
+use Tozart\Subject\SubjectBase;
+use Tozart\Subject\SubjectModel;
+use Tozart\Subject\SubjectFactory;
+use Tozart\os\Directory;
+use Tozart\os\File;
+use Tozart\os\ParsableFile;
+use Tozart\render\Printer;
 
 /**
  * Controller type class for generating test cases.
  *
- * @package TestGen\generate
+ * @package Tozart\compose
  */
-class TestGenerator {
+class Director {
 
   /**
    * Root folder for models.
@@ -44,14 +44,14 @@ class TestGenerator {
   protected $outputRoot;
 
   /**
-   * @var RenderEngine
+   * @var Printer
    */
   protected $renderer;
 
   /**
    * The model factory.
    *
-   * @var ModelFactory
+   * @var SubjectFactory
    */
   protected $modelFactory;
 
@@ -137,7 +137,7 @@ class TestGenerator {
   /**
    * Retrieve the currently used render engine.
    *
-   * @return RenderEngine
+   * @return Printer
    *   The render engine.
    */
   public function getRenderer() {
@@ -147,10 +147,10 @@ class TestGenerator {
   /**
    * Assign the given render to the generator.
    *
-   * @param RenderEngine $engine
+   * @param Printer $engine
    *   The render engine to use.
    */
-  public function setRenderer(RenderEngine $engine) {
+  public function setRenderer(Printer $engine) {
     $this->renderer = $engine;
   }
 
@@ -170,7 +170,7 @@ class TestGenerator {
   /**
    * Retrieve the model factory instance.
    *
-   * @return ModelFactory
+   * @return SubjectFactory
    *   A model factory instance.
    */
   public function getModelFactory() {
@@ -186,25 +186,25 @@ class TestGenerator {
   public function setModelFactory($model_factory) {
     $this->modelFactory = $model_factory;
     foreach ($this->discoverModelDefinitions() as $parsable_file) {
-      if ($model_definition = ModelDefinition::createFromFile($parsable_file)) {
-        $this->modelFactory->addDefinition($model_definition);
+      if ($model_definition = SubjectModel::createFromFile($parsable_file)) {
+        $this->modelFactory->addModel($model_definition);
       }
     }
   }
 
   /**
-   * Create a new TestGenerator instance.
+   * Create a new Director instance.
    *
-   * @param ModelFactory $model_factory
+   * @param SubjectFactory $model_factory
    *   The model factory.
-   * @param RenderEngine $engine
+   * @param Printer $engine
    *   The render engine to render templates.
    * @param string|Directory $model_definition_root
    *   Directory instance or path to a directory.
    * @param string|Directory $template_root
    *   Directory instance or path to a directory.
    */
-  public function __construct(ModelFactory $model_factory, RenderEngine $engine, $model_definition_root, $template_root) {
+  public function __construct(SubjectFactory $model_factory, Printer $engine, $model_definition_root, $template_root) {
     $this->modelFactory = $model_factory;
     $this->setModelDefinitionRoot($model_definition_root);
     $this->setTemplateRoot($template_root);
@@ -225,7 +225,7 @@ class TestGenerator {
   /**
    * Load models.
    *
-   * @return Model[]
+   * @return SubjectBase[]
    *   An array of model instances.
    */
   protected function loadModels() {
@@ -275,13 +275,13 @@ class TestGenerator {
   /**
    * Find a template for the given model.
    *
-   * @param Model $model
+   * @param SubjectBase $model
    *   The model.
    *
-   * @return FALSE|\TestGen\os\File
+   * @return FALSE|\Tozart\os\File
    *   The template file, if one was found. FALSE otherwise.
    */
-  protected function findTemplate(Model $model) {
+  protected function findTemplate(SubjectBase $model) {
     $filename_candidates = [
       sprintf('%s.%s.%s', $model->getId(), $model->getType(), 'feature'),
       sprintf('%s.%s', $model->getType(), 'feature'),
@@ -298,12 +298,12 @@ class TestGenerator {
   /**
    * Render the given template file.
    *
-   * @param Model $model
+   * @param SubjectBase $model
    *   The model to render.
    * @param File $template
    *   The template file to render.
    */
-  protected function render(Model $model, File $template) {
+  protected function render(SubjectBase $model, File $template) {
     $test_case = $this->getOutputRoot()->put($template->name());
     $content = $this->getRenderer()->render($template, $model->getProperties());
     $test_case->setContent($content);

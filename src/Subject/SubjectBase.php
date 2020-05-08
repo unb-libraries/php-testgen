@@ -1,13 +1,13 @@
 <?php
 
-namespace TestGen\model;
+namespace Tozart\Subject;
 
 /**
  * Base class for models.
  *
- * @package TestGen\model
+ * @package Tozart\model
  */
-abstract class Model {
+abstract class SubjectBase {
 
   /**
    * The model ID.
@@ -35,14 +35,14 @@ abstract class Model {
   /**
    * The model definition.
    *
-   * @var ModelDefinition
+   * @var SubjectModel
    */
   protected $definition;
 
   /**
    * Retrieve the model definition.
    *
-   * @return ModelDefinition
+   * @return SubjectModel
    *   A model definition.
    */
   public function getDefinition() {
@@ -54,7 +54,7 @@ abstract class Model {
    *
    * @param string $id
    *   The model ID.
-   * @param ModelDefinition $definition
+   * @param SubjectModel $definition
    *   The model definition.
    * @param array $properties
    *   The model type.

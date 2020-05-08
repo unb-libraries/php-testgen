@@ -1,8 +1,8 @@
 <?php
 
-namespace TestGen\model;
+namespace Tozart\Subject;
 
-class PageModel extends Model {
+class Page extends SubjectBase {
 
   protected $url;
 

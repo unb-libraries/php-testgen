@@ -1,6 +1,6 @@
 type: page
-class: '\TestGen\model\PageModel'
-# Required model properties
+class: '\Tozart\Subject\Page'
+# Required subject properties
 requirements:
   - url
 # Optional model properties

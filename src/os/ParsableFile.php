@@ -1,11 +1,11 @@
 <?php
 
-namespace TestGen\os;
+namespace Tozart\os;
 
 /**
  * Class to process a structured, parsable file.
  *
- * @package TestGen\os
+ * @package Tozart\os
  */
 abstract class ParsableFile extends File {
 

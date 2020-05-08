@@ -1,10 +1,10 @@
 <?php
 
-namespace TestGen\model;
+namespace Tozart\Subject;
 
-use TestGen\os\ParsableFile;
+use Tozart\os\ParsableFile;
 
-class ModelDefinition {
+class SubjectModel {
 
   protected $type;
   protected $modelClass;

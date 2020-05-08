@@ -1,5 +1,5 @@
 type: example
-class: 'TestGen\Test\model\ExampleModel'
+class: 'Tozart\Test\model\ExampleModel'
 requirements:
   - property1
   - property2

@@ -1,13 +1,13 @@
 <?php
 
-namespace TestGen\Test;
+namespace Tozart\Test;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use TestGen\generate\TestGenerator;
-use TestGen\model\ModelFactory;
-use TestGen\render\RenderEngine;
-use TestGen\TestGen;
+use Tozart\Director;
+use Tozart\Subject\SubjectFactory;
+use Tozart\render\Printer;
+use Tozart\Tozart;
 
 class ApplicationTest extends TestCase {
 
@@ -15,11 +15,11 @@ class ApplicationTest extends TestCase {
    * Test that the application including all dependencies can be initialized.
    */
   public function testInit() {
-    $app = new TestGen();
+    $app = new Tozart();
     $this->assertInstanceOf(ContainerInterface::class, $app->container());
-    $this->assertInstanceOf(TestGenerator::class, $app->generator());
-    $this->assertInstanceOf(ModelFactory::class, TestGen::modelBuilder());
-    $this->assertInstanceOf(RenderEngine::class, TestGen::renderer());
+    $this->assertInstanceOf(Director::class, $app->director());
+    $this->assertInstanceOf(SubjectFactory::class, Tozart::subjectFactory());
+    $this->assertInstanceOf(Printer::class, Tozart::printer());
   }
 
 }

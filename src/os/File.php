@@ -1,11 +1,11 @@
 <?php
 
-namespace TestGen\os;
+namespace Tozart\os;
 
 /**
  * Class to interact with a file in the filesystem.
  *
- * @package TestGen\os
+ * @package Tozart\os
  */
 class File {
 

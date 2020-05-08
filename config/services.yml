@@ -1,17 +1,17 @@
 parameters:
-  model_definition_root: '%TESTGEN_ROOT%/model_definitions'
-  template_root: '%TESTGEN_ROOT%/templates'
+  model_root: '%TOZART_ROOT%/models'
+  template_root: '%TOZART_ROOT%/templates'
 
 services:
-  model_builder:
-    class: '\TestGen\model\ModelFactory'
-  render_engine:
-    class: '\TestGen\render\TwigEngine'
+  subject_factory:
+    class: '\Tozart\Subject\SubjectFactory'
+  printer:
+    class: '\Tozart\render\TwigPrinter'
     arguments: ['%template_root%']
-  testgen.generator:
-    class: '\TestGen\generate\TestGenerator'
+  director:
+    class: '\Tozart\Director'
     arguments:
-      - '@model_builder'
-      - '@render_engine'
-      - '%model_definition_root%'
+      - '@subject_factory'
+      - '@printer'
+      - '%model_root%'
       - '%template_root%'

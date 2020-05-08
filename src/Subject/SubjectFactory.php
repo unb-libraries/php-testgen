@@ -1,31 +1,31 @@
 <?php
 
-namespace TestGen\model;
+namespace Tozart\Subject;
 
-use TestGen\os\ParsableFile;
+use Tozart\os\ParsableFile;
 
 /**
  * Factory to build models from model definitions.
  *
- * @package TestGen\model
+ * @package Tozart\model
  */
-class ModelFactory {
+class SubjectFactory {
 
   /**
    * Array of model definitions that this factory can create.
    *
-   * @var ModelDefinition[]
+   * @var SubjectModel[]
    */
-  protected $modelDefinitions = [];
+  protected $models = [];
 
   /**
    * Create a ModelFactory instance.
    *
-   * @param ModelDefinition[] $definitions
+   * @param SubjectModel[] $models
    *   Array of model definitions this factory should build.
    */
-  public function __construct($definitions = []) {
-    $this->addDefinitions($definitions);
+  public function __construct($models = []) {
+    $this->addModels($models);
   }
 
   /**
@@ -42,7 +42,7 @@ class ModelFactory {
   public function createFromFile(ParsableFile $file) {
     $model_description = $file->parse();
     if ($model_description && array_key_exists('id', $model_description) && array_key_exists('type', $model_description)) {
-      $definition = $this->getDefinition($model_description['type']);
+      $definition = $this->getModel($model_description['type']);
       if ($definition && ($class = $definition->getModelClass())) {
         $requirements = [];
         foreach ($definition->getRequirements() as $property) {
@@ -64,36 +64,36 @@ class ModelFactory {
   /**
    * Add multiple model definitions.
    *
-   * @param ModelDefinition[] $definitions
+   * @param SubjectModel[] $models
    *   An array of model definitions to add.
    */
-  public function addDefinitions(array $definitions) {
-    foreach ($definitions as $definition) {
-      $this->addDefinition($definition);
+  public function addModels(array $models) {
+    foreach ($models as $definition) {
+      $this->addModel($definition);
     }
   }
 
   /**
    * Add a single model definition.
    *
-   * @param ModelDefinition $definition
+   * @param SubjectModel $definition
    *   The model definition to add.
    */
-  public function addDefinition(ModelDefinition $definition) {
-    $definitions = $this->modelDefinitions;
+  public function addModel(SubjectModel $definition) {
+    $definitions = $this->models;
     if (!array_key_exists($definition->getType(), $definitions)) {
-      $this->modelDefinitions[$definition->getType()] = $definition;
+      $this->models[$definition->getType()] = $definition;
     }
   }
 
   /**
    * Retrieve all types and definitions for models this factory can build.
    *
-   * @return ModelDefinition[]
+   * @return SubjectModel[]
    *   Array of model definitions.
    */
-  public function getDefinitions() {
-    return $this->modelDefinitions;
+  public function getModels() {
+    return $this->models;
   }
 
   /**
@@ -102,12 +102,12 @@ class ModelFactory {
    * @param string $type
    *   The model type.
    *
-   * @return ModelDefinition|null
+   * @return SubjectModel|null
    *   A model definition, if one exists for the given type.
    *   NULL if no definition could be found.
    */
-  public function getDefinition($type) {
-    $definitions = $this->getDefinitions();
+  public function getModel($type) {
+    $definitions = $this->getModels();
     if (array_key_exists($type, $definitions)) {
       return $definitions[$type];
     }

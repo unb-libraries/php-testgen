@@ -1,6 +1,6 @@
 <?php
 
-namespace TestGen;
+namespace Tozart;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -9,12 +9,12 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 /**
  * Where it all begins.
  *
- * @package TestGen
+ * @package Tozart
  */
-final class TestGen {
+final class Tozart {
 
-  const TESTGEN_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..';
-  const CONFIG_DIR = self::TESTGEN_ROOT . DIRECTORY_SEPARATOR . 'config';
+  const TOZART_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..';
+  const CONFIG_DIR = self::TOZART_ROOT . DIRECTORY_SEPARATOR . 'config';
 
   /**
    * The application container.
@@ -39,7 +39,7 @@ final class TestGen {
       $loader = new YamlFileLoader($container, new FileLocator(self::CONFIG_DIR));
       $loader->load('services.yml');
 
-      $container->setParameter('TESTGEN_ROOT', self::TESTGEN_ROOT);
+      $container->setParameter('TOZART_ROOT', self::TOZART_ROOT);
     }
     catch (\Exception $e) {
     }
@@ -64,37 +64,37 @@ final class TestGen {
   /**
    * The test generator.
    *
-   * @return \TestGen\generate\TestGenerator
+   * @return \Tozart\Director
    *   The generator service.
    */
-  public static function generator() {
-    /** @var \TestGen\generate\TestGenerator $generator */
-    $generator = static::container()->get('testgen.generator');
-    return $generator;
+  public static function director() {
+    /** @var \Tozart\Director $director */
+    $director = static::container()->get('director');
+    return $director;
   }
 
   /**
    * The model builder.
    *
-   * @return \TestGen\model\ModelFactory
+   * @return \Tozart\Subject\SubjectFactory
    *   A model factory service instance.
    */
-  public static function modelBuilder() {
-    /** @var \TestGen\model\ModelFactory $builder */
-    $builder = static::container()->get('model_builder');
-    return $builder;
+  public static function subjectFactory() {
+    /** @var \Tozart\Subject\SubjectFactory $factory */
+    $factory = static::container()->get('subject_factory');
+    return $factory;
   }
 
   /**
    * The render engine.
    *
-   * @return \TestGen\render\RenderEngine
+   * @return \Tozart\render\Printer
    *   The render engine.
    */
-  public static function renderer() {
-    /** @var \TestGen\render\RenderEngine $renderer */
-    $renderer = static::container()->get('render_engine');
-    return $renderer;
+  public static function printer() {
+    /** @var \Tozart\render\Printer $printer */
+    $printer = static::container()->get('printer');
+    return $printer;
   }
 
 }

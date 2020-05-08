@@ -1,6 +1,6 @@
 <?php
 
-namespace TestGen\os;
+namespace Tozart\os;
 
 class FileSystemFactory {
 

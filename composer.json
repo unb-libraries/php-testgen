@@ -23,8 +23,8 @@
     },
     "autoload": {
         "psr-4": {
-            "TestGen\\": "src",
-            "TestGen\\Test\\": "tests/phpunit/src"
+            "Tozart\\": "src",
+            "Tozart\\Test\\": "tests/phpunit/src"
         }
     },
     "require-dev": {

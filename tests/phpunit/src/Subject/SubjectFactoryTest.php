@@ -1,21 +1,20 @@
 <?php
 
-namespace TestGen\Test\model;
+namespace Tozart\Test\Subject;
 
 use PHPUnit\Framework\TestCase;
-use TestGen\model\Model;
-use TestGen\model\ModelDefinition;
-use TestGen\model\ModelFactory;
-use TestGen\model\PageModel;
-use TestGen\os\Directory;
-use TestGen\os\YamlFile;
+use Tozart\Subject\SubjectModel;
+use Tozart\Subject\SubjectFactory;
+use Tozart\Subject\Page;
+use Tozart\os\Directory;
+use Tozart\os\YamlFile;
 
-class ModelFactoryTest extends TestCase {
+class SubjectFactoryTest extends TestCase {
 
-  const MODEL_TYPE_ID = 'example';
-  const MODEL_CLASS = ExampleModel::class;
-  const MODEL_DEFINITION_CLASS = ModelDefinition::class;
-  const MODEL_DIR = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'models';
+  const SUBJECT_TYPE_ID = 'example';
+  const SUBJECT_CLASS = ExampleSubjectBase::class;
+  const MODEL_CLASS = SubjectModel::class;
+  const SUBJECT_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'subjects';
 
   /**
    * Directory containing models.
@@ -27,14 +26,14 @@ class ModelFactoryTest extends TestCase {
   /**
    * The model factory.
    *
-   * @var ModelFactory
+   * @var SubjectFactory
    */
   protected $factory;
 
   /**
    * Retrieve the model factory.
    *
-   * @return ModelFactory
+   * @return SubjectFactory
    *   A model factory instance.
    */
   protected function getModelFactory() {
@@ -54,14 +53,14 @@ class ModelFactoryTest extends TestCase {
    * {@inheritDoc}
    */
   protected function setUp(): void {
-    $this->modelsDirectory = new Directory(self::MODEL_DIR);
-    $model_definition = new ModelDefinition(self::MODEL_TYPE_ID, self::MODEL_CLASS, [
+    $this->modelsDirectory = new Directory(self::SUBJECT_ROOT);
+    $model_definition = new SubjectModel(self::SUBJECT_TYPE_ID, self::SUBJECT_CLASS, [
       'property1',
       'property2',
     ], [
       'option1',
     ]);
-    $this->factory = new ModelFactory([$model_definition]);
+    $this->factory = new SubjectFactory([$model_definition]);
     parent::setUp();
   }
 
@@ -69,19 +68,19 @@ class ModelFactoryTest extends TestCase {
    * Test that a valid model description will be mapped to the expected class.
    */
   public function testCreateModel() {
-    $model_description = new YamlFile('valid_model.example.yml', $this->getModelsDirectory());
-    /** @var ExampleModel $example_model */
+    $model_description = new YamlFile('valid_subject.example.yml', $this->getModelsDirectory());
+    /** @var ExampleSubjectBase $example_model */
     $example_model = $this->getModelFactory()->createFromFile($model_description);
-    $this->assertInstanceOf(self::MODEL_CLASS, $example_model);
-    $this->assertEquals(self::MODEL_TYPE_ID, $example_model->getType());
+    $this->assertInstanceOf(self::SUBJECT_CLASS, $example_model);
+    $this->assertEquals(self::SUBJECT_TYPE_ID, $example_model->getType());
   }
 
   /**
    * Test that an invalid model description will not be mapped to any class.
    */
   public function testCreateModelFails() {
-    $model_description = new YamlFile('invalid_model.example.yml', $this->getModelsDirectory());
-    /** @var PageModel $example_model */
+    $model_description = new YamlFile('invalid_subject.example.yml', $this->getModelsDirectory());
+    /** @var Page $example_model */
     $example_model = $this->getModelFactory()->createFromFile($model_description);
     $this->assertFalse($example_model);
   }
@@ -90,9 +89,9 @@ class ModelFactoryTest extends TestCase {
    * Test that a test definition of a given type can be found.
    */
   public function testFindDefinitionForModelType() {
-    $this->assertInstanceOf(self::MODEL_DEFINITION_CLASS, $this
+    $this->assertInstanceOf(self::MODEL_CLASS, $this
         ->getModelFactory()
-        ->getDefinition(self::MODEL_TYPE_ID));
+        ->getModel(self::SUBJECT_TYPE_ID));
   }
 
 }

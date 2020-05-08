@@ -1,21 +1,21 @@
 <?php
 
-namespace TestGen\Test;
+namespace Tozart\Test;
 
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
-use TestGen\generate\TestGenerator;
-use TestGen\model\ModelDefinition;
-use TestGen\model\ModelFactory;
-use TestGen\os\Directory;
-use TestGen\os\File;
-use TestGen\Test\model\ExampleModel;
-use TestGen\Test\render\TestEngine;
+use Tozart\Director;
+use Tozart\Subject\SubjectModel;
+use Tozart\Subject\SubjectFactory;
+use Tozart\os\Directory;
+use Tozart\os\File;
+use Tozart\Test\Subject\ExampleSubjectBase;
+use Tozart\Test\render\TestPrinter;
 
 /**
- * Test the TestGenerator class.
+ * Test the Director class.
  *
- * @package TestGen\Test
+ * @package Tozart\Test
  */
 class GeneratorTest extends FileSystemTestCase {
 
@@ -24,14 +24,14 @@ class GeneratorTest extends FileSystemTestCase {
   /**
    * A test generator instance.
    *
-   * @var TestGenerator
+   * @var Director
    */
   protected $generator;
 
   /**
-   * Retrieve a TestGenerator instance.
+   * Retrieve a Director instance.
    *
-   * @return TestGenerator
+   * @return Director
    *   A test generator instance.
    */
   protected function getGenerator() {
@@ -65,7 +65,7 @@ class GeneratorTest extends FileSystemTestCase {
    *   A directory.
    */
   protected function modelDefinitionRoot() {
-    return new Directory(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'model_definitions');
+    return new Directory(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'models');
   }
 
   /**
@@ -83,9 +83,9 @@ class GeneratorTest extends FileSystemTestCase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $generator = new TestGenerator(
-      new ModelFactory(),
-      new TestEngine(),
+    $generator = new Director(
+      new SubjectFactory(),
+      new TestPrinter(),
       $this->modelDefinitionRoot(),
       $this->templateRoot());
     $generator->setModelRoot($this->modelRoot());
@@ -136,8 +136,8 @@ class GeneratorTest extends FileSystemTestCase {
    * Test that a template for a model can be found.
    */
   public function testFindTemplate() {
-    $model_definition = new ModelDefinition('example', ExampleModel::class);
-    $model = new ExampleModel('test_model', $model_definition, [
+    $model_definition = new SubjectModel('example', ExampleSubjectBase::class);
+    $model = new ExampleSubjectBase('test_model', $model_definition, [
       'property1' => 'foo',
       'property2'=> 'bar',
     ]);

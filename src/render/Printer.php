@@ -1,10 +1,10 @@
 <?php
 
-namespace TestGen\render;
+namespace Tozart\render;
 
-use TestGen\os\File;
+use Tozart\os\File;
 
-abstract class RenderEngine {
+abstract class Printer {
 
   /**
    * Render the given template with the given context.

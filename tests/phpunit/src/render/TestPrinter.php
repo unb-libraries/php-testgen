@@ -1,16 +1,16 @@
 <?php
 
-namespace TestGen\Test\render;
+namespace Tozart\Test\render;
 
-use TestGen\os\File;
-use TestGen\render\RenderEngine;
+use Tozart\os\File;
+use Tozart\render\Printer;
 
 /**
  * Render engine for testing purposes.
  *
- * @package TestGen\Test\render
+ * @package Tozart\Test\render
  */
-class TestEngine extends RenderEngine {
+class TestPrinter extends Printer {
 
   /**
    * {@inheritDoc}

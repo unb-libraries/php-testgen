@@ -1,6 +1,6 @@
 <?php
 
-namespace TestGen\Test;
+namespace Tozart\Test;
 
 use PHPUnit\Framework\TestCase;
 

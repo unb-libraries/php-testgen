@@ -1,11 +1,11 @@
 <?php
 
-namespace TestGen\Test;
+namespace Tozart\Test;
 
 /**
  * Trait to test protected or private methods.
  *
- * @package TestGen\Test
+ * @package Tozart\Test
  */
 trait PrivateAccessTrait {
 

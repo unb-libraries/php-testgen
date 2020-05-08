@@ -1,14 +1,14 @@
 <?php
 
-namespace TestGen\Test;
+namespace Tozart\Test;
 
-use TestGen\os\Directory;
-use TestGen\os\File;
+use Tozart\os\Directory;
+use Tozart\os\File;
 
 /**
  * Test creating and interacting with instances of the File class.
  *
- * @package TestGen\Test
+ * @package Tozart\Test
  */
 class FileTest extends FileSystemTestCase {
 

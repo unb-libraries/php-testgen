@@ -1,10 +1,10 @@
 <?php
 
-namespace TestGen\Test\model;
+namespace Tozart\Test\Subject;
 
-use TestGen\model\Model;
+use Tozart\Subject\SubjectBase;
 
-class ExampleModel extends Model {
+class ExampleSubjectBase extends SubjectBase {
 
   protected $property1;
   protected $property2;

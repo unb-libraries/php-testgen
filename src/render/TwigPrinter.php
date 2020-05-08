@@ -1,17 +1,17 @@
 <?php
 
-namespace TestGen\render;
+namespace Tozart\render;
 
-use TestGen\os\File;
+use Tozart\os\File;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 /**
  * Template render engine based on Twig.
  *
- * @package TestGen\render
+ * @package Tozart\render
  */
-class TwigEngine extends RenderEngine {
+class TwigPrinter extends Printer {
 
   /**
    * The Twig environment.
