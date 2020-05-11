@@ -82,6 +82,13 @@ abstract class SubjectBase {
     }
   }
 
+  public function __get($name) {
+    if (array_key_exists($name, $properties = $this->getProperties())) {
+      return $properties[$name];
+    }
+    return NULL;
+  }
+
   /**
    * Retrieve all property values.
    *

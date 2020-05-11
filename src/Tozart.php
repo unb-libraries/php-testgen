@@ -105,6 +105,18 @@ final class Tozart {
 
   /**
    * The render engine.
+  /**
+   * The template locator service.
+   *
+   * @return \Tozart\render\TemplateLocator
+   *   A template locator service instance.
+   */
+  public static function templateLocator() {
+    /** @var \Tozart\render\TemplateLocator $template_locator */
+    $template_locator = static::container()->get('template_locator');
+    return $template_locator;
+  }
+
    *
    * @return \Tozart\render\Printer
    *   The render engine.

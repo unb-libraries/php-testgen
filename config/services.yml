@@ -11,6 +11,11 @@ services:
     class: '\Tozart\Subject\SubjectManager'
     arguments:
       - '@subject_factory'
+  template_locator:
+    class: '\Tozart\render\TemplateLocator'
+    arguments:
+      - ['%template_root%']
+      - ['@id.@type.feature', '@type.feature']
   printer:
     class: '\Tozart\render\TwigPrinter'
     arguments: ['%template_root%']
