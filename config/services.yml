@@ -3,7 +3,7 @@ parameters:
   template_root: '%TOZART_ROOT%/templates'
 
 services:
-  filesystem:
+  file_system:
     class: '\Tozart\os\FileSystemFactory'
   subject_factory:
     class: '\Tozart\Subject\SubjectFactory'
@@ -19,10 +19,3 @@ services:
   printer:
     class: '\Tozart\render\TwigPrinter'
     arguments: ['%template_root%']
-  director:
-    class: '\Tozart\Director'
-    arguments:
-      - '@subject_factory'
-      - '@printer'
-      - '%model_root%'
-      - '%template_root%'

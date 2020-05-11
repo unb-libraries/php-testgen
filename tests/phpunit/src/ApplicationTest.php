@@ -17,7 +17,6 @@ class ApplicationTest extends TestCase {
   public function testInit() {
     $app = new Tozart();
     $this->assertInstanceOf(ContainerInterface::class, $app->container());
-    $this->assertInstanceOf(Director::class, $app->director());
     $this->assertInstanceOf(SubjectFactory::class, Tozart::subjectFactory());
     $this->assertInstanceOf(Printer::class, Tozart::printer());
   }

@@ -61,22 +61,16 @@ final class Tozart {
     return static::$container;
   }
 
+  /**
+   * The file system service.
+   *
+   * @return \Tozart\os\FileSystem
+   *   A file system service instance.
+   */
   public static function fileSystem() {
     /** @var \Tozart\os\FileSystem $file_system */
     $file_system = static::container()->get('file_system');
     return $file_system;
-  }
-
-  /**
-   * The test generator.
-   *
-   * @return \Tozart\Director
-   *   The generator service.
-   */
-  public static function director() {
-    /** @var \Tozart\Director $director */
-    $director = static::container()->get('director');
-    return $director;
   }
 
   /**
@@ -104,7 +98,26 @@ final class Tozart {
   }
 
   /**
-   * The render engine.
+   * Write tests for all available subjects.
+   *
+   * @param mixed $dir
+   *   The output directory or path.
+   */
+  public function write($dir) {
+    if (is_string($dir)) {
+      $dir = $this->fileSystem()->dir($dir);
+    }
+    $this->templateLocator()->setFileExtension(
+      $this->printer()->templateFileExtension());
+    foreach ($this->subjectManager()->subjects() as $subject_id => $subject) {
+      $template = $this->templateLocator()->getTemplate($subject);
+      $test_case = $dir->put($template->name());
+      $content = $this->printer()
+        ->render($template, $subject->getProperties());
+      $test_case->setContent($content);
+    }
+  }
+
   /**
    * The template locator service.
    *
@@ -117,9 +130,11 @@ final class Tozart {
     return $template_locator;
   }
 
+  /**
+   * The printer service.
    *
    * @return \Tozart\render\Printer
-   *   The render engine.
+   *   A printer service instance.
    */
   public static function printer() {
     /** @var \Tozart\render\Printer $printer */
