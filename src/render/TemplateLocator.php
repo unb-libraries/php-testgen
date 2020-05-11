@@ -30,6 +30,13 @@ class TemplateLocator {
   protected $_patterns;
 
   /**
+   * The expected extension of template files.
+   *
+   * @var string
+   */
+  protected $_fileExtension;
+
+  /**
    * Retrieve the directory roots to scan for template files.
    *
    * @return \Tozart\os\Directory[]
@@ -52,20 +59,43 @@ class TemplateLocator {
   }
 
   /**
+   * Retrieve the expected extension of template files.
+   *
+   * @return string
+   *   A string.
+   */
+  public function fileExtension() {
+    return $this->_fileExtension;
+  }
+
+  /**
+   * Set the expected extension of template files.
+   *
+   * @param string $file_extension
+   *   A string.
+   */
+  public function setFileExtension($file_extension) {
+    $this->_fileExtension = $file_extension;
+  }
+
+  /**
    * Creates a new TemplateLocator instance.
    *
    * @param array $template_roots
    *   An array of directories or directory paths.
    * @param array $patterns
    *   An array of filename patterns.
+   * @param string $file_extension
+   *   The expected extension of template files.
    *
    * @see \Tozart\render\TemplateLocator::compilePattern().
    */
-  public function __construct(array $template_roots, array $patterns) {
+  public function __construct(array $template_roots, array $patterns, $file_extension = '') {
     foreach ($template_roots as $template_root) {
       $this->addTemplateRoot($template_root);
     }
     $this->_patterns = $patterns;
+    $this->_fileExtension = $file_extension;
   }
 
   /**
@@ -210,6 +240,9 @@ class TemplateLocator {
 
     if (count($values) === count($keys)) {
       $compiled_pattern = str_replace($keys, $values, $pattern);
+      if ($file_extension = $this->fileExtension()) {
+        $compiled_pattern .= ".{$file_extension}";
+      }
       return $compiled_pattern;
     }
     return '';

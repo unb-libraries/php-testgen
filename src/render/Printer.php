@@ -19,4 +19,12 @@ abstract class Printer {
    */
   abstract public function render(File $template, array $context);
 
+  /**
+   * Retrieve the file extension which this printer expects.
+   *
+   * @return string
+   *   A string.
+   */
+  abstract public function templateFileExtension();
+
 }

@@ -42,6 +42,13 @@ class TwigPrinter extends Printer {
   /**
    * {@inheritDoc}
    */
+  public function templateFileExtension() {
+    return 'twig';
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function render(File $template, array $context) {
     try {
       $content = $this->getEnvironment()

@@ -6,11 +6,18 @@ use Tozart\os\File;
 use Tozart\render\Printer;
 
 /**
- * Render engine for testing purposes.
+ * Printer for testing purposes.
  *
  * @package Tozart\Test\render
  */
 class TestPrinter extends Printer {
+
+  /**
+   * {@inheritDoc}
+   */
+  public function templateFileExtension() {
+    // TODO: Implement templateFileExtension() method.
+  }
 
   /**
    * {@inheritDoc}
