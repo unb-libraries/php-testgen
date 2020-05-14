@@ -1,6 +1,6 @@
 <?php
 
-namespace Tozart\Test;
+namespace Tozart\Test\os;
 
 use Tozart\os\Directory;
 use Tozart\os\File;

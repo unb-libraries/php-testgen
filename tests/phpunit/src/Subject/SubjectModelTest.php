@@ -7,13 +7,13 @@ use Tozart\Subject\SubjectModel;
 use Tozart\os\Directory;
 use Tozart\os\YamlFile;
 
-class ModelTest extends TestCase {
+class SubjectModelTest extends TestCase {
 
   const MODEL_DEFINITION_DIR = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'models';
 
   public function testModelClass() {
-    $model = new SubjectModel('example', ExampleSubjectBase::class);
-    $this->assertEquals(ExampleSubjectBase::class, $model->getModelClass());
+    $model = new SubjectModel('example', ExampleSubject::class);
+    $this->assertEquals(ExampleSubject::class, $model->getModelClass());
   }
 
   public function testCreateFromFile() {

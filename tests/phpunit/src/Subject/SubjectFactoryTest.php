@@ -12,7 +12,7 @@ use Tozart\os\YamlFile;
 class SubjectFactoryTest extends TestCase {
 
   const SUBJECT_TYPE_ID = 'example';
-  const SUBJECT_CLASS = ExampleSubjectBase::class;
+  const SUBJECT_CLASS = ExampleSubject::class;
   const MODEL_CLASS = SubjectModel::class;
   const SUBJECT_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'subjects';
 
@@ -69,7 +69,7 @@ class SubjectFactoryTest extends TestCase {
    */
   public function testCreateModel() {
     $model_description = new YamlFile('valid_subject.example.yml', $this->getModelsDirectory());
-    /** @var ExampleSubjectBase $example_model */
+    /** @var ExampleSubject $example_model */
     $example_model = $this->getModelFactory()->createFromFile($model_description);
     $this->assertInstanceOf(self::SUBJECT_CLASS, $example_model);
     $this->assertEquals(self::SUBJECT_TYPE_ID, $example_model->getType());

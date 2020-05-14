@@ -1,6 +1,6 @@
 <?php
 
-namespace Tozart\Test;
+namespace Tozart\Test\os;
 
 use PHPUnit\Framework\TestCase;
 
@@ -9,7 +9,7 @@ abstract class FileSystemTestCase extends TestCase {
   /**
    * Root path at which to create test folders.
    */
-  private const TEST_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
+  private const TEST_ROOT = __DIR__ . DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
 
   protected static function root() {
     return self::TEST_ROOT;

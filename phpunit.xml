@@ -11,17 +11,9 @@
          stopOnError="true"
          stopOnFailure="true">
     <testsuites>
-        <testsuite name="main">
+        <testsuite name="default">
             <file>tests/phpunit/src/ApplicationTest.php</file>
-            <directory>tests/phpunit/src/Subject</directory>
-            <directory>tests/phpunit/src/render</directory>
-        </testsuite>
-        <testsuite name="os">
             <directory>tests/phpunit/src/os</directory>
-        </testsuite>
-        <testsuite name="all">
-            <directory>tests/phpunit/src/os</directory>
-            <file>tests/phpunit/src/ApplicationTest.php</file>
             <directory>tests/phpunit/src/Subject</directory>
             <directory>tests/phpunit/src/render</directory>
         </testsuite>

@@ -4,7 +4,7 @@ namespace Tozart\Test\Subject;
 
 use Tozart\Subject\SubjectBase;
 
-class ExampleSubjectBase extends SubjectBase {
+class ExampleSubject extends SubjectBase {
 
   protected $property1;
   protected $property2;
