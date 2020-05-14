@@ -21,30 +21,49 @@ final class Tozart {
    *
    * @var \Symfony\Component\DependencyInjection\ContainerInterface
    */
-  protected static $container;
+  protected static $_container;
+
+  /**
+   * The only Tozart that should ever exist.
+   *
+   * @var \Tozart\Tozart
+   */
+  protected static $_instance;
+
+  /**
+   * Create (or retrieve) the only Tozart that should ever exist.
+   *
+   * @return \Tozart\Tozart
+   *   A Tozart instance.
+   */
+  public static function create() {
+    if (!static::$_instance) {
+      static::$_instance = new static();
+    }
+    return static::$_instance;
+  }
 
   /**
    * Create a new TestGen instance.
    */
-  public function __construct() {
-    static::init();
+  private function __construct() {
+    static::initContainer();
   }
 
   /**
    * Initialize the application. Load components.
    */
-  public static function init() {
+  public static function initContainer() {
     $container = new ContainerBuilder();
     try {
       $loader = new YamlFileLoader($container, new FileLocator(self::CONFIG_DIR));
       $loader->load('services.yml');
-
       $container->setParameter('TOZART_ROOT', self::TOZART_ROOT);
     }
     catch (\Exception $e) {
     }
     finally {
-      static::$container = $container;
+      static::$_container = $container;
     }
   }
 
@@ -55,10 +74,10 @@ final class Tozart {
    *   A service container.
    */
   public static function container() {
-    if (!isset(static::$container)) {
-      static::init();
+    if (!isset(static::$_container)) {
+      static::initContainer();
     }
-    return static::$container;
+    return static::$_container;
   }
 
   /**
