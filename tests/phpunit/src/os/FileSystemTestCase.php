@@ -3,8 +3,11 @@
 namespace Tozart\Test\os;
 
 use PHPUnit\Framework\TestCase;
+use Tozart\os\DependencyInjection\FileSystemTrait;
 
 abstract class FileSystemTestCase extends TestCase {
+
+  use FileSystemTrait;
 
   /**
    * Root path at which to create test folders.
