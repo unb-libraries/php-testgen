@@ -159,8 +159,41 @@ class Locator {
    *   in which they were found.
    */
   public function find() {
-    return [];
+    $files = [];
+    foreach ($this->sourceStack() as $priority => $directory) {
+      if (!empty($matches = $this->findIn($directory))) {
+        $files[$directory->systemPath()] = $matches;
+      }
+    }
+    ksort($files, SORT_NUMERIC);
+    return $files;
   }
 
+  /**
+   * Find files inside the given directory that match the filter criteria.
+   *
+   * @param \Tozart\os\Directory $directory
+   *   A directory instance.
+   *
+   * @return \Tozart\os\File[]
+   *   An array of the form FILENAME => SCORE, where score indicates how
+   *   well the filename matches the filter criteria.
+   *
+   * @see \Tozart\os\DirectoryFilterInterface::match()
+   */
+  protected function findIn(Directory $directory) {
+    $matches = [];
+    foreach ($directory->files() as $file) {
+      $score = 1.0;
+      foreach ($this->filterStack() as $filter) {
+        $score *= $filter->match($file);
+      }
+      if ($score > 0) {
+        $matches[$file->name()] = intval($score * 100);
+      }
+    }
+    arsort($matches, SORT_NUMERIC);
+    return $matches;
+  }
 
 }
