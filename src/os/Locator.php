@@ -148,6 +148,16 @@ class Locator {
    *   A file instance.
    */
   public function get() {
+    if (!empty($files = $this->find())) {
+      $most_important_directory_path = array_keys($files)[0];
+      $most_important_directory_content = $files[$most_important_directory_path];
+      asort($most_important_directory_content);
+      $best_match = array_keys($most_important_directory_content)[0];
+
+      return $this->fileSystem()
+        ->dir($most_important_directory_path)
+        ->find($best_match);
+    }
     return NULL;
   }
 
