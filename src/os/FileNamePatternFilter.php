@@ -73,7 +73,7 @@ class FileNamePatternFilter implements DirectoryFilterInterface {
   public function match(File $file) {
     foreach ($this->patternStack() as $priority => $pattern) {
       if (preg_match($pattern, $file->name())) {
-        return $priority / count($this->patternStack());
+        return ($priority + 1) / count($this->patternStack());
       }
     }
     return 0;
