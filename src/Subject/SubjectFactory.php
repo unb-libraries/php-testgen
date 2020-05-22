@@ -13,20 +13,48 @@ use Tozart\os\ParsableFile;
 class SubjectFactory {
 
   /**
-   * Array of model definitions that this factory can create.
-   *
-   * @var SubjectModel[]
+   * @var \Tozart\os\Locator
    */
-  protected $models = [];
+  protected $_modelLocator;
+
+  /**
+   * @var \Tozart\Subject\SubjectModel[]
+   */
+  protected $_models;
+
+  protected function modelLocator() {
+    return $this->_modelLocator;
+  }
+
+  public function getModels() {
+    if (!isset($this->_models)) {
+      $this->_models = [];
+      $this->discover();
+    }
+    return $this->_models;
+  }
 
   /**
    * Create a ModelFactory instance.
    *
-   * @param SubjectModel[] $models
+   * @param array $model_roots
    *   Array of model definitions this factory should build.
    */
-  public function __construct($models = []) {
-    $this->addModels($models);
+  public function __construct(array $model_roots = []) {
+    $this->_modelLocator = new SubjectModelLocator($model_roots);
+  }
+
+  public function discover() {
+    $options = [
+      'flatten' => TRUE,
+      'return_as_object' => TRUE,
+    ];
+    foreach ($this->modelLocator()->find($options) as $filename => $file) {
+      $model = SubjectModel::createFromFile($file);
+      if (!array_key_exists($type = $model->getType(), $this->_models)) {
+        $this->_models[$type] = $model;
+      }
+    }
   }
 
   /**
@@ -75,41 +103,6 @@ class SubjectFactory {
   }
 
   /**
-   * Add multiple model definitions.
-   *
-   * @param SubjectModel[] $models
-   *   An array of model definitions to add.
-   */
-  public function addModels(array $models) {
-    foreach ($models as $definition) {
-      $this->addModel($definition);
-    }
-  }
-
-  /**
-   * Add a single model definition.
-   *
-   * @param SubjectModel $definition
-   *   The model definition to add.
-   */
-  public function addModel(SubjectModel $definition) {
-    $definitions = $this->models;
-    if (!array_key_exists($definition->getType(), $definitions)) {
-      $this->models[$definition->getType()] = $definition;
-    }
-  }
-
-  /**
-   * Retrieve all types and definitions for models this factory can build.
-   *
-   * @return SubjectModel[]
-   *   Array of model definitions.
-   */
-  public function getModels() {
-    return $this->models;
-  }
-
-  /**
    * Retrieve the model with the given type.
    *
    * @param string $type
@@ -120,9 +113,8 @@ class SubjectFactory {
    *   NULL if no definition could be found.
    */
   public function getModel($type) {
-    $definitions = $this->getModels();
-    if (array_key_exists($type, $definitions)) {
-      return $definitions[$type];
+    if (array_key_exists($type, $models = $this->getModels())) {
+      return $models[$type];
     }
     return NULL;
   }

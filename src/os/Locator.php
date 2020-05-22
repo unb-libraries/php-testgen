@@ -164,11 +164,25 @@ class Locator {
   /**
    * Locate files in any of the source roots that match the filter criteria.
    *
+   * @param array $options
+   *   (optional) Array of options to customize the output. Accepts the following keys:
+   *   - flatten: (bool) If set to TRUE, the result array will be flattened, containing
+   *   only filenames and not grouped by directory. Defaults to FALSE.
+   *   - return_as_objects: (bool) If set to TRUE, found items will be returned as
+   *   objects, instead of filenames. Defaults to FALSE.
+   *
    * @return array
    *   An array of located filenames, grouped by the directory
    *   in which they were found.
    */
-  public function find() {
+  public function find($options = []) {
+    $options = array_merge([
+      // TODO: Implement optionally returning flattened result.
+      'flatten' => FALSE,
+      // TODO: Implement converting filenames to File objects.
+      'return_as_objects' => FALSE,
+    ], $options);
+
     $files = [];
     foreach ($this->sourceStack() as $priority => $directory) {
       if (!empty($matches = $this->findIn($directory))) {
