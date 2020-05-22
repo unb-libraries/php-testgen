@@ -4,7 +4,10 @@ parameters:
 
 services:
   file_system:
-    class: '\Tozart\os\FileSystemFactory'
+    class: '\Tozart\os\FileSystem'
+  file_system.parse.manager:
+    class: '\Tozart\os\parse\FileParserManager'
+    arguments: []
   subject_factory:
     class: '\Tozart\Subject\SubjectFactory'
   subject_manager:
