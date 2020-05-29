@@ -14,6 +14,8 @@ class SubjectModelValidator extends FileFormatValidator {
    */
   protected function requiredProperties() {
     return [
+      'type',
+      'class',
     ];
   }
 
@@ -36,7 +38,30 @@ class SubjectModelValidator extends FileFormatValidator {
 
   protected function validateProperty($property, $model_description) {
     $errors = [];
+    if (!$this->hasProperty($property, $model_description)) {
+      // TODO: Translate error messages.
+      $errors[] = "The model must define a '{$property}'.";
+    }
+    else {
+      $method_name = 'validate' . ucfirst($property);
+      if (method_exists($this, $method_name)) {
+        $errors = array_merge($errors,
+          call_user_func([$this, $method_name], $model_description[$property]));
+      }
+    }
     return $errors;
+  }
+
+  protected function hasProperty($property, $model_description) {
+    return array_key_exists($property, $model_description);
+  }
+
+  protected function validateClass($class) {
+    if (!class_exists($class)) {
+      return [
+        "'{$class}' is not a valid class."
+      ];
+    }
   }
 
 }
