@@ -4,6 +4,7 @@ namespace Tozart\Test\os;
 
 use Tozart\os\Directory;
 use Tozart\os\File;
+use Tozart\os\FileType;
 
 /**
  * Test creating and interacting with instances of the File class.
@@ -27,9 +28,21 @@ class FileTest extends FileSystemTestCase {
    */
   protected function directory() {
     if (!isset($this->directory)) {
-      $this->directory = new Directory(self::root());
+      $this->directory = $this
+        ->fileSystem()
+        ->dir(self::root());
     }
     return $this->directory;
+  }
+
+  /**
+   * Any file must be associated with a type that reflects its extension.
+   */
+  public function testFileType() {
+    $this->fileSystem()->addFileType(new FileType('txt', ['txt']));
+    $file = $this->fileSystem()->file('test.txt', $this->directory());
+    $this->assertEquals('txt', $file->type()->name());
+    $this->assertContains('txt', $file->type()->extensions());
   }
 
   /*/**

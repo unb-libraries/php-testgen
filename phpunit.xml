@@ -21,8 +21,6 @@
             <file>tests/phpunit/src/ApplicationTest.php</file>
             <file>tests/phpunit/src/os/DirectoryTest.php</file>
             <file>tests/phpunit/src/os/FileTest.php</file>
-            <file>tests/phpunit/src/os/LocatorTest.php</file>
-            <file>tests/phpunit/src/os/FileNamePatternFilterTest.php</file>
         </testsuite>
     </testsuites>
     <filter>

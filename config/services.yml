@@ -15,7 +15,6 @@ services:
   file_system:
     class: '\Tozart\os\FileSystem'
     arguments:
-      - '@file_system.file_type.yaml'
   file_system.parse.manager:
     class: '\Tozart\os\parse\FileParserManager'
     arguments:
