@@ -2,12 +2,16 @@
 
 namespace Tozart\os;
 
+use Tozart\os\DependencyInjection\FileSystemTrait;
+
 /**
  * Class to interact with a file in the filesystem.
  *
  * @package Tozart\os
  */
 class File {
+
+  use FileSystemTrait;
 
   const CONTENT_REPLACE = 0;
   const CONTENT_APPEND = 1;
@@ -25,6 +29,13 @@ class File {
    * @var Directory
    */
   protected $directory;
+
+  /**
+   * The type of the file.
+   *
+   * @var \Tozart\os\FileType
+   */
+  protected $type;
 
   /**
    * Handle to the file.
@@ -83,6 +94,21 @@ class File {
    */
   public function directory() {
     return $this->directory;
+  }
+
+  /**
+   * Retrieve the file's type.
+   *
+   * @return \Tozart\os\FileType
+   *   A file type object.
+   */
+  public function type() {
+    if (!isset($this->type)) {
+      $this->type = $this
+        ->fileSystem()
+        ->getFileType($this->extension());
+    }
+    return $this->type;
   }
 
   /**

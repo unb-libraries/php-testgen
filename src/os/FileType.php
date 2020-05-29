@@ -41,6 +41,16 @@ class FileType {
   }
 
   /**
+   * Set a name for the file type.
+   *
+   * @param string $name
+   *   A string.
+   */
+  protected function setName($name) {
+    $this->_name = strtolower($name);
+  }
+
+  /**
    * Retrieve the parser that processes files of this type.
    *
    * @return \Tozart\os\parse\FileParserInterface
