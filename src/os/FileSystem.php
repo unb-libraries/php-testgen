@@ -2,7 +2,19 @@
 
 namespace Tozart\os;
 
+/**
+ * Class reflecting the file system.
+ *
+ * @package Tozart\os
+ */
 class FileSystem {
+
+  /**
+   * An array of file types known to the file system.
+   *
+   * @var \Tozart\os\FileType[]
+   */
+  protected $_fileTypes;
 
   // TODO: This is not a permanent solution.
   protected const CLASS_MAP = [
@@ -10,6 +22,16 @@ class FileSystem {
     'file' => File::class,
     'yml' => YamlFile::class,
   ];
+
+  /**
+   * Create a new FileSystem instance.
+   *
+   * @param \Tozart\os\FileType[] $file_types
+   *   An array of supported file types.
+   */
+  public function __construct(array $file_types) {
+    $this->_fileTypes = $file_types;
+  }
 
   public function dir($path) {
     $dir_class = self::CLASS_MAP['dir'];
@@ -26,6 +48,16 @@ class FileSystem {
       $file_class = self::CLASS_MAP['file'];
     }
     return new $file_class($name, $directory);
+  }
+
+  /**
+   * Retrieve all file types known to the file system.
+   *
+   * @return \Tozart\os\FileType[]
+   *   An array of file type objects.
+   */
+  public function fileTypes() {
+    return $this->_fileTypes;
   }
 
 }

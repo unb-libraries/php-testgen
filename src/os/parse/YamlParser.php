@@ -15,16 +15,6 @@ class YamlParser implements FileParserInterface {
   /**
    * {@inheritDoc}
    */
-  public function fileTypes() {
-    return [
-      'yml',
-      'yaml',
-    ];
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   public function parse(File $file) {
     return Yaml::parseFile($file->path());
   }

@@ -12,14 +12,6 @@ use Tozart\os\File;
 interface FileParserInterface {
 
   /**
-   * The file types which this parser process.
-   *
-   * @return array
-   *   An array of file type extensions.
-   */
-  public function fileTypes();
-
-  /**
    * Retrieve the file's content in a structured form.
    *
    * @param \Tozart\os\File $file

@@ -3,10 +3,19 @@ parameters:
   template_root: '%TOZART_ROOT%/templates'
 
 services:
-  file_system:
-    class: '\Tozart\os\FileSystem'
   file_system.parse.yaml:
     class: '\Tozart\os\parse\YamlParser'
+  file_system.file_type.yaml:
+    class: '\Tozart\os\FileType'
+    arguments:
+      - YAML
+      - [yml, yaml]
+      - '@file_system.parse.yaml'
+    public: FALSE
+  file_system:
+    class: '\Tozart\os\FileSystem'
+    arguments:
+      - '@file_system.file_type.yaml'
   file_system.parse.manager:
     class: '\Tozart\os\parse\FileParserManager'
     arguments:
