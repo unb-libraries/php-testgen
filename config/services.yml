@@ -1,6 +1,6 @@
 parameters:
-  model_root: '%TOZART_ROOT%/models'
-  template_root: '%TOZART_ROOT%/templates'
+  model_root: '%MODEL_ROOT%'
+  template_root: '%TEMPLATE_ROOT%'
 
 services:
   file_system.parse.yaml:

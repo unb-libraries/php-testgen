@@ -13,8 +13,8 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 final class Tozart {
 
-  const TOZART_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..';
-  const CONFIG_DIR = self::TOZART_ROOT . DIRECTORY_SEPARATOR . 'config';
+  const PROJECT_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..';
+  const CONFIG_DIR = self::PROJECT_ROOT . DIRECTORY_SEPARATOR . 'config';
 
   /**
    * The application container.
@@ -53,12 +53,24 @@ final class Tozart {
   /**
    * Initialize the application. Load components.
    */
-  public static function initContainer() {
+  protected static function initContainer() {
     $container = new ContainerBuilder();
     try {
       $loader = new YamlFileLoader($container, new FileLocator(self::CONFIG_DIR));
       $loader->load('services.yml');
-      $container->setParameter('TOZART_ROOT', self::TOZART_ROOT);
+
+      $container->setParameter('TOZART_ROOT', defined('TOZART_ROOT')
+        ? TOZART_ROOT
+        : self::PROJECT_ROOT);
+      $container->setParameter('MODEL_ROOT', defined('MODEL_ROOT')
+        ? MODEL_ROOT
+        : rtrim($container->getParameter('TOZART_ROOT')) . DIRECTORY_SEPARATOR . 'models');
+      $container->setParameter('SUBJECT_ROOT', defined('SUBJECT_ROOT')
+        ? SUBJECT_ROOT
+        : rtrim($container->getParameter('TOZART_ROOT')) . DIRECTORY_SEPARATOR . 'subjects');
+      $container->setParameter('TEMPLATE_ROOT', defined('TEMPLATE_ROOT')
+        ? TEMPLATE_ROOT
+        : rtrim($container->getParameter('TOZART_ROOT')) . DIRECTORY_SEPARATOR . 'templates');
     }
     catch (\Exception $e) {
     }
@@ -90,6 +102,51 @@ final class Tozart {
     /** @var \Tozart\os\FileSystem $file_system */
     $file_system = static::container()->get('file_system');
     return $file_system;
+  }
+
+  /**
+   * The model root directory.
+   *
+   * @return \Tozart\os\Directory
+   *   A directory object.
+   */
+  public function modelRoot() {
+    $model_root_path = $this->container()->getParameter('MODEL_ROOT');
+    return $this->fileSystem()->dir($model_root_path);
+  }
+
+  /**
+   * The subject root directory.
+   *
+   * @return \Tozart\os\Directory
+   *   A directory object.
+   */
+  public function subjectRoot() {
+    $subject_root_path = $this->container()->getParameter('SUBJECT_ROOT');
+    return $this->fileSystem()->dir($subject_root_path);
+  }
+
+  /**
+   * The template root directory.
+   *
+   * @return \Tozart\os\Directory
+   *   A directory object.
+   */
+  public function templateRoot() {
+    $template_root_path = $this->container()->getParameter('TEMPLATE_ROOT');
+    return $this->fileSystem()->dir($template_root_path);
+  }
+
+  /**
+   * The file parser manager service.
+   *
+   * @return \Tozart\os\parse\FileParserManager
+   *   A file parser manager service instance.
+   */
+  public static function fileParserManager() {
+    /** @var \Tozart\os\parse\FileParserManager $file_parser_manager */
+    $file_parser_manager = static::container()->get('file_system.parser.manager');
+    return $file_parser_manager;
   }
 
   /**
