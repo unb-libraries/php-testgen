@@ -1,15 +1,17 @@
 <?php
 
-namespace Tozart\os;
+namespace Tozart\Discovery;
 
+use Tozart\Discovery\Filter\DirectoryFilterInterface;
 use Tozart\os\DependencyInjection\FileSystemTrait;
+use Tozart\os\Directory;
 
 /**
  * Base class for Locator implementations.
  *
  * @package Tozart\os
  */
-class Locator {
+abstract class DiscoveryBase {
 
   use FileSystemTrait;
 
@@ -23,7 +25,7 @@ class Locator {
   /**
    * Stack of directory filters.
    *
-   * @var \Tozart\os\DirectoryFilterInterface[]
+   * @var \Tozart\Discovery\Filter\DirectoryFilterInterface[]
    */
   protected $_filterStack = [];
 
@@ -40,7 +42,7 @@ class Locator {
   /**
    * Retrieve the stack of directory filters.
    *
-   * @return \Tozart\os\DirectoryFilterInterface[]
+   * @return \Tozart\Discovery\Filter\DirectoryFilterInterface[]
    *   An array of directory filter instances.
    */
   public function filterStack() {
@@ -117,7 +119,7 @@ class Locator {
   /**
    * Add the given directory filter to the stack.
    *
-   * @param \Tozart\os\DirectoryFilterInterface $filter
+   * @param \Tozart\Discovery\Filter\DirectoryFilterInterface $filter
    *   A directory filter instance.
    */
   public function stackFilter(DirectoryFilterInterface $filter) {
@@ -127,7 +129,7 @@ class Locator {
   /**
    * Grab the first filter from the stack.
    *
-   * @return \Tozart\os\DirectoryFilterInterface $filter
+   * @return \Tozart\Discovery\Filter\DirectoryFilterInterface $filter
    *   A directory filter instance.
    */
   public function popFilter() {
@@ -203,7 +205,7 @@ class Locator {
    *   An array of the form FILENAME => SCORE, where score indicates how
    *   well the filename matches the filter criteria.
    *
-   * @see \Tozart\os\DirectoryFilterInterface::match()
+   * @see \Tozart\Discovery\Filter\DirectoryFilterInterface::match()
    */
   protected function findIn(Directory $directory) {
     $matches = [];

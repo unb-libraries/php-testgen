@@ -1,8 +1,8 @@
 <?php
 
-namespace Tozart\os;
+namespace Tozart\Discovery\Filter;
 
-use Tozart\validate\SubjectModelValidator;
+use Tozart\Validation\SubjectModelValidator;
 
 class SubjectModelValidationFilter extends FileFormatValidationFilter {
 

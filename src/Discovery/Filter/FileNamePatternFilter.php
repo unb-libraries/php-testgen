@@ -1,6 +1,8 @@
 <?php
 
-namespace Tozart\os;
+namespace Tozart\Discovery\Filter;
+
+use Tozart\os\File;
 
 /**
  * Filename based directory filter implementation.

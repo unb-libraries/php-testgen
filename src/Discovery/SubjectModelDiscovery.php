@@ -1,17 +1,16 @@
 <?php
 
-namespace Tozart\Subject;
+namespace Tozart\Discovery;
 
-use Tozart\os\FileTypeFilter;
-use Tozart\os\Locator;
-use Tozart\os\SubjectModelValidationFilter;
+use Tozart\Discovery\Filter\FileTypeFilter;
+use Tozart\Discovery\Filter\SubjectModelValidationFilter;
 
 /**
- * Locator to locate files that contain model definitions.
+ * Discovery for model definition files.
  *
  * @package Tozart\Subject
  */
-class SubjectModelLocator extends Locator {
+class SubjectModelDiscovery extends DiscoveryBase {
 
   /**
    * Create a new SubjectModelLocator instance.

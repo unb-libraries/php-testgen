@@ -1,6 +1,6 @@
 <?php
 
-namespace Tozart\os;
+namespace Tozart\Discovery\Filter;
 
 /**
  * Filter all files in a directory by those of type YAML.
