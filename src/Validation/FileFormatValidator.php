@@ -2,7 +2,6 @@
 
 namespace Tozart\Validation;
 
-use Tozart\os\DependencyInjection\FileParsingTrait;
 use Tozart\os\File;
 
 class FileFormatValidator implements ValidatorInterface {

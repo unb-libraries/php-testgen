@@ -3,6 +3,7 @@ parameters:
   template_root: '%TEMPLATE_ROOT%'
 
 services:
+  # File system
   file_system.parse.yaml:
     class: '\Tozart\os\parse\YamlParser'
   file_system.file_type.yaml:
@@ -17,6 +18,7 @@ services:
     arguments:
   file_system.parse.manager:
     class: '\Tozart\os\parse\FileParserManager'
+      - ['@file_system.file_type.yaml']
     arguments:
       - '@file_system.parse.yaml'
   subject_factory:

@@ -33,7 +33,7 @@ class FileSystem {
    *   A file type object.
    */
   public function addFileType(FileType $file_type) {
-    $this->_fileTypes[$file_type->name()] = $file_type;
+    $this->_fileTypes[strtolower($file_type->name())] = $file_type;
   }
 
   /**
@@ -65,7 +65,7 @@ class FileSystem {
     }
     else {
       foreach ($this->fileTypes() as $file_type) {
-        if (array_key_exists($name_or_extension, $file_type->extensions())) {
+        if (in_array($name_or_extension, $file_type->extensions())) {
           return $file_type;
         }
       }

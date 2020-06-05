@@ -103,11 +103,6 @@ class File {
    *   A file type object.
    */
   public function type() {
-    if (!isset($this->type)) {
-      $this->type = $this
-        ->fileSystem()
-        ->getFileType($this->extension());
-    }
     return $this->type;
   }
 
@@ -143,6 +138,8 @@ class File {
     $this->name = $name;
     $this->directory = $directory;
     $this->handle = $this->handle();
+    $this->type = $this->fileSystem()
+      ->getFileType($this->extension());
   }
 
   /**
@@ -199,6 +196,16 @@ class File {
       }
     }
     return NULL;
+  }
+
+  /**
+   * String representation of the file.
+   *
+   * @return string
+   *   A file path string.
+   */
+  public function __toString() {
+    return $this->path();
   }
 
 }
