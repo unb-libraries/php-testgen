@@ -17,6 +17,10 @@
             <directory>tests/phpunit/src/Subject</directory>
             <directory>tests/phpunit/src/render</directory>
         </testsuite>
+        <testsuite name="discovery">
+            <file>tests/phpunit/src/ApplicationTest.php</file>
+            <directory>tests/phpunit/src/Discovery</directory>
+        </testsuite>
         <testsuite name="os">
             <file>tests/phpunit/src/ApplicationTest.php</file>
             <file>tests/phpunit/src/os/DirectoryTest.php</file>

@@ -1,0 +1,7 @@
+type: example
+class: 'Tozart\Test\model\MalformedModel'
+  requirements:
+    - property1
+    - property2
+options:
+  option1: TRUE
