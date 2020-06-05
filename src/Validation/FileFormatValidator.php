@@ -6,10 +6,11 @@ use Tozart\os\File;
 
 class FileFormatValidator implements ValidatorInterface {
 
-//  use FileParsingTrait;
-
   protected $_fileType;
 
+  /**
+   * @return \Tozart\os\FileType
+   */
   public function fileType() {
     return $this->_fileType;
   }
@@ -20,23 +21,35 @@ class FileFormatValidator implements ValidatorInterface {
 
   public function validate($object) {
     $errors = [];
+    if (!($object instanceof File)) {
+      // TODO: Use translation for string output.
+      $errors[] = sprintf('FileFormatValidators expect input of type %s, %s given.',
+        File::class, get_class($object));
+    }
+    elseif (!$object->type()) {
+      $errors[] = sprintf('Unknown file type: %s', $object->path());
+    }
+    elseif (!$object->type()->equals($this->fileType())) {
+      $errors[] = sprintf('File of type %s expected, %s given.',
+        $this->fileType()->name(), $object->type()->name());
+    }
+    elseif (!$this->canParse($object)) {
+      $errors[] = sprintf('File could not be parsed.');
+    }
+
+    return $errors;
+  }
+
+  protected function canParse(File $file) {
     try {
-      if (!($object instanceof File)) {
-        // TODO: Use translation for string output.
-        $errors[] = sprintf('FileFormatValidators expect input of type %s, %s given.',
-          File::class, get_class($object));
-      } else {
-        $object->type()
-          ->parser()
-          ->parse($object);
-      }
+      $this->fileType()
+        ->parser()
+        ->parse($file);
     }
     catch (\Exception $e) {
-      $errors[] = sprintf('Input could not be parsed: %s', $e->getMessage());
+      return FALSE;
     }
-    finally {
-      return $errors;
-    }
+    return TRUE;
   }
 
 }

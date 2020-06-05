@@ -75,17 +75,17 @@ class DiscoveryTest extends TozartTestCase {
       }
     }
 
-    $index = 0;
+    $count = 0;
     $finds = $this->discovery()->find();
     foreach ($finds as $dir_path => $filenames) {
       foreach (array_keys($filenames) as $filename) {
         $file_path = $dir_path . $filename;
         // TODO: Also assert discovery "score".
         $this->assertContains($file_path, $files);
-        $index++;
+        $count++;
       }
     }
-    $this->assertCount($index, $files);
+    $this->assertCount($count, $files);
   }
 
   /**
@@ -103,16 +103,17 @@ class DiscoveryTest extends TozartTestCase {
    * @see \Tozart\os\File
    */
   public final function defaultFilters() {
+    $yaml = $this->fileSystem()->getFileType('yaml');
     return [
       [
-        [new FileTypeFilter(['yml'])],
+        [new FileTypeFilter($yaml)],
         [
           $this->fileSystem()->file('example.yml', $this->modelRoot())->path(),
           $this->fileSystem()->file('sample.yml', $this->modelRoot())->path(),
           $this->fileSystem()->file('malformed.yml', $this->modelRoot())->path(),
         ],
       ], [
-        [new FileFormatValidationFilter('yml')],
+        [new FileFormatValidationFilter($yaml)],
         [
           $this->fileSystem()->file('example.yml', $this->modelRoot())->path(),
           $this->fileSystem()->file('sample.yml', $this->modelRoot())->path(),

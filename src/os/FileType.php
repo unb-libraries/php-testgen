@@ -93,7 +93,7 @@ class FileType {
    *   (optional) A file parser instance.
    */
   public function __construct($name, array $extensions, $parser = NULL) {
-    $this->_name = $name;
+    $this->_name = strtolower($name);
     $this->setExtensions($extensions);
     $this->_parser = $parser;
   }
@@ -107,6 +107,21 @@ class FileType {
    */
   public function isStructured() {
     return !is_null($this->parser());
+  }
+
+  /**
+   * Whether the given file type is equivalent to this one.
+   *
+   * @param \Tozart\os\FileType $file_type
+   *   The file type to compare.
+   *
+   * @return bool
+   *   TRUE if the
+   */
+  public function equals(FileType $file_type) {
+    $shared_extensions = array_intersect(
+      $this->extensions(), $file_type->extensions());
+    return count($shared_extensions) == count($this->extensions());
   }
 
 }

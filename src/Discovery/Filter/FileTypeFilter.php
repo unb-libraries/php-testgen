@@ -2,6 +2,8 @@
 
 namespace Tozart\Discovery\Filter;
 
+use Tozart\os\FileType;
+
 /**
  * Filter all files in a directory by file type.
  *
@@ -9,18 +11,24 @@ namespace Tozart\Discovery\Filter;
  */
 class FileTypeFilter extends FileNamePatternFilter {
 
+  protected $_fileType;
+
+  protected function fileType() {
+    return $this->_fileType;
+  }
+
   /**
    * {@inheritDoc}
    */
-  public function __construct($file_types) {
-    $file_types = array_unique(array_map(function ($file_type) {
-      return strtolower($file_type);
-    }, $file_types));
+  public function __construct(FileType $file_type) {
+    $this->_fileType = $file_type;
+    parent::__construct([$this->buildPattern()]);
+  }
 
-    $pattern = str_replace('@file_types',
-      implode('|', $file_types), '/.*\.(@file_types)/');
-
-    parent::__construct([$pattern]);
+  protected function buildPattern() {
+    $extensions = $this->fileType()->extensions();
+    return str_replace('@extensions',
+      implode('|', $extensions), '/.*\.(@extensions)/');
   }
 
 }
