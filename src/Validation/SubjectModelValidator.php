@@ -1,6 +1,6 @@
 <?php
 
-namespace Tozart\validate;
+namespace Tozart\Validation;
 
 use Tozart\os\File;
 

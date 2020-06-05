@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\validate;
+namespace Tozart\Validation;
 
 use Tozart\os\DependencyInjection\FileParsingTrait;
 use Tozart\os\File;
 
 class FileFormatValidator implements ValidatorInterface {
 
-  use FileParsingTrait;
+//  use FileParsingTrait;
 
   protected $_fileType;
 
@@ -27,7 +27,9 @@ class FileFormatValidator implements ValidatorInterface {
         $errors[] = sprintf('FileFormatValidators expect input of type %s, %s given.',
           File::class, get_class($object));
       } else {
-        $this->parser($this->fileType())->parse($object);
+        $object->type()
+          ->parser()
+          ->parse($object);
       }
     }
     catch (\Exception $e) {
