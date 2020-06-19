@@ -5,6 +5,7 @@ namespace Tozart\Test\Discovery;
 use Tozart\Discovery\DiscoveryBase;
 use Tozart\Discovery\Filter\FileFormatValidationFilter;
 use Tozart\Discovery\Filter\FileTypeFilter;
+use Tozart\Discovery\Filter\ModelValidationFilter;
 use Tozart\Test\TozartTestCase;
 
 /**
@@ -85,7 +86,7 @@ class DiscoveryTest extends TozartTestCase {
         $count++;
       }
     }
-    $this->assertCount($count, $files);
+    $this->assertEquals(count($files), $count);
   }
 
   /**
@@ -111,9 +112,24 @@ class DiscoveryTest extends TozartTestCase {
           $this->fileSystem()->file('example.yml', $this->modelRoot())->path(),
           $this->fileSystem()->file('sample.yml', $this->modelRoot())->path(),
           $this->fileSystem()->file('malformed.yml', $this->modelRoot())->path(),
+          $this->fileSystem()->file('invalid.yml', $this->modelRoot())->path(),
+          $this->fileSystem()->file('invalid_2.yml', $this->modelRoot())->path(),
+          $this->fileSystem()->file('invalid_3.yml', $this->modelRoot())->path(),
+          $this->fileSystem()->file('invalid_4.yml', $this->modelRoot())->path(),
         ],
       ], [
         [new FileFormatValidationFilter($yaml)],
+        [
+          $this->fileSystem()->file('example.yml', $this->modelRoot())->path(),
+          $this->fileSystem()->file('sample.yml', $this->modelRoot())->path(),
+          $this->fileSystem()->file('invalid.yml', $this->modelRoot())->path(),
+          $this->fileSystem()->file('invalid_2.yml', $this->modelRoot())->path(),
+          $this->fileSystem()->file('invalid_3.yml', $this->modelRoot())->path(),
+          $this->fileSystem()->file('invalid_4.yml', $this->modelRoot())->path(),
+        ],
+      ],
+      [
+        [new ModelValidationFilter($yaml)],
         [
           $this->fileSystem()->file('example.yml', $this->modelRoot())->path(),
           $this->fileSystem()->file('sample.yml', $this->modelRoot())->path(),
@@ -140,8 +156,6 @@ class DiscoveryTest extends TozartTestCase {
 
   /**
    * Data provider for the testFind().
-   *
-   * Subclasses should override expand this method
    *
    * @return array
    *   An array of arrays. Each entry must contain

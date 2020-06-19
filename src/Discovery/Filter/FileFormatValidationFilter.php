@@ -5,7 +5,6 @@ namespace Tozart\Discovery\Filter;
 use Tozart\os\File;
 use Tozart\os\FileType;
 use Tozart\Validation\FileFormatValidator;
-use Tozart\Validation\ValidatorInterface;
 
 class FileFormatValidationFilter extends FileTypeFilter {
 

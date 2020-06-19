@@ -1,4 +1,4 @@
-type: example
+# This model should not be discovered because no "type" is defined.
 class: 'Tozart\Model\Model'
 requirements:
   - property1

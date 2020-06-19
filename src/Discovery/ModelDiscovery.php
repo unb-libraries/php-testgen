@@ -2,8 +2,8 @@
 
 namespace Tozart\Discovery;
 
-use Tozart\Discovery\Filter\FileTypeFilter;
-use Tozart\Discovery\Filter\SubjectModelValidationFilter;
+use Tozart\Discovery\Filter\FileFormatValidationFilter;
+use Tozart\Discovery\Filter\ModelValidationFilter;
 
 /**
  * Discovery for model definition files.
@@ -17,18 +17,15 @@ class ModelDiscovery extends DiscoveryBase {
    *
    * @param array $directories
    *   An array of directories or paths.
-   * @param array $file_types
-   *   An array of file types indicating the
-   *   file format which models should be declared in.
+   * @param \Tozart\os\FileType $file_type
+   *   A file type indicating the format which
+   *   models should be declared in.
    */
-  public function __construct(array $directories, $file_types = []) {
-    $filters = [];
-    if (!empty($file_types)) {
-      $filters[] = new FileTypeFilter($file_types);
-      // TODO: Allow only one file_type.
-      // TODO: Create file type class to associate several file extensions with one file type.
-      $filters[] = new SubjectModelValidationFilter($file_types[array_keys($file_types)[0]]);
-    }
+  public function __construct(array $directories, $file_type) {
+    $filters = [
+      new FileFormatValidationFilter($file_type),
+      new ModelValidationFilter($file_type),
+    ];
     parent::__construct($directories, $filters);
   }
 

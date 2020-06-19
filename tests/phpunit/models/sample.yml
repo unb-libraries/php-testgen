@@ -1,6 +1,4 @@
 type: sample
-class: 'Tozart\Test\model\SampleModel'
+class: 'Tozart\Model\Model'
 requirements:
   - requiredAttribute
-options:
-  option1: defaultValue

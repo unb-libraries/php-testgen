@@ -1,0 +1,8 @@
+type: example
+class: 'Tozart\Model\Model'
+requirements:
+  - property1
+  - property2
+# This model should not be discovered because "option1" does not define a default value.
+options:
+  - option1

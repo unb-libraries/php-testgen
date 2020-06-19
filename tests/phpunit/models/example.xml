@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<model type="example" class="Tozart\Test\model\ExampleModel">
+    <requirements>
+        <property key="property1" />
+        <property key="property2" />
+    </requirements>
+    <options>
+        <property key="option1" defaultValue="TRUE" />
+    </options>
+</model>
