@@ -150,7 +150,7 @@ abstract class DiscoveryBase {
    *   A file instance.
    */
   public function get() {
-    if (!empty($files = $this->find())) {
+    if (!empty($files = $this->discover())) {
       $most_important_directory_path = array_keys($files)[0];
       $most_important_directory_content = $files[$most_important_directory_path];
       asort($most_important_directory_content);
@@ -166,29 +166,17 @@ abstract class DiscoveryBase {
   /**
    * Locate files in any of the source roots that match the filter criteria.
    *
-   * @param array $options
-   *   (optional) Array of options to customize the output. Accepts the following keys:
-   *   - flatten: (bool) If set to TRUE, the result array will be flattened, containing
-   *   only filenames and not grouped by directory. Defaults to FALSE.
-   *   - return_as_objects: (bool) If set to TRUE, found items will be returned as
-   *   objects, instead of filenames. Defaults to FALSE.
-   *
    * @return array
    *   An array of located filenames, grouped by the directory
    *   in which they were found.
    */
-  public function find($options = []) {
-    $options = array_merge([
-      // TODO: Implement optionally returning flattened result.
-      'flatten' => FALSE,
-      // TODO: Implement converting filenames to File objects.
-      'return_as_objects' => FALSE,
-    ], $options);
-
+  public function discover() {
     $files = [];
     foreach ($this->sourceStack() as $priority => $directory) {
       if (!empty($matches = $this->findIn($directory))) {
-        $files[$directory->systemPath()] = $matches;
+        $files[$directory->systemPath()] = array_map(function ($match) {
+          return $match['file'];
+        }, $matches);
       }
     }
     ksort($files, SORT_NUMERIC);
@@ -215,10 +203,15 @@ abstract class DiscoveryBase {
         $score *= $filter->match($file);
       }
       if ($score > 0) {
-        $matches[$file->name()] = intval($score * 100);
+        $matches[$file->path()] = [
+          'file' => $file,
+          'score' => intval($score * 100),
+        ];
       }
     }
-    arsort($matches, SORT_NUMERIC);
+    uasort($matches, function ($m1, $m2) {
+      return $m1['score'] - $m2['score'];
+    });
     return $matches;
   }
 
