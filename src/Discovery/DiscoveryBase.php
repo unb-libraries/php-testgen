@@ -11,7 +11,7 @@ use Tozart\os\Directory;
  *
  * @package Tozart\os
  */
-abstract class DiscoveryBase {
+abstract class DiscoveryBase implements DiscoveryInterface {
 
   use FileSystemTrait;
 

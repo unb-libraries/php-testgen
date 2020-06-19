@@ -19,8 +19,19 @@ services:
   file_system.parse.manager:
     class: '\Tozart\os\parse\FileParserManager'
       - ['@file_system.file_type.yaml']
+
+  # Models
+  model.discovery:
+    class: '\Tozart\Discovery\ModelDiscovery'
     arguments:
-      - '@file_system.parse.yaml'
+      - ['%model_root%']
+      - '@file_system.file_type.yaml'
+  model.factory:
+    class: '\Tozart\Model\ModelFactory'
+    arguments:
+      - '@model.discovery'
+
+  # Subjects
   subject_factory:
     class: '\Tozart\Subject\SubjectFactory'
   subject_manager:

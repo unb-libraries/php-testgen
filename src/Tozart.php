@@ -105,6 +105,18 @@ final class Tozart {
   }
 
   /**
+   * The model factory service.
+   *
+   * @return \Tozart\Model\ModelFactory
+   *   A model factory service instance.
+   */
+  public static function modelFactory() {
+    /** @var \Tozart\Model\ModelFactory $model_factory */
+    $model_factory = static::container()->get('model.factory');
+    return $model_factory;
+  }
+
+  /**
    * The model root directory.
    *
    * @return \Tozart\os\Directory
@@ -197,11 +209,11 @@ final class Tozart {
   /**
    * The template locator service.
    *
-   * @return \Tozart\render\TemplateLocator
+   * @return \Tozart\render\TemplateDiscovery
    *   A template locator service instance.
    */
   public static function templateLocator() {
-    /** @var \Tozart\render\TemplateLocator $template_locator */
+    /** @var \Tozart\render\TemplateDiscovery $template_locator */
     $template_locator = static::container()->get('template_locator');
     return $template_locator;
   }
