@@ -2,9 +2,9 @@
 
 namespace Tozart\Discovery\Filter;
 
-use Tozart\Validation\SubjectModelValidator;
+use Tozart\Validation\ModelValidator;
 
-class SubjectModelValidationFilter extends FileFormatValidationFilter {
+class ModelValidationFilter extends FileFormatValidationFilter {
 
   public function __construct($file_type) {
     parent::__construct($file_type);

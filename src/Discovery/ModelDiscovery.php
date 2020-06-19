@@ -10,7 +10,7 @@ use Tozart\Discovery\Filter\SubjectModelValidationFilter;
  *
  * @package Tozart\Subject
  */
-class SubjectModelDiscovery extends DiscoveryBase {
+class ModelDiscovery extends DiscoveryBase {
 
   /**
    * Create a new SubjectModelLocator instance.

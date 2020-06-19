@@ -11,7 +11,7 @@ use Tozart\Subject\SubjectBase;
  *
  * @package Tozart\render
  */
-class TemplateLocator {
+class TemplateDiscovery {
 
   use FileSystemTrait;
 
@@ -52,7 +52,7 @@ class TemplateLocator {
    * @return array
    *   An array of strings.
    *
-   * @see \Tozart\render\TemplateLocator::compilePattern()
+   * @see \Tozart\render\TemplateDiscovery::compilePattern()
    */
   public function patterns() {
     return $this->_patterns;
@@ -88,9 +88,10 @@ class TemplateLocator {
    * @param string $file_extension
    *   The expected extension of template files.
    *
-   * @see \Tozart\render\TemplateLocator::compilePattern().
+   * @see \Tozart\render\TemplateDiscovery::compilePattern().
    */
   public function __construct(array $template_roots, array $patterns, $file_extension = '') {
+    $this->_templateRoots = [];
     foreach ($template_roots as $template_root) {
       $this->addTemplateRoot($template_root);
     }
@@ -120,17 +121,20 @@ class TemplateLocator {
     }
 
     $template_roots = $this->templateRoots();
+    $paths = array_keys($template_roots);
+    $dirs = array_values($template_roots);
+
     if ($weight >= 0) {
-      array_unshift($paths = array_keys($template_roots), $template_root->systemPath());
-      array_unshift($dirs = array_values($template_roots), $template_root);
+      array_unshift($paths, $template_root->systemPath());
+      array_unshift($dirs, $template_root);
       $template_roots = array_combine($paths, $dirs);
     }
     elseif ($weight >= count($template_roots)) {
       $template_roots[$template_root->systemPath()] = $template_root;
     }
     else {
-      array_splice($paths = array_keys($template_roots), $weight, 0, [$template_root->systemPath()]);
-      array_splice($dirs = array_values($template_roots), $weight, 0, [$template_root]);
+      array_splice($paths, $weight, 0, [$template_root->systemPath()]);
+      array_splice($dirs, $weight, 0, [$template_root]);
       $template_roots = array_combine($paths, $dirs);
     }
 

@@ -4,7 +4,7 @@ namespace Tozart\Validation;
 
 use Tozart\os\File;
 
-class SubjectModelValidator extends FileFormatValidator {
+class ModelValidator extends FileFormatValidator {
 
   /**
    * Retrieve all required properties.

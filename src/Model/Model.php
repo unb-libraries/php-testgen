@@ -1,10 +1,10 @@
 <?php
 
-namespace Tozart\Subject;
+namespace Tozart\Model;
 
 use Tozart\os\ParsableFile;
 
-class SubjectModel {
+class Model {
 
   protected $type;
   protected $modelClass;
@@ -50,8 +50,8 @@ class SubjectModel {
 
   public function getProperties() {
     return array_merge(
-        array_values($this->getRequirements()),
-        array_keys($this->getOptions())
+      array_values($this->getRequirements()),
+      array_keys($this->getOptions())
     );
   }
 
