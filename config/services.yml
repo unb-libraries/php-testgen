@@ -32,6 +32,11 @@ services:
       - '@model.discovery'
 
   # Subjects
+  subject.discovery:
+    class: '\Tozart\Discovery\SubjectDiscovery'
+    arguments:
+      - []
+      - '@file_system.file_type.yaml'
   subject_factory:
     class: '\Tozart\Subject\SubjectFactory'
   subject_manager:

@@ -162,6 +162,18 @@ final class Tozart {
   }
 
   /**
+   * The subject discovery service.
+   *
+   * @return \Tozart\Discovery\SubjectDiscovery
+   *   A subject discovery service instance.
+   */
+  public static function subjectDiscovery() {
+    /** @var \Tozart\Discovery\SubjectDiscovery $subject_discovery */
+    $subject_discovery = static::container()->get('subject.discovery');
+    return $subject_discovery;
+  }
+
+  /**
    * The subject manager service.
    *
    * @return \Tozart\Subject\SubjectManager
