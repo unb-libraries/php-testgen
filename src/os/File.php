@@ -97,6 +97,17 @@ class File {
   }
 
   /**
+   * Parse the file by an appropriate parser according to its file type.
+   *
+   * @return mixed
+   *   The parsed content.
+   */
+  public function parse() {
+    $parser = $this->type()->parser();
+    return $parser->parse($this);
+  }
+
+  /**
    * Retrieve the file's type.
    *
    * @return \Tozart\os\FileType
