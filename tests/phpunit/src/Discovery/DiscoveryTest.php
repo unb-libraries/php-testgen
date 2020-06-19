@@ -77,10 +77,9 @@ class DiscoveryTest extends TozartTestCase {
     }
 
     $count = 0;
-    $finds = $this->discovery()->find();
-    foreach ($finds as $dir_path => $filenames) {
-      foreach (array_keys($filenames) as $filename) {
-        $file_path = $dir_path . $filename;
+    $finds = $this->discovery()->discover();
+    foreach ($finds as $dir_path => $discovered_files) {
+      foreach (array_keys($discovered_files) as $file_path) {
         // TODO: Also assert discovery "score".
         $this->assertContains($file_path, $files);
         $count++;
@@ -155,12 +154,14 @@ class DiscoveryTest extends TozartTestCase {
   }
 
   /**
-   * Data provider for the testFind().
+   * Data provider for testFind().
    *
    * @return array
-   *   An array of arrays. Each entry must contain
-   *   the following keys:
-   *   - filters:
+   *   An array of arrays, each of which contains the following
+   *   two entries:
+   *   - a filter instance
+   *   - an array of file instances, which the filter is
+   *   expected to discover.
    */
   public final function filterProvider() {
     $filters = array_merge($this->defaultFilters(), $this->filters());

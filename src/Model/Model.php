@@ -2,34 +2,26 @@
 
 namespace Tozart\Model;
 
-use Tozart\os\ParsableFile;
-
-class Model {
+class Model implements ModelInterface {
 
   protected $type;
   protected $modelClass;
   protected $requirements;
   protected $options;
 
-  public static function createFromFile(ParsableFile $model_definition_file) {
-    if ($parsed_file = $model_definition_file->parse()) {
-      if (count(array_intersect(['type', 'class', 'requirements', 'options'], array_keys($parsed_file))) === 4) {
-        return new static(
-          $parsed_file['type'],
-          $parsed_file['class'],
-          $parsed_file['requirements'],
-          $parsed_file['options']
-        );
-      }
-    }
-    return NULL;
+  public function __construct(array $model_description) {
+    $this->type = $model_description['type'];
+    $this->modelClass = $model_description['class'];
+    $this->requirements = array_key_exists('requirements', $model_description)
+      ? $model_description['requirements']
+      : [];
+    $this->options = array_key_exists('options', $model_description)
+      ? $model_description['options']
+      : [];
   }
 
-  public function __construct($type, $model_class, $requirements = [], $options = []) {
-    $this->type = $type;
-    $this->modelClass = $model_class;
-    $this->requirements = $requirements;
-    $this->options = $options;
+  public static function create(array $specification) {
+    return new static($specification);
   }
 
   public function getType() {
@@ -50,8 +42,8 @@ class Model {
 
   public function getProperties() {
     return array_merge(
-      array_values($this->getRequirements()),
-      array_keys($this->getOptions())
+        array_values($this->getRequirements()),
+        $this->getOptions()
     );
   }
 

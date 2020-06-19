@@ -80,7 +80,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    * @param \Tozart\os\Directory|string $directory
    *   A directory or path.
    */
-  public function stackSourceRoot(Directory $directory) {
+  public function stackSourceRoot($directory) {
     if (is_string($directory)) {
       $directory = $this->fileSystem()->dir($directory);
     }
