@@ -1,8 +1,8 @@
-type: example
+type: page
 # This model should not be discovered because the defined "class" does not exist.
-class: 'Tozart\Test\Model\ExampleModel'
+class: 'Tozart\Test\Model\PageModel'
 requirements:
-  - property1
-  - property2
+  - url
+  - title
 options:
-  option1: TRUE
+  public: TRUE

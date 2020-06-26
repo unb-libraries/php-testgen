@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<subject type="page" id="home">
+    <requirements>
+        <property url="/home" />
+        <property title="Home" />
+    </requirements>
+</subject>

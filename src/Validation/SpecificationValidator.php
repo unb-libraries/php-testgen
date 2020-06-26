@@ -14,29 +14,25 @@ abstract class SpecificationValidator extends FileFormatValidator {
    */
   public function validate($object) {
     if (empty($errors = parent::validate($object))) {
-      $model_description = $object->parse();
-      $properties = [
-        'essential' => [
-          'properties' => $this->optionalProperties($model_description),
-          'required' => TRUE,
-        ],
-        'required' => [
-          'properties' => $this->requiredProperties($model_description),
-          'required' => TRUE,
-        ],
-        'optional' => [
-          'properties' => $this->optionalProperties($model_description),
-          'required' => FALSE,
-        ],
-      ];
+      $specification = $object->parse();
+      $providers = [[
+        'callback' => [$this, 'essentialProperties'],
+        'required' => TRUE,
+      ],[
+        'callback' => [$this, 'requiredProperties'],
+        'required' => TRUE,
+      ],[
+        'callback' => [$this, 'optionalProperties'],
+        'required' => FALSE,
+      ]];
 
-      // TODO: Validate conditionally required properties, e.g. at least one out of required/optional must be present.
-      foreach ($properties as $validation_description) {
-        if (empty($errors)) {
-          $errors += $this->validateProperties($validation_description['properties'], $model_description, $validation_description['required']);
-        }
+      $index = 0;
+      while(empty($errors) && array_key_exists($index, $providers)) {
+        $provider = $providers[$index++];
+        $errors += $this->validateProperties(call_user_func($provider['callback'], $specification), $specification, $provider['required']);
       }
     }
+
     return $errors;
   }
 

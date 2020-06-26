@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<model type="page" class="Tozart\Model\Model">
+    <requirements>
+        <property key="url" />
+        <property key="title" />
+    </requirements>
+    <options>
+        <property key="public" defaultValue="TRUE" />
+    </options>
+</model>

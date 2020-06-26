@@ -1,4 +1,4 @@
-# This model should not be discovered because no "type" is defined.
+type: page
 class: 'Tozart\Model\Model'
 requirements:
   - url

@@ -3,4 +3,4 @@ class: 'Tozart\Model\Model'
 # This model should not be discovered because "requirements" is not an array.
 requirements: property1
 options:
-  option1: TRUE
+  public: TRUE

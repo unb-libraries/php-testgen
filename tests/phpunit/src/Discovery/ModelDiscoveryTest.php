@@ -26,7 +26,7 @@ class ModelDiscoveryTest extends DiscoveryTestCase {
 
     $filters = [new ModelValidationFilter($yaml)];
     $expected_files = [
-      $this->fileSystem()->file('example.yml', $this->modelRoot())->path(),
+      $this->fileSystem()->file('page.yml', $this->modelRoot())->path(),
       $this->fileSystem()->file('sample.yml', $this->modelRoot())->path(),
     ];
 

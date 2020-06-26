@@ -41,7 +41,7 @@ class ModelValidator extends SpecificationValidator {
   /**
    * Validation callback for the "class" property.
    *
-   * @param string $class
+   * @param mixed $class
    *   The class value.
    * @param string $property
    *   The property identifier.
@@ -67,7 +67,7 @@ class ModelValidator extends SpecificationValidator {
   /**
    * Validation callback for the "requirements" property.
    *
-   * @param array $requirements
+   * @param mixed $requirements
    *   An array of required properties (strings).
    * @param string $property
    *   The property identifier.
@@ -79,7 +79,7 @@ class ModelValidator extends SpecificationValidator {
    *
    * @see \Tozart\Validation\SpecificationValidator::validateProperty().
    */
-  protected function validateRequirements(array $requirements, $property, array $specification) {
+  protected function validateRequirements($requirements, $property, array $specification) {
     $errors = [];
     if (!is_array($requirements)) {
       $errors[] = "{$property} must be of type \"array\"";
@@ -93,7 +93,7 @@ class ModelValidator extends SpecificationValidator {
   /**
    * Validation callback for the "options" property.
    *
-   * @param array $options
+   * @param mixed $options
    *   An array of optional properties (strings) and
    *   their default values.
    * @param string $property
@@ -106,7 +106,7 @@ class ModelValidator extends SpecificationValidator {
    *
    * @see \Tozart\Validation\SpecificationValidator::validateProperty().
    */
-  protected function validateOptions(array $options, $property, array $specification) {
+  protected function validateOptions($options, $property, array $specification) {
     $errors = [];
     if (!is_array($options)) {
       $errors[] = "{$property} must be of type \"array\"";

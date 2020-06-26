@@ -1,7 +1,0 @@
-type: example
-class: 'Tozart\Model\Model'
-requirements:
-  - property1
-  - property2
-options:
-  option1: TRUE

@@ -1,7 +1,7 @@
-type: example
-class: 'Tozart\Test\model\MalformedModel'
+type: page
+class: 'Tozart\Model\Model'
   requirements:
-    - property1
-    - property2
+    - url
+    - title
 options:
-  option1: TRUE
+  public: TRUE
