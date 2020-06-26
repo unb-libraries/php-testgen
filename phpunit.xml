@@ -38,8 +38,9 @@
     </filter>
     <php>
         <const name="TOZART_ROOT" value="tests/phpunit" />
-        <const name="MODEL_ROOT" value="tests/phpunit/models" />
-        <const name="SUBJECT_ROOT" value="tests/phpunit/subjects" />
-        <const name="TEMPLATE_ROOT" value="tests/phpunit/templates" />
+        <const name="ASSET_ROOT" value="tests/phpunit/assets" />
+        <const name="MODEL_ROOT" value="tests/phpunit/assets/models" />
+        <const name="SUBJECT_ROOT" value="tests/phpunit/assets/subjects" />
+        <const name="TEMPLATE_ROOT" value="tests/phpunit/assets/templates" />
     </php>
 </phpunit>

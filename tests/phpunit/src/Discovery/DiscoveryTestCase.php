@@ -3,19 +3,16 @@
 namespace Tozart\Test\Discovery;
 
 use Tozart\Discovery\DiscoveryBase;
-use Tozart\Discovery\Filter\FileFormatValidationFilter;
-use Tozart\Discovery\Filter\FileTypeFilter;
-use Tozart\Discovery\Filter\ModelValidationFilter;
 use Tozart\Test\TozartTestCase;
 
 /**
- * Test class for testing file discovery with default directory filter implementations.
+ * Test case for testing file discovery.
  *
- * This class should be extended to test new filter implementations.
+ * This test case should be extended to test new filter.
  *
  * @package Tozart\Test\Discovery
  */
-class DiscoveryTest extends TozartTestCase {
+abstract class DiscoveryTestCase extends TozartTestCase {
 
   /**
    * The discovery instance to test.
@@ -45,11 +42,20 @@ class DiscoveryTest extends TozartTestCase {
   }
 
   /**
+   * Retrieve the directories on which to test the discovery implementation.
+   *
+   * @return array
+   *   Array of directories.
+   */
+  abstract protected function discoveryRoots();
+
+  /**
    * Initialize a fresh Discovery instance before each test.
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->setDiscovery(new Discovery([$this->modelRoot()]));
+    $discovery = new Discovery($this->discoveryRoots());
+    $this->setDiscovery($discovery);
   }
 
   /**
@@ -89,7 +95,7 @@ class DiscoveryTest extends TozartTestCase {
   }
 
   /**
-   * Set of default filter scenarios.
+   * Set of filter scenarios.
    *
    * @return array
    *   An array or arrays, each of which must contain the
@@ -102,56 +108,7 @@ class DiscoveryTest extends TozartTestCase {
    * @see \Tozart\Discovery\Filter\DirectoryFilterInterface
    * @see \Tozart\os\File
    */
-  public final function defaultFilters() {
-    $yaml = $this->fileSystem()->getFileType('yaml');
-    return [
-      [
-        [new FileTypeFilter($yaml)],
-        [
-          $this->fileSystem()->file('example.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('sample.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('malformed.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('invalid.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('invalid_2.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('invalid_3.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('invalid_4.yml', $this->modelRoot())->path(),
-        ],
-      ], [
-        [new FileFormatValidationFilter($yaml)],
-        [
-          $this->fileSystem()->file('example.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('sample.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('invalid.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('invalid_2.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('invalid_3.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('invalid_4.yml', $this->modelRoot())->path(),
-        ],
-      ],
-      [
-        [new ModelValidationFilter($yaml)],
-        [
-          $this->fileSystem()->file('example.yml', $this->modelRoot())->path(),
-          $this->fileSystem()->file('sample.yml', $this->modelRoot())->path(),
-        ],
-      ],
-    ];
-  }
-
-  /**
-   * Additional filter scenarios.
-   *
-   * Subclasses should override this method to test
-   * new filter implementations.
-   *
-   * @return array
-   *   An array of arrays. See defaultFilters() method
-   *   for details on the expected return format.
-   *
-   * @see \Tozart\Test\Discovery\DiscoveryTest::defaultFilters()
-   */
-  public function filters() {
-    return [];
-  }
+  abstract public function filters();
 
   /**
    * Data provider for testFind().
@@ -164,8 +121,7 @@ class DiscoveryTest extends TozartTestCase {
    *   expected to discover.
    */
   public final function filterProvider() {
-    $filters = array_merge($this->defaultFilters(), $this->filters());
-    return $this->powerSet($filters);
+    return $this->powerSet($this->filters());
   }
 
   /**
