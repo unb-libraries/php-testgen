@@ -9,7 +9,7 @@ use Tozart\Discovery\DiscoveryInterface;
  *
  * @package Tozart\Model
  */
-class ModelFactory {
+class ModelFactory implements ModelFactoryInterface {
 
   /**
    * A discovery service instance.

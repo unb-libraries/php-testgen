@@ -24,18 +24,30 @@ class Model implements ModelInterface {
     return new static($specification);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public function getType() {
     return $this->type;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public function getModelClass() {
     return $this->modelClass;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public function getRequirements() {
     return $this->requirements;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public function getOptions() {
     return $this->options;
   }
