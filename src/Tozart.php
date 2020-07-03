@@ -193,7 +193,7 @@ final class Tozart {
    */
   public static function subjectManager() {
     /** @var \Tozart\Subject\SubjectManager $subject_manager */
-    $subject_manager = static::container()->get('subject_manager');
+    $subject_manager = static::container()->get('subject.manager');
     return $subject_manager;
   }
 
@@ -205,7 +205,7 @@ final class Tozart {
    */
   public static function subjectFactory() {
     /** @var \Tozart\Subject\SubjectFactory $factory */
-    $factory = static::container()->get('subject_factory');
+    $factory = static::container()->get('subject.factory');
     return $factory;
   }
 

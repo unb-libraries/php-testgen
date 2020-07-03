@@ -2,105 +2,109 @@
 
 namespace Tozart\Subject;
 
+use Tozart\Model\ModelInterface;
+
 /**
  * Base class for models.
  *
  * @package Tozart\model
  */
-abstract class SubjectBase {
-
-  /**
-   * The model ID.
-   *
-   * @var string
-   */
-  protected $id;
-
-  /**
-   * Retrieve the model ID.
-   *
-   * @return string
-   */
-  public function getId() {
-    return $this->id;
-  }
-
-  /**
-   * Retrieve the model type.
-   *
-   * @return string
-   */
-  abstract public function getType();
+abstract class SubjectBase implements SubjectInterface {
 
   /**
    * The model definition.
    *
-   * @var SubjectModel
+   * @var \Tozart\Model\ModelInterface
    */
-  protected $definition;
+  protected $_model;
 
   /**
-   * Retrieve the model definition.
+   * An array of property keys and values.
    *
-   * @return SubjectModel
-   *   A model definition.
+   * @var array
    */
-  public function getDefinition() {
-    return $this->definition;
+  protected $_properties = [];
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getId() {
+    return $this->get('id');
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getModel() {
+    return $this->_model;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getType() {
+    return $this->getModel()
+      ->getType();
   }
 
   /**
    * Create a new model instance.
    *
-   * @param string $id
-   *   The model ID.
-   * @param SubjectModel $definition
+   * @param \Tozart\Model\ModelInterface $model
    *   The model definition.
    * @param array $properties
-   *   The model type.
+   *   The subject properties.
    */
-  final public function __construct($id, $definition, array $properties) {
-    $this->id = $id;
-    $this->definition = $definition;
+  final public function __construct(ModelInterface $model, array $properties) {
+    $this->_model = $model;
+    $this->setProperties($properties);
+  }
+
+  /**
+   * Assign the given properties.
+   *
+   * @param array $properties
+   *   An array of properties.
+   */
+  protected function setProperties(array $properties) {
     foreach ($properties as $property => $value) {
-      $this->trySet($property, $value);
+      $this->set($property, $properties);
     }
   }
 
-  private function trySet($property, $value) {
-    try {
-      $setter = [$this, $setter_name = 'set' . ucfirst($property)];
-      if (is_callable($setter)) {
-        $this->$setter_name($value);
-      }
-      else {
-        $this->$property = $value;
-      }
-    }
-    catch (\Exception $e) {
-      // TODO: Release a debug or log notice.
+  /**
+   * Assign the given value to the given property.
+   *
+   * @param string $property
+   *   The property.
+   * @param mixed $value
+   *   The property value.
+   */
+  protected function set($property, $value) {
+    $specification = array_merge(
+      array_keys($this->getModel()->getRequirements()),
+      array_keys($this->getModel()->getOptions())
+    );
+    if (in_array($property, $specification)) {
+      $this->_properties[$property] = $value;
     }
   }
 
-  public function __get($name) {
-    if (array_key_exists($name, $properties = $this->getProperties())) {
-      return $properties[$name];
+  /**
+   * {@inheritDoc}
+   */
+  public function get($property) {
+    if (array_key_exists($property, $properties = $this->getProperties())) {
+      return $properties[$property];
     }
     return NULL;
   }
 
   /**
-   * Retrieve all property values.
-   *
-   * @return array
-   *   An array of property keys and values.
+   * {@inheritDoc}
    */
   public function getProperties() {
-    $properties = [];
-    foreach ($this->getDefinition()->getProperties() as $property) {
-      $properties[$property] = $this->$property;
-    }
-    return $properties;
+    return $this->_properties;
   }
 
 }
