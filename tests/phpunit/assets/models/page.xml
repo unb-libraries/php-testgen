@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<model type="page" class="Tozart\Model\Model">
+<model type="page" class="Tozart\Test\Subject\ExampleSubject">
     <requirements>
         <property key="url" />
         <property key="title" />

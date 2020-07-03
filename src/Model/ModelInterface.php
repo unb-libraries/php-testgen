@@ -36,7 +36,7 @@ interface ModelInterface {
    * @return string
    *   A string.
    */
-  public function getModelClass();
+  public function getSubjectClass();
 
   /**
    * Retrieve any required property identifiers.

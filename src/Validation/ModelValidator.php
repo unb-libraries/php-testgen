@@ -3,6 +3,7 @@
 namespace Tozart\Validation;
 
 use Tozart\Model\ModelInterface;
+use Tozart\Subject\SubjectInterface;
 
 /**
  * Validator for model specifications.
@@ -58,8 +59,8 @@ class ModelValidator extends SpecificationValidator {
     if (!class_exists($class)) {
       $errors[] = "'{$class}' does not exist.";
     }
-    elseif (!in_array(ModelInterface::class, class_implements($class))) {
-      $errors[] = "{$class} must implement " . ModelInterface::class;
+    elseif (!in_array(SubjectInterface::class, class_implements($class))) {
+      $errors[] = "{$class} must implement " . SubjectInterface::class;
     }
     return $errors;
   }

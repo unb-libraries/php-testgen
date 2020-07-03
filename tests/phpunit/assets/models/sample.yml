@@ -1,4 +1,4 @@
 type: sample
-class: 'Tozart\Model\Model'
+class: 'Tozart\Test\Subject\ExampleSubject'
 requirements:
   - requiredAttribute

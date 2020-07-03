@@ -1,5 +1,5 @@
 type: page
-class: 'Tozart\Model\Model'
+class: 'Tozart\Test\Subject\ExampleSubject'
   requirements:
     - url
     - title

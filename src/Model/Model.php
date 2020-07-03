@@ -34,7 +34,7 @@ class Model implements ModelInterface {
   /**
    * {@inheritDoc}
    */
-  public function getModelClass() {
+  public function getSubjectClass() {
     return $this->modelClass;
   }
 

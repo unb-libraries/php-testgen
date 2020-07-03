@@ -88,8 +88,7 @@ class ModelFactory implements ModelFactoryInterface {
    *   A model instance.
    */
   protected function doCreate(array $specification) {
-    $class = $specification['class'];
-    $constructor = [$class, 'create'];
+    $constructor = [Model::class, 'create'];
     return call_user_func($constructor, $specification);
   }
 
