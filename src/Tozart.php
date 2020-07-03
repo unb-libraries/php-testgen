@@ -105,6 +105,18 @@ final class Tozart {
   }
 
   /**
+   * The model manager service.
+   *
+   * @return \Tozart\Model\ModelManagerInterface
+   *   A model manager service instance.
+   */
+  public static function modelManager() {
+    /** @var \Tozart\Model\ModelManagerInterface $model_manager */
+    $model_manager = static::container()->get('model.manager');
+    return $model_manager;
+  }
+
+  /**
    * The model factory service.
    *
    * @return \Tozart\Model\ModelFactory

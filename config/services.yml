@@ -30,6 +30,11 @@ services:
     class: '\Tozart\Model\ModelFactory'
     arguments:
       - '@model.discovery'
+  model.manager:
+    class: '\Tozart\Model\ModelManager'
+    arguments:
+      - '@model.factory'
+      - '@model.discovery'
 
   # Subjects
   subject.discovery:
