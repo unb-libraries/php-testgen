@@ -2,7 +2,7 @@
 
 namespace Tozart\Discovery;
 
-use Tozart\Discovery\Filter\FileFormatValidationFilter;
+use Tozart\Discovery\Filter\SubjectValidationFilter;
 
 /**
  * Discovery of subject definition files.
@@ -22,7 +22,7 @@ class SubjectDiscovery extends DiscoveryBase {
    */
   public function __construct(array $directories, $file_type) {
     parent::__construct($directories, [
-      new FileFormatValidationFilter($file_type),
+      new SubjectValidationFilter($file_type),
     ]);
   }
 

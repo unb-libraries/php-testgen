@@ -17,18 +17,22 @@
             <directory>tests/phpunit/src/Subject</directory>
             <directory>tests/phpunit/src/render</directory>
         </testsuite>
-        <testsuite name="model">
+        <testsuite name="os">
             <file>tests/phpunit/src/ApplicationTest.php</file>
-            <directory>tests/phpunit/src/Model</directory>
+            <file>tests/phpunit/src/os/DirectoryTest.php</file>
+            <file>tests/phpunit/src/os/FileTest.php</file>
         </testsuite>
         <testsuite name="discovery">
             <file>tests/phpunit/src/ApplicationTest.php</file>
             <directory>tests/phpunit/src/Discovery</directory>
         </testsuite>
-        <testsuite name="os">
+        <testsuite name="model">
             <file>tests/phpunit/src/ApplicationTest.php</file>
-            <file>tests/phpunit/src/os/DirectoryTest.php</file>
-            <file>tests/phpunit/src/os/FileTest.php</file>
+            <directory>tests/phpunit/src/Model</directory>
+        </testsuite>
+        <testsuite name="subject">
+            <file>tests/phpunit/src/ApplicationTest.php</file>
+            <directory>tests/phpunit/src/Subject</directory>
         </testsuite>
     </testsuites>
     <filter>

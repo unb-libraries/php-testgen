@@ -4,5 +4,5 @@ namespace Tozart\Test\Subject;
 
 use Tozart\Subject\SubjectBase;
 
-class ExampleSubject extends SubjectBase {
+class Page extends SubjectBase {
 }

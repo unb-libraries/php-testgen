@@ -87,17 +87,20 @@ class FileSystem {
   }
 
   /**
-   * Retrieve a file instance reflexting the given name and directory.
+   * Retrieve a file instance reflecting the given name and directory.
    *
    * @param string $name
    *   The name of the file.
-   * @param \Tozart\os\Directory $directory
+   * @param \Tozart\os\Directory|string $directory
    *   The directory.
    *
    * @return \Tozart\os\File
    *   A file object.
    */
-  public function file($name, Directory $directory) {
+  public function file($name, $directory) {
+    if (is_string($directory)) {
+      $directory = $this->dir($directory);
+    }
     return new File($name, $directory);
   }
 

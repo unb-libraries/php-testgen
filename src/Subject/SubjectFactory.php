@@ -43,7 +43,7 @@ class SubjectFactory implements SubjectFactoryInterface {
   public function create(array $specification) {
     if ($model = $this->modelManager()->get($specification['type'])) {
       $class = $model->getSubjectClass();
-      $specification =+ $model->getOptions();
+      $specification += $model->getOptions();
       return new $class($model, $specification);
     }
     return FALSE;

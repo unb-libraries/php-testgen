@@ -2,96 +2,83 @@
 
 namespace Tozart\Test\Subject;
 
-use PHPUnit\Framework\TestCase;
-use Tozart\Subject\SubjectModel;
-use Tozart\Subject\SubjectFactory;
-use Tozart\Subject\Page;
-use Tozart\os\Directory;
-use Tozart\os\YamlFile;
+use Tozart\Model\ModelInterface;
+use Tozart\Test\TozartTestCase;
+use Tozart\Tozart;
 
-class SubjectFactoryTest extends TestCase {
-
-  const SUBJECT_TYPE_ID = 'example';
-  const SUBJECT_CLASS = ExampleSubject::class;
-  const MODEL_CLASS = SubjectModel::class;
-  const SUBJECT_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'subjects';
+class SubjectFactoryTest extends TozartTestCase {
 
   /**
-   * Directory containing models.
+   * The subject discovery.
    *
-   * @var Directory
+   * @var \Tozart\Discovery\DiscoveryInterface
    */
-  protected $modelsDirectory;
+  protected $_subjectDiscovery;
 
   /**
-   * The model factory.
+   * Retrieve the subject factory.
    *
-   * @var SubjectFactory
+   * @return \Tozart\Subject\SubjectFactoryInterface
+   *   A subject factory instance.
    */
-  protected $factory;
+  protected function getSubjectFactory() {
+    return Tozart::subjectFactory();
+  }
 
   /**
-   * Retrieve the model factory.
+   * Retrieve the subject discovery.
    *
-   * @return SubjectFactory
-   *   A model factory instance.
+   * @return \Tozart\Discovery\SubjectDiscovery
+   *   A subject discovery instance.
    */
-  protected function getModelFactory() {
-    return $this->factory;
+  protected function subjectDiscovery() {
+    if (!isset($this->_subjectDiscovery)) {
+      $this->_subjectDiscovery = Tozart::subjectDiscovery();
+      $this->_subjectDiscovery->stackSourceRoot($this->subjectRoot());
+    }
+    return $this->_subjectDiscovery;
   }
 
   /**
-   * Retrieve the directory which contains models.
+   * Retrieve the model manager.
    *
-   * @return Directory
+   * @return \Tozart\Model\ModelManagerInterface
+   *   A model manager instance.
    */
-  protected function getModelsDirectory() {
-    return $this->modelsDirectory;
+  protected function modelManager() {
+    return Tozart::modelManager();
   }
 
   /**
-   * {@inheritDoc}
+   * Test that a given type creates a model of the expected class.
+   *
+   * @param array $specification
+   *   Subject specification array.
+   *
+   * @dataProvider subjectSpecificationProvider
    */
-  protected function setUp(): void {
-    $this->modelsDirectory = new Directory(self::SUBJECT_ROOT);
-    $model_definition = new SubjectModel(self::SUBJECT_TYPE_ID, self::SUBJECT_CLASS, [
-      'property1',
-      'property2',
-    ], [
-      'option1',
-    ]);
-    $this->factory = new SubjectFactory([$model_definition]);
-    parent::setUp();
+  public function testCreateSubject(array $specification) {
+    $subject = $this->getSubjectFactory()->create($specification);
+    $model = $this->modelManager()
+      ->get($specification['type']);
+    $this->assertInstanceOf($model->getSubjectClass(), $subject);
   }
 
   /**
-   * Test that a valid model description will be mapped to the expected class.
+   * Data provider for testCreateSubject().
+   *
+   * @return \Generator
+   *   A generator which on each iteration will
+   *   produce an array containing
+   *   - subject specifications
    */
-  public function testCreateModel() {
-    $model_description = new YamlFile('valid_subject.example.yml', $this->getModelsDirectory());
-    /** @var ExampleSubject $example_model */
-    $example_model = $this->getModelFactory()->createFromFile($model_description);
-    $this->assertInstanceOf(self::SUBJECT_CLASS, $example_model);
-    $this->assertEquals(self::SUBJECT_TYPE_ID, $example_model->getType());
-  }
-
-  /**
-   * Test that an invalid model description will not be mapped to any class.
-   */
-  public function testCreateModelFails() {
-    $model_description = new YamlFile('invalid_subject.example.yml', $this->getModelsDirectory());
-    /** @var Page $example_model */
-    $example_model = $this->getModelFactory()->createFromFile($model_description);
-    $this->assertFalse($example_model);
-  }
-
-  /**
-   * Test that a test definition of a given type can be found.
-   */
-  public function testFindDefinitionForModelType() {
-    $this->assertInstanceOf(self::MODEL_CLASS, $this
-        ->getModelFactory()
-        ->getModel(self::SUBJECT_TYPE_ID));
+  public function subjectSpecificationProvider() {
+    foreach ($this->subjectDiscovery()->discover() as $dir => $files) {
+      foreach ($files as $filename => $file) {
+        /** @var \Tozart\os\File $file */
+        yield [$file->parse()];
+      }
+    }
   }
 
 }
