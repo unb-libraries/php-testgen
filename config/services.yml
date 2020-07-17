@@ -42,12 +42,12 @@ services:
       - []
       - '@file_system.file_type.yaml'
   subject.factory:
-  subject_manager:
+    class: 'Tozart\Subject\SubjectFactory'
     arguments:
       - '@subject.discovery'
       - '@model.manager'
   subject.manager:
-    class: '\Tozart\Subject\SubjectManager'
+    class: 'Tozart\Subject\SubjectManager'
     arguments:
       - '@subject.factory'
   template_locator:

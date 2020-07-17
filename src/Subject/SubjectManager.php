@@ -2,19 +2,21 @@
 
 namespace Tozart\Subject;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Tozart\Discovery\FactoryInterface;
-use Tozart\os\DependencyInjection\FileSystemTrait;
-use Tozart\os\Directory;
 
-class SubjectManager {
+/**
+ * Class to maintain subject instances.
+ *
+ * @package Tozart\Subject
+ */
+class SubjectManager implements SubjectManagerInterface {
 
-  use FileSystemTrait;
-
+  /**
+   * The subjects.
+   *
+   * @var \Tozart\Subject\SubjectInterface[]
+   */
   protected $_subjects;
-
-  protected $_subjectRoots = [];
 
   /**
    * The subject factory.
@@ -23,22 +25,11 @@ class SubjectManager {
    */
   protected $_factory;
 
-  public function subjects() {
-    if (!$this->_subjects) {
-      $this->_subjects = [];
-      $this->discover();
-    }
-    return $this->_subjects;
-  }
-
   /**
-   * A collection of directories in which to search for subjects.
-   *
-   * @return \Tozart\os\Directory[]
-   *   A collection of directory objects.
+   * {@inheritDoc}
    */
-  public function subjectRoots() {
-    return $this->_subjectRoots;
+  public function subjects() {
+    return $this->_subjects;
   }
 
   /**
@@ -51,45 +42,48 @@ class SubjectManager {
     return $this->_factory;
   }
 
-  public function __construct(SubjectFactory $factory, array $subject_roots = []) {
+  /**
+   * Create a new subject manager instance.
+   *
+   * @param \Tozart\Discovery\FactoryInterface $factory
+   *   The subject factory.
+   */
+  public function __construct(FactoryInterface $factory) {
     $this->_factory = $factory;
-    foreach ($subject_roots as $subject_root) {
-      $this->addSubjectRoot($subject_root);
-    }
   }
 
   /**
-   * Add a subject root.
-   *
-   * @param mixed $subject_root
-   *   A directory object or a string.
+   * {@inheritDoc}
    */
-  public function addSubjectRoot($subject_root) {
-    if (is_string($subject_root)) {
-      $subject_root = $this->fileSystem()->dir($subject_root);
-    }
-    $this->_subjectRoots[$subject_root->systemPath()] = $subject_root;
+  public function has($type) {
+    return array_key_exists($type, $this->subjects());
   }
 
-  public function addSubject(SubjectBase $subject) {
-    $$this->_subjects[$subject->getId()] = $subject;
-  }
-
-  public function discover() {
-    foreach ($this->subjectRoots() as $path => $dir) {
-      foreach ($dir->files() as $file) {
-        if ($subject = $this->factory()->createFromFile($file)) {
-          $this->addSubject($subject);
-        }
+  /**
+   * {@inheritDoc}
+   */
+  public function get($id) {
+    if (!$this->has($id)) {
+      if (!$subject = $this->factory()->create($id)) {
+        return FALSE;
       }
+      $this->add($subject);
     }
+    return $this->subjects()[$id];
   }
 
-  public function get($subject_id) {
-    if (array_key_exists($subject_id, $this->subjects())) {
-      return $this->subjects()[$subject_id];
+  /**
+   * Add (or replace) the given model.
+   *
+   * @param \Tozart\Subject\SubjectInterface $subject
+   *   A model instance.
+   * @param bool $replace
+   *   Whether an existing model should be replaced.
+   */
+  protected function add(SubjectInterface $subject, $replace = TRUE) {
+    if ($replace || !$this->has($subject->getId())) {
+      $this->_subjects[$subject->getId()] = $subject;
     }
-    return NULL;
   }
 
 }
