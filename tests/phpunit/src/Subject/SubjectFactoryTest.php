@@ -52,16 +52,16 @@ class SubjectFactoryTest extends TozartTestCase {
   /**
    * Test that a given type creates a model of the expected class.
    *
-   * @param array $specification
-   *   Subject specification array.
+   * @param string $id
+   *   The subject ID.
+   * @param string $expected_class
+   *   The expected class name.
    *
    * @dataProvider subjectSpecificationProvider
    */
-  public function testCreateSubject(array $specification) {
-    $subject = $this->getSubjectFactory()->create($specification);
-    $model = $this->modelManager()
-      ->get($specification['type']);
-    $this->assertInstanceOf($model->getSubjectClass(), $subject);
+  public function testCreateSubject($id, $expected_class) {
+    $subject = $this->getSubjectFactory()->create($id);
+    $this->assertInstanceOf($expected_class, $subject);
   }
 
   /**
@@ -76,7 +76,10 @@ class SubjectFactoryTest extends TozartTestCase {
     foreach ($this->subjectDiscovery()->discover() as $dir => $files) {
       foreach ($files as $filename => $file) {
         /** @var \Tozart\os\File $file */
-        yield [$file->parse()];
+        $specification = $file->parse();
+        $model = $this->modelManager()
+          ->get($specification['type']);
+        yield [$specification['id'], $model->getSubjectClass()];
       }
     }
   }
