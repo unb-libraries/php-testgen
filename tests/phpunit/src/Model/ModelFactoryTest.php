@@ -2,6 +2,7 @@
 
 namespace Tozart\Test\Model;
 
+use Tozart\Model\ModelInterface;
 use Tozart\Test\TozartTestCase;
 use Tozart\Tozart;
 
@@ -71,20 +72,11 @@ class ModelFactoryTest extends TozartTestCase {
     foreach ($discoveries as $dir => $files) {
       foreach ($files as $file_path => $file) {
         $model_specification = $file->parse();
-        if (!array_key_exists($model_specification['type'], $types)) {
-          $types[$model_specification['type']] = $model_specification['class'];
-          yield [
-            $model_specification['type'],
-            $model_specification['class'],
-          ];
-
-        }
-        else {
-          yield [
-            $model_specification['type'],
-            $types[$model_specification['type']],
-          ];
-        }
+        $types[] = $model_specification['type'];
+        yield [
+          $model_specification['type'],
+          ModelInterface::class
+        ];
       }
     }
     yield [
