@@ -4,6 +4,7 @@ namespace Tozart\Subject;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Tozart\Discovery\FactoryInterface;
 use Tozart\os\DependencyInjection\FileSystemTrait;
 use Tozart\os\Directory;
 
@@ -15,6 +16,11 @@ class SubjectManager {
 
   protected $_subjectRoots = [];
 
+  /**
+   * The subject factory.
+   *
+   * @var \Tozart\Discovery\FactoryInterface
+   */
   protected $_factory;
 
   public function subjects() {
@@ -35,6 +41,12 @@ class SubjectManager {
     return $this->_subjectRoots;
   }
 
+  /**
+   * The subject factory.
+   *
+   * @return \Tozart\Discovery\FactoryInterface
+   *   A subject factory instance.
+   */
   protected function factory() {
     return $this->_factory;
   }

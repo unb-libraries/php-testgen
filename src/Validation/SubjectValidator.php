@@ -15,7 +15,7 @@ class SubjectValidator extends SpecificationValidator {
   /**
    * The model factory.
    *
-   * @var \Tozart\Model\ModelFactoryInterface
+   * @var \Tozart\Discovery\FactoryInterface
    */
   protected $_modelFactory;
 

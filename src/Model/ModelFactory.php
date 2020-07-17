@@ -3,13 +3,14 @@
 namespace Tozart\Model;
 
 use Tozart\Discovery\DiscoveryInterface;
+use Tozart\Discovery\FactoryInterface;
 
 /**
  * Factory for creating model instances.
  *
  * @package Tozart\Model
  */
-class ModelFactory implements ModelFactoryInterface {
+class ModelFactory implements FactoryInterface {
 
   /**
    * A discovery service instance.

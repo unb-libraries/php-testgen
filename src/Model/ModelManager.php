@@ -3,6 +3,7 @@
 namespace Tozart\Model;
 
 use Tozart\Discovery\DiscoveryInterface;
+use Tozart\Discovery\FactoryInterface;
 
 /**
  * Class to maintain model instances.
@@ -28,7 +29,7 @@ class ModelManager implements ModelManagerInterface {
   /**
    * The model factory service.
    *
-   * @var \Tozart\Model\ModelFactoryInterface
+   * @var \Tozart\Discovery\FactoryInterface
    */
   protected $_factory;
 
@@ -52,7 +53,7 @@ class ModelManager implements ModelManagerInterface {
   /**
    * Retrieve the model factory service.
    *
-   * @return \Tozart\Model\ModelFactoryInterface
+   * @return \Tozart\Discovery\FactoryInterface
    *   A model factory instance.
    */
   protected function factory() {
@@ -62,12 +63,12 @@ class ModelManager implements ModelManagerInterface {
   /**
    * Create a new model manager instance.
    *
-   * @param \Tozart\Model\ModelFactoryInterface $factory
+   * @param \Tozart\Discovery\FactoryInterface $factory
    *   The model factory service.
    * @param \Tozart\Discovery\DiscoveryInterface $discovery
    *   The model discovery service.
    */
-  public function __construct(ModelFactoryInterface $factory, DiscoveryInterface $discovery) {
+  public function __construct(FactoryInterface $factory, DiscoveryInterface $discovery) {
     $this->_factory = $factory;
     $this->_discovery = $discovery;
     $this->loadModels();

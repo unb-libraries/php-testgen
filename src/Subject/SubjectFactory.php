@@ -2,6 +2,7 @@
 
 namespace Tozart\Subject;
 
+use Tozart\Discovery\FactoryInterface;
 use Tozart\Model\ModelManagerInterface;
 
 /**
@@ -9,7 +10,7 @@ use Tozart\Model\ModelManagerInterface;
  *
  * @package Tozart\model
  */
-class SubjectFactory implements SubjectFactoryInterface {
+class SubjectFactory implements FactoryInterface {
 
   /**
    * The model manager.

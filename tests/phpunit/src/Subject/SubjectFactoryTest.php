@@ -18,7 +18,7 @@ class SubjectFactoryTest extends TozartTestCase {
   /**
    * Retrieve the subject factory.
    *
-   * @return \Tozart\Subject\SubjectFactoryInterface
+   * @return \Tozart\Discovery\FactoryInterface
    *   A subject factory instance.
    */
   protected function getSubjectFactory() {
