@@ -29,27 +29,22 @@ class TwigPrinter extends Printer {
   }
 
   /**
-   * Create a new RenderEngine based on Twig.
-   *
-   * @param string $path_to_template_dir
-   *   The path to the template directory.
+   * {@inheritDoc}
    */
-  public function __construct($path_to_template_dir) {
-    $loader = new FilesystemLoader($path_to_template_dir);
+  protected function init() {
+    $paths = [];
+    foreach ($this->templateDiscovery()->directoryStack() as $directory) {
+      $paths[] = $directory->systemPath();
+    }
+
+    $loader = new FilesystemLoader($paths);
     $this->environment = new Environment($loader);
   }
 
   /**
    * {@inheritDoc}
    */
-  public function templateFileExtension() {
-    return 'twig';
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function render(File $template, array $context) {
+  protected function doRender(File $template, array $context) {
     try {
       $content = $this->getEnvironment()
         ->render($template->name(), $context);
