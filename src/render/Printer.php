@@ -80,6 +80,7 @@ abstract class Printer implements RendererInterface {
    *   matches the criteria.
    */
   protected function getTemplate(SubjectInterface $subject) {
+    return $this->templateDiscovery()->findBy($subject);
   }
 
   /**

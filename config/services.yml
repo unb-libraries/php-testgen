@@ -5,20 +5,24 @@ parameters:
 services:
   # File system
   file_system.parse.yaml:
-    class: '\Tozart\os\parse\YamlParser'
+    class: 'Tozart\os\parse\YamlParser'
   file_system.file_type.yaml:
-    class: '\Tozart\os\FileType'
+    class: 'Tozart\os\FileType'
     arguments:
       - YAML
       - [yml, yaml]
       - '@file_system.parse.yaml'
     public: FALSE
-  file_system:
-    class: '\Tozart\os\FileSystem'
+  file_system.file_type.twig:
+    class: 'Tozart\os\FileType'
     arguments:
-  file_system.parse.manager:
-    class: '\Tozart\os\parse\FileParserManager'
-      - ['@file_system.file_type.yaml']
+      - TWIG
+      - [twig]
+    public: FALSE
+  file_system:
+    class: 'Tozart\os\FileSystem'
+    arguments:
+      - ['@file_system.file_type.yaml', '@file_system.file_type.twig']
 
   # Models
   model.discovery:
@@ -31,7 +35,7 @@ services:
     arguments:
       - '@model.discovery'
   model.manager:
-    class: '\Tozart\Model\ModelManager'
+    class: 'Tozart\Model\ModelManager'
     arguments:
       - '@model.factory'
 
@@ -50,11 +54,14 @@ services:
     class: 'Tozart\Subject\SubjectManager'
     arguments:
       - '@subject.factory'
-  template_locator:
-    class: '\Tozart\render\TemplateLocator'
+
+  # Templates
+  printer.template_discovery:
+    class: 'Tozart\Discovery\TemplateDiscovery'
     arguments:
       - ['%template_root%']
-      - ['@id.@type.feature', '@type.feature']
+      - '@file_system.file_type.twig'
   printer:
-    class: '\Tozart\render\TwigPrinter'
-    arguments: ['%template_root%']
+    class: 'Tozart\render\TwigPrinter'
+    arguments:
+      - 'printer.template_discovery'

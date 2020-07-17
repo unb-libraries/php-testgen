@@ -52,4 +52,12 @@ interface SubjectInterface {
    */
   public function getProperties();
 
+  /**
+   * Array of search patterns which template file names must match in order to be chosen to render this subject.
+   *
+   * @return array
+   *   An array of regular expressions.
+   */
+  public function getTemplateDiscoveryPatterns();
+
 }
