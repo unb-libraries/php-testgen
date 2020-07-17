@@ -71,13 +71,13 @@ abstract class DiscoveryTestCase extends TozartTestCase {
    */
   public function testFind(array $filters, array $files) {
     foreach ($filters as $filter) {
-      $this->discovery()->stackFilter($filter);
+      $this->discovery()->addFilter($filter);
     }
 
     // If no filters provided, expect to discover every file in every source folder.
     if (empty($filters)) {
       $files = [];
-      foreach ($this->discovery()->sourceStack() as $source_dir) {
+      foreach ($this->discovery()->directoryStack() as $source_dir) {
         $files = array_merge($files, $source_dir->files());
       }
     }

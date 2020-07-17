@@ -20,7 +20,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    *
    * @var \Tozart\os\Directory[]
    */
-  protected $_sourceStack = [];
+  protected $_directoryStack = [];
 
   /**
    * Stack of directory filters.
@@ -30,20 +30,14 @@ abstract class DiscoveryBase implements DiscoveryInterface {
   protected $_filterStack = [];
 
   /**
-   * Retrieve the stack of directory roots in which to search for files.
-   *
-   * @return \Tozart\os\Directory[]
-   *   An array of directories.
+   * {@inheritDoc}
    */
-  public function sourceStack() {
-    return array_reverse($this->_sourceStack, TRUE);
+  public function directoryStack() {
+    return array_reverse($this->_directoryStack, TRUE);
   }
 
   /**
-   * Retrieve the stack of directory filters.
-   *
-   * @return \Tozart\Discovery\Filter\DirectoryFilterInterface[]
-   *   An array of directory filter instances.
+   * {@inheritDoc}
    */
   public function filterStack() {
     return array_reverse($this->_filterStack);
@@ -58,8 +52,8 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    *   Array of directory filters.
    */
   public function __construct(array $directories, array $filters = []) {
-    $this->stackSourceRoots($directories);
-    $this->stackFilters($filters);
+    $this->addDirectories($directories);
+    $this->addFilters($filters);
   }
 
   /**
@@ -68,9 +62,9 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    * @param array $directories
    *   An array of directory roots. The first element will be added last.
    */
-  public function stackSourceRoots($directories) {
+  public function addDirectories($directories) {
     foreach (array_reverse($directories) as $directory) {
-      $this->stackSourceRoot($directory);
+      $this->addDirectory($directory);
     }
   }
 
@@ -80,11 +74,11 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    * @param \Tozart\os\Directory|string $directory
    *   A directory or path.
    */
-  public function stackSourceRoot($directory) {
+  public function addDirectory($directory) {
     if (is_string($directory)) {
       $directory = $this->fileSystem()->dir($directory);
     }
-    $this->_sourceStack[] = $directory;
+    $this->_directoryStack[] = $directory;
   }
 
   /**
@@ -93,15 +87,15 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    * @return \Tozart\os\Directory
    *   A directory instance.
    */
-  public function popSourceRoot() {
-    return array_pop($this->_sourceStack);
+  public function popDirectory() {
+    return array_pop($this->_directoryStack);
   }
 
   /**
    * Remove all directory roots from the stack.
    */
-  public function clearSourceRoots() {
-    $this->_sourceStack = [];
+  public function clearDirectories() {
+    $this->_directoryStack = [];
   }
 
   /**
@@ -110,9 +104,9 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    * @param array $filters
    *   An array of directory filters. The first element will be added last.
    */
-  public function stackFilters(array $filters) {
+  public function addFilters(array $filters) {
     foreach (array_reverse($filters) as $filter) {
-      $this->stackFilter($filter);
+      $this->addFilter($filter);
     }
   }
 
@@ -122,7 +116,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    * @param \Tozart\Discovery\Filter\DirectoryFilterInterface $filter
    *   A directory filter instance.
    */
-  public function stackFilter(DirectoryFilterInterface $filter) {
+  public function addFilter(DirectoryFilterInterface $filter) {
     $this->_filterStack[] = $filter;
   }
 
@@ -168,7 +162,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    */
   public function discover() {
     $files = [];
-    foreach ($this->sourceStack() as $priority => $directory) {
+    foreach ($this->directoryStack() as $priority => $directory) {
       if (!empty($matches = $this->findIn($directory))) {
         $files[$directory->systemPath()] = array_map(function ($match) {
           return $match['file'];

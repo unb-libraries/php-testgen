@@ -34,7 +34,7 @@ class SubjectFactoryTest extends TozartTestCase {
   protected function subjectDiscovery() {
     if (!isset($this->_subjectDiscovery)) {
       $this->_subjectDiscovery = Tozart::subjectDiscovery();
-      $this->_subjectDiscovery->stackSourceRoot($this->subjectRoot());
+      $this->_subjectDiscovery->addDirectory($this->subjectRoot());
     }
     return $this->_subjectDiscovery;
   }
