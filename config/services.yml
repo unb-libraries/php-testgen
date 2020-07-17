@@ -34,7 +34,6 @@ services:
     class: '\Tozart\Model\ModelManager'
     arguments:
       - '@model.factory'
-      - '@model.discovery'
 
   # Subjects
   subject.discovery:

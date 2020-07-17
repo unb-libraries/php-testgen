@@ -2,7 +2,6 @@
 
 namespace Tozart\Model;
 
-use Tozart\Discovery\DiscoveryInterface;
 use Tozart\Discovery\FactoryInterface;
 
 /**
@@ -20,13 +19,6 @@ class ModelManager implements ModelManagerInterface {
   protected $_models = [];
 
   /**
-   * The model discovery service.
-   *
-   * @var \Tozart\Discovery\DiscoveryInterface
-   */
-  protected $_discovery;
-
-  /**
    * The model factory service.
    *
    * @var \Tozart\Discovery\FactoryInterface
@@ -38,16 +30,6 @@ class ModelManager implements ModelManagerInterface {
    */
   public function models() {
     return $this->_models;
-  }
-
-  /**
-   * Retrieve the model discovery service.
-   *
-   * @return \Tozart\Discovery\DiscoveryInterface
-   *   A discovery instance.
-   */
-  protected function discovery() {
-    return $this->_discovery;
   }
 
   /**
@@ -65,38 +47,22 @@ class ModelManager implements ModelManagerInterface {
    *
    * @param \Tozart\Discovery\FactoryInterface $factory
    *   The model factory service.
-   * @param \Tozart\Discovery\DiscoveryInterface $discovery
-   *   The model discovery service.
    */
-  public function __construct(FactoryInterface $factory, DiscoveryInterface $discovery) {
+  public function __construct(FactoryInterface $factory) {
     $this->_factory = $factory;
-    $this->_discovery = $discovery;
-    $this->loadModels();
-  }
-
-  /**
-   * Populate the collection of models.
-   */
-  protected function loadModels() {
-    foreach ($this->discovery()->discover() as $dir => $files) {
-      foreach ($files as $filename => $file) {
-        /** @var \Tozart\os\File $file */
-        $specification = $file->parse();
-        if ($model = $this->factory()->create($specification['type'])) {
-          $this->add($model, FALSE);
-        }
-      }
-    }
   }
 
   /**
    * {@inheritDoc}
    */
   public function get($type) {
-    if ($this->has($type)) {
-      return $this->models()[$type];
+    if (!$this->has($type)) {
+      if (!$model = $this->factory()->create($type)) {
+        return FALSE;
+      }
+      $this->add($model);
     }
-    return FALSE;
+    return $this->models()[$type];
   }
 
   /**
