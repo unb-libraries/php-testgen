@@ -2,7 +2,8 @@
 
 namespace Tozart\Subject;
 
-use Tozart\Discovery\FactoryInterface;
+use Tozart\Discovery\DiscoveryInterface;
+use Tozart\Discovery\FactoryBase;
 use Tozart\Model\ModelManagerInterface;
 
 /**
@@ -10,7 +11,7 @@ use Tozart\Model\ModelManagerInterface;
  *
  * @package Tozart\model
  */
-class SubjectFactory implements FactoryInterface {
+class SubjectFactory extends FactoryBase {
 
   /**
    * The model manager.
@@ -32,16 +33,20 @@ class SubjectFactory implements FactoryInterface {
   /**
    * Create a new subject factory instance.
    *
+   * @param \Tozart\Discovery\DiscoveryInterface $discovery
+   *   A discovery service instance.
    * @param \Tozart\Model\ModelManagerInterface $model_manager
+   *   A model manager service instance.
    */
-  public function __construct(ModelManagerInterface $model_manager) {
+  public function __construct(DiscoveryInterface $discovery, ModelManagerInterface $model_manager) {
+    parent::__construct($discovery);
     $this->_modelManager = $model_manager;
   }
 
   /**
    * {@inheritDoc}
    */
-  public function create(array $specification) {
+  protected function doCreate($specification) {
     if ($model = $this->modelManager()->get($specification['type'])) {
       $class = $model->getSubjectClass();
       $specification += $model->getOptions();

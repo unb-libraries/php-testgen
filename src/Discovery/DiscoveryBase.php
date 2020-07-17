@@ -164,11 +164,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
   }
 
   /**
-   * Locate files in any of the source roots that match the filter criteria.
-   *
-   * @return array
-   *   An array of located filenames, grouped by the directory
-   *   in which they were found.
+   * {@inheritDoc}
    */
   public function discover() {
     $files = [];
