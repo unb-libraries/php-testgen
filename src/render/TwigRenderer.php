@@ -11,7 +11,7 @@ use Twig\Loader\FilesystemLoader;
  *
  * @package Tozart\render
  */
-class TwigPrinter extends Printer {
+class TwigRenderer extends RendererBase {
 
   /**
    * The Twig environment.

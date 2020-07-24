@@ -11,7 +11,7 @@ use Tozart\Subject\SubjectInterface;
  *
  * @package Tozart\render
  */
-abstract class Printer implements RendererInterface {
+abstract class RendererBase implements RendererInterface {
 
   /**
    * The template discovery.
