@@ -56,12 +56,10 @@ services:
       - '@subject.factory'
 
   # Templates
-  printer.template_discovery:
+  render.template_discovery:
     class: 'Tozart\Discovery\TemplateDiscovery'
     arguments:
       - ['%template_root%']
       - '@file_system.file_type.twig'
-  printer:
-    class: 'Tozart\render\TwigPrinter'
-    arguments:
-      - 'printer.template_discovery'
+  render.renderer:
+    class: 'Tozart\render\TwigRenderer'

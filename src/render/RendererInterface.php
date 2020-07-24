@@ -10,14 +10,14 @@ namespace Tozart\render;
 interface RendererInterface {
 
   /**
-   * Render the given subject.
+   * Render the given context.
    *
-   * @param \Tozart\Subject\SubjectInterface $subject
-   *   The subject to render.
+   * @param \Tozart\render\RenderContextInterface $context
+   *   The render context.
    *
    * @return string
    *   The generated content.
    */
-  public function render($subject);
+  public function render(RenderContextInterface $context);
 
 }
