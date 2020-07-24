@@ -5,6 +5,7 @@ namespace Tozart;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Tozart\render\RenderContext;
 
 /**
  * Where it all begins.
@@ -215,43 +216,43 @@ final class Tozart {
    * @param mixed $dir
    *   The output directory or path.
    */
-  public function write($dir) {
+  public function generate($dir) {
     if (is_string($dir)) {
       $dir = $this->fileSystem()->dir($dir);
     }
-    $this->templateLocator()->setFileExtension(
-      $this->printer()->templateFileExtension());
     foreach ($this->subjectManager()->subjects() as $subject_id => $subject) {
-      $template = $this->templateLocator()->getTemplate($subject);
-      $test_case = $dir->put($template->name());
-      $content = $this->printer()
-        ->render($template, $subject->getProperties());
-      $test_case->setContent($content);
+      $template = $this->templateDiscovery()->findBy($subject);
+      // TODO: Outsource creation of render context into a separate component.
+      $context = new RenderContext($subject->getProperties(), $template);
+      if ($content = $this->renderer()->render($context)) {
+        $test_case = $dir->put($template->name());
+        $test_case->setContent($content);
+      }
     }
   }
 
   /**
    * The template locator service.
    *
-   * @return \Tozart\render\TemplateDiscovery
+   * @return \Tozart\Discovery\DiscoveryInterface
    *   A template locator service instance.
    */
-  public static function templateLocator() {
-    /** @var \Tozart\render\TemplateDiscovery $template_locator */
-    $template_locator = static::container()->get('template_locator');
-    return $template_locator;
+  public static function templateDiscovery() {
+    /** @var \Tozart\Discovery\DiscoveryInterface $template_discovery */
+    $template_discovery = static::container()->get('render.template_discovery');
+    return $template_discovery;
   }
 
   /**
    * The printer service.
    *
-   * @return \Tozart\render\Printer
-   *   A printer service instance.
+   * @return \Tozart\render\RendererInterface
+   *   A renderer service instance.
    */
-  public static function printer() {
-    /** @var \Tozart\render\Printer $printer */
-    $printer = static::container()->get('printer');
-    return $printer;
+  public static function renderer() {
+    /** @var \Tozart\render\RendererInterface $renderer */
+    $renderer = static::container()->get('render.renderer');
+    return $renderer;
   }
 
 }

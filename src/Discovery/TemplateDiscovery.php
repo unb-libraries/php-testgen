@@ -40,7 +40,7 @@ class TemplateDiscovery extends DiscoveryBase {
         /** @var \Tozart\os\File $file */
         foreach ($subject->getTemplateDiscoveryPatterns() as $pattern) {
           if (preg_match($pattern, $file_path)) {
-            return $file->content();
+            return $file;
           }
         }
       }
