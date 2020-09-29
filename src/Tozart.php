@@ -130,6 +130,17 @@ final class Tozart {
   }
 
   /**
+   * The project root directory.
+   *
+   * @return \Tozart\os\Directory
+   *   A directory object.
+   */
+  public function root() {
+    $root_path = $this->container()->getParameter('TOZART_ROOT');
+    return $this->fileSystem()->dir($root_path);
+  }
+
+  /**
    * The model root directory.
    *
    * @return \Tozart\os\Directory
