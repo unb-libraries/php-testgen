@@ -12,73 +12,37 @@ use Tozart\os\File;
 class FileNamePatternFilter implements DirectoryFilterInterface {
 
   /**
-   * An array of patterns, i.e. regular expressions.
+   * A regular regular expressions describing a filename pattern.
    *
-   * @var array
+   * @var string
    */
-  protected $_patternStack = [];
+  protected $_pattern;
 
   /**
-   * Retrieve the stack of patterns.
+   * Retrieve the filename pattern.
    *
-   * @return array
-   *   An array of strings.
+   * @return string
+   *   A regular expression string.
    */
-  protected function patternStack() {
-    return array_reverse($this->_patternStack, TRUE);
+  public function getPattern() {
+    return $this->_pattern;
   }
 
   /**
    * Create a new FileNamePatternFilter instance.
    *
-   * @param array $patterns
-   *   An array of regular expressions. The pattern with
-   *   the highest priority should be the first element
-   *   in the array.
-   */
-  public function __construct(array $patterns) {
-    foreach (array_reverse($patterns) as $pattern) {
-      $this->stackPattern($pattern);
-    }
-  }
-
-  /**
-   * Add the given pattern to the stack.
-   *
    * @param string $pattern
    *   A regular expression string.
    */
-  public function stackPattern($pattern) {
-    $this->_patternStack[] = $pattern;
-  }
-
-  /**
-   * Pop the first pattern from the stack.
-   *
-   * @return string
-   *   A regular expression string.
-   */
-  public function popPattern() {
-    return array_pop($this->_patternStack);
-  }
-
-  /**
-   * Remove all patterns from the stack.
-   */
-  public function clearPatterns() {
-    $this->_patternStack = [];
+  public function __construct($pattern) {
+    $this->_pattern = $pattern;
   }
 
   /**
    * {@inheritDoc}
    */
   public function match(File $file) {
-    foreach ($this->patternStack() as $priority => $pattern) {
-      if (preg_match($pattern, $file->name())) {
-        return ($priority + 1) / count($this->patternStack());
-      }
-    }
-    return 0;
+    return preg_match($this->getPattern(), $file->name());
   }
 
 }

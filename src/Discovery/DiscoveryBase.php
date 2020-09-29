@@ -145,14 +145,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    */
   public function get() {
     if (!empty($files = $this->discover())) {
-      $most_important_directory_path = array_keys($files)[0];
-      $most_important_directory_content = $files[$most_important_directory_path];
-      asort($most_important_directory_content);
-      $best_match = array_keys($most_important_directory_content)[0];
-
-      return $this->fileSystem()
-        ->dir($most_important_directory_path)
-        ->find($best_match);
+      return $files[array_keys($files)[0]];
     }
     return NULL;
   }
@@ -163,11 +156,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
   public function discover() {
     $files = [];
     foreach ($this->directoryStack() as $directory) {
-      foreach ($this->findIn($directory) as $match) {
-        /** @var \Tozart\os\File $file */
-        $file = $match['file'];
-        $files[$file->path()] = $file;
-      }
+      $files += $this->findIn($directory);
     }
     return $files;
   }
@@ -187,21 +176,14 @@ abstract class DiscoveryBase implements DiscoveryInterface {
   protected function findIn(Directory $directory) {
     $matches = [];
     foreach ($directory->files() as $file) {
-      $score = 1.0;
+      $passed = TRUE;
       foreach ($this->filterStack() as $filter) {
-        $score *= $filter->match($file);
+        $passed = $passed && $filter->match($file);
       }
-      if ($score > 0) {
-        $matches[$file->path()] = [
-          'file' => $file,
-          // TODO: Remove calculating a score. No longer needed.
-          'score' => intval($score * 100),
-        ];
+      if ($passed) {
+        $matches[$file->path()] = $file;
       }
     }
-    uasort($matches, function ($m1, $m2) {
-      return $m1['score'] - $m2['score'];
-    });
     return $matches;
   }
 

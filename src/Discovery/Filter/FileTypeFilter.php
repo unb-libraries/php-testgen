@@ -22,7 +22,7 @@ class FileTypeFilter extends FileNamePatternFilter {
    */
   public function __construct(FileType $file_type) {
     $this->_fileType = $file_type;
-    parent::__construct([$this->buildPattern()]);
+    parent::__construct($this->buildPattern());
   }
 
   protected function buildPattern() {

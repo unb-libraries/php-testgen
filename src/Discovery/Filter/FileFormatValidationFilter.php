@@ -20,12 +20,11 @@ class FileFormatValidationFilter extends FileTypeFilter {
   }
 
   public function match(File $file) {
-    if ($score = parent::match($file) > 0) {
-      $validation_errors = $this->validator()
-        ->validate($file);
-      $score *= intval(empty($validation_errors));
+    if ($pass = parent::evaluate($file)) {
+      $pass = empty($validation_errors = $this->validator()
+        ->validate($file));
     }
-    return $score;
+    return $pass;
   }
 
 }
