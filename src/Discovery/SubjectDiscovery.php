@@ -30,13 +30,11 @@ class SubjectDiscovery extends DiscoveryBase {
    * {@inheritDoc}
    */
   public function findBy($key) {
-    foreach ($this->discover() as $dir => $files) {
-      foreach ($files as $file_path => $file) {
-        /** @var \Tozart\os\File $file */
-        $subject_specification = $file->parse();
-        if ($subject_specification['id'] === $key) {
-          return $subject_specification;
-        }
+    foreach ($this->discover() as $file_path => $file) {
+      /** @var \Tozart\os\File $file */
+      $subject_specification = $file->parse();
+      if ($subject_specification['id'] === $key) {
+        return $subject_specification;
       }
     }
     return FALSE;

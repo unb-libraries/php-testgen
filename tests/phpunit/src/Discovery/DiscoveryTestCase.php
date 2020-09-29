@@ -3,6 +3,7 @@
 namespace Tozart\Test\Discovery;
 
 use Tozart\Discovery\DiscoveryBase;
+use Tozart\os\File;
 use Tozart\Test\TozartTestCase;
 
 /**
@@ -44,7 +45,7 @@ abstract class DiscoveryTestCase extends TozartTestCase {
   /**
    * Retrieve the directories on which to test the discovery implementation.
    *
-   * @return array
+   * @return \Tozart\os\Directory[]
    *   Array of directories.
    */
   abstract protected function discoveryRoots();
@@ -78,20 +79,14 @@ abstract class DiscoveryTestCase extends TozartTestCase {
     if (empty($filters)) {
       $files = [];
       foreach ($this->discovery()->directoryStack() as $source_dir) {
-        $files = array_merge($files, $source_dir->files());
+        $files = array_merge($files, array_map(function (File $file) {
+          return $file->path();
+        }, $source_dir->files()));
       }
     }
 
-    $count = 0;
-    $finds = $this->discovery()->discover();
-    foreach ($finds as $dir_path => $discovered_files) {
-      foreach (array_keys($discovered_files) as $file_path) {
-        // TODO: Also assert discovery "score".
-        $this->assertContains($file_path, $files);
-        $count++;
-      }
-    }
-    $this->assertEquals(count($files), $count);
+    $discoveries = array_keys($this->discovery()->discover());
+    $this->assertEquals(sort($files, SORT_STRING), sort($discoveries, SORT_STRING));
   }
 
   /**

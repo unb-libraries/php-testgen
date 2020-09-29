@@ -162,14 +162,13 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    */
   public function discover() {
     $files = [];
-    foreach ($this->directoryStack() as $priority => $directory) {
-      if (!empty($matches = $this->findIn($directory))) {
-        $files[$directory->systemPath()] = array_map(function ($match) {
-          return $match['file'];
-        }, $matches);
+    foreach ($this->directoryStack() as $directory) {
+      foreach ($this->findIn($directory) as $match) {
+        /** @var \Tozart\os\File $file */
+        $file = $match['file'];
+        $files[$file->path()] = $file;
       }
     }
-    ksort($files, SORT_NUMERIC);
     return $files;
   }
 
@@ -195,6 +194,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
       if ($score > 0) {
         $matches[$file->path()] = [
           'file' => $file,
+          // TODO: Remove calculating a score. No longer needed.
           'score' => intval($score * 100),
         ];
       }

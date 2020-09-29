@@ -33,13 +33,11 @@ class ModelDiscovery extends DiscoveryBase {
    * {@inheritDoc}
    */
   public function findBy($key) {
-    foreach ($this->discover() as $dir => $files) {
-      foreach ($files as $file_path => $file) {
-        /** @var \Tozart\os\File $file */
-        $model_specification = $file->parse();
-        if ($model_specification['type'] === $key) {
-          return $model_specification;
-        }
+    foreach ($this->discover() as $file_path => $file) {
+      /** @var \Tozart\os\File $file */
+      $model_specification = $file->parse();
+      if ($model_specification['type'] === $key) {
+        return $model_specification;
       }
     }
     return FALSE;
