@@ -5,13 +5,13 @@ namespace Tozart\Model;
 class Model implements ModelInterface {
 
   protected $type;
-  protected $modelClass;
+  protected $subjectClass;
   protected $requirements;
   protected $options;
 
   public function __construct(array $model_description) {
     $this->type = $model_description['type'];
-    $this->modelClass = $model_description['class'];
+    $this->subjectClass = $model_description['class'];
     $this->requirements = array_key_exists('requirements', $model_description)
       ? $model_description['requirements']
       : [];
@@ -35,7 +35,7 @@ class Model implements ModelInterface {
    * {@inheritDoc}
    */
   public function getSubjectClass() {
-    return $this->modelClass;
+    return $this->subjectClass;
   }
 
   /**
