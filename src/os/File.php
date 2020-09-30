@@ -33,7 +33,7 @@ class File {
   /**
    * The type of the file.
    *
-   * @var \Tozart\os\FileType
+   * @var \Tozart\os\FileTypeInterface
    */
   protected $type;
 
@@ -103,14 +103,14 @@ class File {
    *   The parsed content.
    */
   public function parse() {
-    $parser = $this->type()->parser();
+    $parser = $this->type()->getParser();
     return $parser->parse($this);
   }
 
   /**
    * Retrieve the file's type.
    *
-   * @return \Tozart\os\FileType
+   * @return \Tozart\os\FileTypeInterface
    *   A file type object.
    */
   public function type() {

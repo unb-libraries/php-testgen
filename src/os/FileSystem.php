@@ -12,14 +12,14 @@ class FileSystem {
   /**
    * An array of file types known to the file system.
    *
-   * @var \Tozart\os\FileType[]
+   * @var \Tozart\os\FileTypeInterface[]
    */
   protected $_fileTypes = [];
 
   /**
    * Retrieve all file types known to the file system.
    *
-   * @return \Tozart\os\FileType[]
+   * @return \Tozart\os\FileTypeInterface[]
    *   An array of file type objects.
    */
   public function fileTypes() {
@@ -29,17 +29,17 @@ class FileSystem {
   /**
    * Add the given file type.
    *
-   * @param \Tozart\os\FileType $file_type
+   * @param \Tozart\os\FileTypeInterface $file_type
    *   A file type object.
    */
-  public function addFileType(FileType $file_type) {
-    $this->_fileTypes[strtolower($file_type->name())] = $file_type;
+  public function addFileType(FileTypeInterface $file_type) {
+    $this->_fileTypes[strtolower($file_type->getName())] = $file_type;
   }
 
   /**
    * Create a new FileSystem instance.
    *
-   * @param \Tozart\os\FileType[] $file_types
+   * @param \Tozart\os\FileTypeInterface[] $file_types
    *   An array of supported file types.
    */
   public function __construct(array $file_types) {
@@ -54,18 +54,18 @@ class FileSystem {
    * @param string $name_or_extension
    *   A file type name or extension.
    *
-   * @return \Tozart\os\FileType|null
+   * @return \Tozart\os\FileTypeInterface|null
    *   A file type object. NULL if no file type
    *   could be found for the given parameters.
    */
-  public function getFileType($name_or_extension) {
+  public function getFileType(string $name_or_extension) {
     $name_or_extension = strtolower($name_or_extension);
     if (array_key_exists($name_or_extension, $this->fileTypes())) {
       return $this->fileTypes()[$name_or_extension];
     }
     else {
       foreach ($this->fileTypes() as $file_type) {
-        if (in_array($name_or_extension, $file_type->extensions())) {
+        if (in_array($name_or_extension, $file_type->getExtensions())) {
           return $file_type;
         }
       }

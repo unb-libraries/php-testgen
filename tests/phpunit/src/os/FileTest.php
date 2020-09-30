@@ -41,8 +41,8 @@ class FileTest extends FileSystemTestCase {
   public function testFileType() {
     $this->fileSystem()->addFileType(new FileType('txt', ['txt']));
     $file = $this->fileSystem()->file('test.txt', $this->directory());
-    $this->assertEquals('txt', $file->type()->name());
-    $this->assertContains('txt', $file->type()->extensions());
+    $this->assertEquals('txt', $file->type()->getName());
+    $this->assertContains('txt', $file->type()->getExtensions());
   }
 
   /*/**

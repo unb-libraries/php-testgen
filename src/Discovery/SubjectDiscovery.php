@@ -3,6 +3,7 @@
 namespace Tozart\Discovery;
 
 use Tozart\Discovery\Filter\SubjectValidationFilter;
+use Tozart\os\FileTypeInterface;
 
 /**
  * Discovery of subject specifications.
@@ -16,11 +17,11 @@ class SubjectDiscovery extends DiscoveryBase {
    *
    * @param array $directories
    *   An array of directories or paths.
-   * @param \Tozart\os\FileType $file_type
+   * @param \Tozart\os\FileTypeInterface $file_type
    *   A file type indicating the format which
    *   subjects should be declared in.
    */
-  public function __construct(array $directories, $file_type) {
+  public function __construct(array $directories, FileTypeInterface $file_type) {
     parent::__construct($directories, [
       new SubjectValidationFilter($file_type),
     ]);

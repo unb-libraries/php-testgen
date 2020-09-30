@@ -2,12 +2,14 @@
 
 namespace Tozart\os;
 
+use Tozart\os\parse\FileParserInterface;
+
 /**
  * Describes features of file types.
  *
  * @package Tozart\os
  */
-class FileType {
+class FileType implements FileTypeInterface {
 
   /**
    * The name of the file type.
@@ -31,12 +33,9 @@ class FileType {
   protected $_parser;
 
   /**
-   * Retrieve the name of the file type.
-   *
-   * @return string
-   *   A string.
+   * {@inheritDoc}
    */
-  public function name() {
+  public function getName() {
     return $this->_name;
   }
 
@@ -51,22 +50,16 @@ class FileType {
   }
 
   /**
-   * Retrieve the parser that processes files of this type.
-   *
-   * @return \Tozart\os\parse\FileParserInterface
-   *   A file parser object.
+   * {@inheritDoc}
    */
-  public function parser() {
+  public function getParser() {
     return $this->_parser;
   }
 
   /**
-   * Retrieve a list of file extensions that are associated with this type.
-   *
-   * @return array
-   *   An array of strings.
+   * {@inheritDoc}
    */
-  public function extensions() {
+  public function getExtensions() {
     return $this->_extensions;
   }
 
@@ -89,39 +82,29 @@ class FileType {
    *   A string.
    * @param array $extensions
    *   An array of file extension strings.
-   * @param \Tozart\os\parse\FileParserInterface $parser
+   * @param \Tozart\os\parse\FileParserInterface|null $parser
    *   (optional) A file parser instance.
    */
-  public function __construct($name, array $extensions, $parser = NULL) {
+  public function __construct(string $name, array $extensions, FileParserInterface $parser = NULL) {
     $this->_name = strtolower($name);
     $this->setExtensions($extensions);
     $this->_parser = $parser;
   }
 
   /**
-   * Whether files of this type contain structured data that can be parsed.
-   *
-   * @return bool
-   *   TRUE if a parser exists that can process files of this type.
-   *   FALSE otherwise.
+   * {@inheritDoc}
    */
   public function isStructured() {
-    return !is_null($this->parser());
+    return !is_null($this->getParser());
   }
 
   /**
-   * Whether the given file type is equivalent to this one.
-   *
-   * @param \Tozart\os\FileType $file_type
-   *   The file type to compare.
-   *
-   * @return bool
-   *   TRUE if the
+   * {@inheritDoc}
    */
-  public function equals(FileType $file_type) {
+  public function equals(FileTypeInterface $file_type) {
     $shared_extensions = array_intersect(
-      $this->extensions(), $file_type->extensions());
-    return count($shared_extensions) == count($this->extensions());
+      $this->getExtensions(), $file_type->getExtensions());
+    return count($shared_extensions) == count($this->getExtensions());
   }
 
 }

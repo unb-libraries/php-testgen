@@ -3,7 +3,7 @@
 namespace Tozart\Discovery;
 
 use Tozart\Discovery\Filter\FileTypeFilter;
-use Tozart\os\FileType;
+use Tozart\os\FileTypeInterface;
 
 /**
  * A TemplateLocator finds suitable templates for subjects.
@@ -17,13 +17,13 @@ class TemplateDiscovery extends DiscoveryBase {
    *
    * @param array $directories
    *   An array of directories or directory paths.
-   * @param \Tozart\os\FileType $file_type
+   * @param \Tozart\os\FileTypeInterface $file_type
    *   A file type indicating the format which
    *   models should be declared in.
    *
    * @see \Tozart\render\TemplateDiscovery::compilePattern().
    */
-  public function __construct(array $directories, FileType $file_type) {
+  public function __construct(array $directories, FileTypeInterface $file_type) {
     parent::__construct($directories, [
       new FileTypeFilter($file_type)
     ]);

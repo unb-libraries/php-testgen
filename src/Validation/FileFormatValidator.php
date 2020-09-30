@@ -9,7 +9,7 @@ class FileFormatValidator implements ValidatorInterface {
   protected $_fileType;
 
   /**
-   * @return \Tozart\os\FileType
+   * @return \Tozart\os\FileTypeInterface
    */
   public function fileType() {
     return $this->_fileType;
@@ -45,7 +45,7 @@ class FileFormatValidator implements ValidatorInterface {
     }
     elseif (!$object->type()->equals($this->fileType())) {
       $errors[] = sprintf('File of type %s expected, %s given.',
-        $this->fileType()->name(), $object->type()->name());
+        $this->fileType()->getName(), $object->type()->getName());
     }
     elseif (!$this->canParse($object)) {
       $errors[] = sprintf('File could not be parsed.');
@@ -57,7 +57,7 @@ class FileFormatValidator implements ValidatorInterface {
   protected function canParse(File $file) {
     try {
       $this->fileType()
-        ->parser()
+        ->getParser()
         ->parse($file);
     }
     catch (\Exception $e) {
