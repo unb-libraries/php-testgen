@@ -2,7 +2,6 @@
 
 namespace Tozart\Validation;
 
-use Tozart\Model\ModelInterface;
 use Tozart\Subject\SubjectInterface;
 
 /**
@@ -54,7 +53,7 @@ class ModelValidator extends SpecificationValidator {
    *
    * @see \Tozart\Validation\SpecificationValidator::validateProperty().
    */
-  protected function validateClass($class, $property, array $specification) {
+  protected function validateClass($class, string $property, array $specification) {
     $errors = [];
     if (!class_exists($class)) {
       $errors[] = "'{$class}' does not exist.";
@@ -80,7 +79,7 @@ class ModelValidator extends SpecificationValidator {
    *
    * @see \Tozart\Validation\SpecificationValidator::validateProperty().
    */
-  protected function validateRequirements($requirements, $property, array $specification) {
+  protected function validateRequirements($requirements, string $property, array $specification) {
     $errors = [];
     if (!is_array($requirements)) {
       $errors[] = "{$property} must be of type \"array\"";
@@ -107,7 +106,7 @@ class ModelValidator extends SpecificationValidator {
    *
    * @see \Tozart\Validation\SpecificationValidator::validateProperty().
    */
-  protected function validateOptions($options, $property, array $specification) {
+  protected function validateOptions($options, string $property, array $specification) {
     $errors = [];
     if (!is_array($options)) {
       $errors[] = "{$property} must be of type \"array\"";

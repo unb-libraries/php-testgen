@@ -18,8 +18,7 @@ class SubjectDiscovery extends DiscoveryBase {
    * @param array $directories
    *   An array of directories or paths.
    * @param \Tozart\os\FileTypeInterface $file_type
-   *   A file type indicating the format which
-   *   subjects should be declared in.
+   *   The file type of which subject specification files must be.
    */
   public function __construct(array $directories, FileTypeInterface $file_type) {
     parent::__construct($directories, [

@@ -5,7 +5,7 @@ namespace Tozart\Model;
 use Tozart\Discovery\FactoryInterface;
 
 /**
- * Class to maintain model instances.
+ * Manager of model instances.
  *
  * @package Tozart\Model
  */

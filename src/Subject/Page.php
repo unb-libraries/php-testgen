@@ -2,22 +2,38 @@
 
 namespace Tozart\Subject;
 
+/**
+ * Subject of type "page".
+ *
+ * @package Tozart\Subject
+ */
 class Page extends SubjectBase {
 
-  protected $url;
+  /**
+   * The URL of the page.
+   *
+   * @var string
+   */
+  protected $_url;
 
-  public function getType() {
-    return 'page';
-  }
-
+  /**
+   * Retrieve the URL of the page.
+   *
+   * @return string
+   *   A URL formatted string.
+   */
   public function getUrl() {
-    return $this->url;
+    return $this->_url;
   }
 
+  /**
+   * Set the URL of the page.
+   *
+   * @param string $url
+   *   A URL formatted string.
+   */
   public function setUrl($url) {
-    $this->url = $url;
+    $this->_url = $url;
   }
-
-
 
 }

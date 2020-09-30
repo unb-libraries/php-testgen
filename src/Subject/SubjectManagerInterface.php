@@ -21,14 +21,14 @@ interface SubjectManagerInterface {
   /**
    * Whether a model of the given type is known to the manager.
    *
-   * @param string $type
+   * @param string $id
    *   The type.
    *
    * @return bool
    *   TRUE if the manager is aware of a model with
    *   the given type. FALSE otherwise.
    */
-  public function has($type);
+  public function has($id);
 
   /**
    * Retrieve the subject with the given ID.

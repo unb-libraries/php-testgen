@@ -22,4 +22,12 @@ interface FileParserInterface {
    */
   public function parse(File $file);
 
+  /**
+   * Retrieve the file types this parser can process.
+   *
+   * @return \Tozart\os\FileTypeInterface[]
+   *   An array of file types.
+   */
+  public function getSupportedTypes();
+
 }

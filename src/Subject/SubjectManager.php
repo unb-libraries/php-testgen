@@ -5,7 +5,7 @@ namespace Tozart\Subject;
 use Tozart\Discovery\FactoryInterface;
 
 /**
- * Class to maintain subject instances.
+ * Manager of subject instances.
  *
  * @package Tozart\Subject
  */
@@ -16,7 +16,7 @@ class SubjectManager implements SubjectManagerInterface {
    *
    * @var \Tozart\Subject\SubjectInterface[]
    */
-  protected $_subjects;
+  protected $_subjects = [];
 
   /**
    * The subject factory.
@@ -55,8 +55,8 @@ class SubjectManager implements SubjectManagerInterface {
   /**
    * {@inheritDoc}
    */
-  public function has($type) {
-    return array_key_exists($type, $this->subjects());
+  public function has($id) {
+    return array_key_exists($id, $this->subjects());
   }
 
   /**

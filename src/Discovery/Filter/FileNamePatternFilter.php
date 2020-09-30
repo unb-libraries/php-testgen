@@ -5,7 +5,7 @@ namespace Tozart\Discovery\Filter;
 use Tozart\os\File;
 
 /**
- * Filename based directory filter implementation.
+ * Filter for sorting out files that do not match a configured name pattern.
  *
  * @package Tozart\os
  */
@@ -41,7 +41,7 @@ class FileNamePatternFilter implements DirectoryFilterInterface {
   /**
    * {@inheritDoc}
    */
-  public function match(File $file) {
+  public function evaluate(File $file) {
     return preg_match($this->getPattern(), $file->name());
   }
 

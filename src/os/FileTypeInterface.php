@@ -17,6 +17,7 @@ interface FileTypeInterface {
    */
   public function getName();
 
+  // TODO: Decouple file types and parsers: file types should be able to exist independently of parsers.
   /**
    * Retrieve the parser that processes files of this type.
    *

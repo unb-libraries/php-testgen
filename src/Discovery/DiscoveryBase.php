@@ -7,7 +7,7 @@ use Tozart\os\DependencyInjection\FileSystemTrait;
 use Tozart\os\Directory;
 
 /**
- * Base class for Locator implementations.
+ * Base class for discovery implementations.
  *
  * @package Tozart\os
  */
@@ -62,7 +62,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    * @param array $directories
    *   An array of directory roots. The first element will be added last.
    */
-  public function addDirectories($directories) {
+  public function addDirectories(array $directories) {
     foreach (array_reverse($directories) as $directory) {
       $this->addDirectory($directory);
     }
@@ -82,7 +82,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
   }
 
   /**
-   * Grab the first element from the stack.
+   * Retrieve and remove the first element from the stack.
    *
    * @return \Tozart\os\Directory
    *   A directory instance.
@@ -171,14 +171,14 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    *   An array of the form FILENAME => SCORE, where score indicates how
    *   well the filename matches the filter criteria.
    *
-   * @see \Tozart\Discovery\Filter\DirectoryFilterInterface::match()
+   * @see \Tozart\Discovery\Filter\DirectoryFilterInterface::evaluate()
    */
   protected function findIn(Directory $directory) {
     $matches = [];
     foreach ($directory->files() as $file) {
       $passed = TRUE;
       foreach ($this->filterStack() as $filter) {
-        $passed = $passed && $filter->match($file);
+        $passed = $passed && $filter->evaluate($file);
       }
       if ($passed) {
         $matches[$file->path()] = $file;

@@ -6,7 +6,7 @@ use Tozart\Discovery\Filter\FileTypeFilter;
 use Tozart\os\FileTypeInterface;
 
 /**
- * A TemplateLocator finds suitable templates for subjects.
+ * Discovery of templates.
  *
  * @package Tozart\render
  */
@@ -18,8 +18,7 @@ class TemplateDiscovery extends DiscoveryBase {
    * @param array $directories
    *   An array of directories or directory paths.
    * @param \Tozart\os\FileTypeInterface $file_type
-   *   A file type indicating the format which
-   *   models should be declared in.
+   *   The file type of which template files must be.
    *
    * @see \Tozart\render\TemplateDiscovery::compilePattern().
    */
