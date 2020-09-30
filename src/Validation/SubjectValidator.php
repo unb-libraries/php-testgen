@@ -103,7 +103,7 @@ class SubjectValidator extends SpecificationValidator {
       $this->setModel($model);
     }
     else {
-      $errors[] = 'A model of type "{$type}" does not exist.';
+      $errors[] = "A model of type \"{$type}\" does not exist.";
     }
     return $errors;
   }

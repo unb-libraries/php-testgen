@@ -63,3 +63,7 @@ services:
       - '@file_system.file_type.twig'
   render.renderer:
     class: 'Tozart\render\TwigRenderer'
+
+  # Validation
+  validator.factory:
+    class: Tozart\Validation\ValidatorFactory

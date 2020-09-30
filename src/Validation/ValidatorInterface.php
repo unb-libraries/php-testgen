@@ -10,6 +10,33 @@ namespace Tozart\Validation;
 interface ValidatorInterface {
 
   /**
+   * Retrieve the validator's identifier.
+   *
+   * @return string
+   *   A string.
+   */
+  public static function getId();
+
+  /**
+   * Retrieve the definition of the validator.
+   *
+   * @return array
+   *   An array.
+   */
+  public static function getSpecification();
+
+  /**
+   * Create a validator with the given configuration.
+   *
+   * @param array $configuration
+   *   The configuration array.
+   *
+   * @return static
+   *   A validator instance.
+   */
+  public static function create($configuration);
+
+  /**
    * Validate the given object.
    *
    * @param mixed $object

@@ -266,4 +266,16 @@ final class Tozart {
     return $renderer;
   }
 
+  /**
+   * The validator factory service.
+   *
+   * @return \Tozart\Validation\ValidatorFactoryInterface
+   *   A validator factory instance.
+   */
+  public static function validatorFactory() {
+    /** @var \Tozart\Validation\ValidatorFactoryInterface $factory */
+    $factory = static::container()->get('validator.factory');
+    return $factory;
+  }
+
 }

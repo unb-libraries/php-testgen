@@ -15,8 +15,22 @@ class FileFormatValidator implements ValidatorInterface {
     return $this->_fileType;
   }
 
+  public static function getId() {
+    return 'file_format';
+  }
+
+  public static function getSpecification() {
+    return [
+      'file_type' => 'yml',
+    ];
+  }
+
   public function __construct($file_type) {
     $this->_fileType = $file_type;
+  }
+
+  public static function create($configuration) {
+    return new static($configuration['file_type']);
   }
 
   public function validate($object) {
