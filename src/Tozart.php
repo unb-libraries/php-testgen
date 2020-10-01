@@ -132,7 +132,7 @@ final class Tozart {
   /**
    * The project root directory.
    *
-   * @return \Tozart\os\Directory
+   * @return \Tozart\os\DirectoryInterface
    *   A directory object.
    */
   public function root() {
@@ -143,7 +143,7 @@ final class Tozart {
   /**
    * The model root directory.
    *
-   * @return \Tozart\os\Directory
+   * @return \Tozart\os\DirectoryInterface
    *   A directory object.
    */
   public function modelRoot() {
@@ -154,7 +154,7 @@ final class Tozart {
   /**
    * The subject root directory.
    *
-   * @return \Tozart\os\Directory
+   * @return \Tozart\os\DirectoryInterface
    *   A directory object.
    */
   public function subjectRoot() {
@@ -165,7 +165,7 @@ final class Tozart {
   /**
    * The template root directory.
    *
-   * @return \Tozart\os\Directory
+   * @return \Tozart\os\DirectoryInterface
    *   A directory object.
    */
   public function templateRoot() {

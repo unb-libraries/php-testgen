@@ -9,14 +9,14 @@ use Tozart\os\DependencyInjection\FileSystemTrait;
  *
  * @package Tozart\os
  */
-class Directory extends \Directory {
+class Directory extends \Directory implements DirectoryInterface {
 
   use FileSystemTrait;
 
   /**
    * The parent directory.
    *
-   * @var Directory
+   * @var \Tozart\os\DirectoryInterface
    */
   protected $parent;
 
@@ -125,7 +125,7 @@ class Directory extends \Directory {
   /**
    * Retrieves or creates an instance for the parent directory.
    *
-   * @return Directory
+   * @return \Tozart\os\DirectoryInterface
    *   A Directory instance mapping the path to the parent.
    */
   public function parent() {

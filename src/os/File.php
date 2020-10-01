@@ -26,7 +26,7 @@ class File {
   /**
    * The directory which contains the file.
    *
-   * @var Directory
+   * @var \Tozart\os\DirectoryInterface
    */
   protected $directory;
 
@@ -89,7 +89,7 @@ class File {
   /**
    * Retrieve the directory.
    *
-   * @return Directory
+   * @return \Tozart\os\DirectoryInterface
    *   A Directory instance.
    */
   public function directory() {
@@ -142,10 +142,10 @@ class File {
    *
    * @param string $name
    *   Name of the file.
-   * @param Directory $directory
+   * @param \Tozart\os\DirectoryInterface $directory
    *   Directory which contains the file.
    */
-  public function __construct($name, Directory $directory) {
+  public function __construct($name, DirectoryInterface $directory) {
     $this->name = $name;
     $this->directory = $directory;
     $this->handle = $this->handle();
@@ -185,7 +185,7 @@ class File {
   /**
    * Copy the file to the given destination.
    *
-   * @param Directory $destination
+   * @param \Tozart\os\DirectoryInterface $destination
    *   A Directory instance.
    * @param string $name
    *   (optional) The name to use at the destination.
@@ -196,7 +196,7 @@ class File {
    * @return File
    *   The duplicated file.
    */
-  public function copy(Directory $destination, $name = '', $override = TRUE) {
+  public function copy(DirectoryInterface $destination, $name = '', $override = TRUE) {
     if (!$name) {
       $name = $this->name();
     }

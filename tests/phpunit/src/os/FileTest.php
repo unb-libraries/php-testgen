@@ -16,14 +16,14 @@ class FileTest extends FileSystemTestCase {
   /**
    * Test directory.
    *
-   * @var Directory
+   * @var \Tozart\os\DirectoryInterface
    */
   protected $directory;
 
   /**
    * Retrieve the test directory.
    *
-   * @return Directory
+   * @return \Tozart\os\DirectoryInterface
    *   A directory instance.
    */
   protected function directory() {
@@ -82,6 +82,7 @@ class FileTest extends FileSystemTestCase {
    * A copied file's content must reflect its original.
    */
   public function testCopy() {
+    // TODO: Replace directory by directory interface stub.
     $source_dir = new Directory($this->directory()->systemPath() . 'source');
     $destination_dir = new Directory($this->directory()->systemPath() . 'destination');
 

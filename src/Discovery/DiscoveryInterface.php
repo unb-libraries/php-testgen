@@ -12,7 +12,7 @@ interface DiscoveryInterface {
   /**
    * Retrieve the stack of directory roots in which to search for files.
    *
-   * @return \Tozart\os\Directory[]
+   * @return \Tozart\os\DirectoryInterface[]
    *   An array of directories.
    */
   public function directoryStack();

@@ -79,10 +79,10 @@ class FileSystem {
    * @param string $path
    *   The path to the directory.
    *
-   * @return \Tozart\os\Directory
+   * @return \Tozart\os\DirectoryInterface
    *   A directory object.
    */
-  public function dir($path) {
+  public function dir(string $path) {
     return new Directory($path);
   }
 
@@ -91,7 +91,7 @@ class FileSystem {
    *
    * @param string $name
    *   The name of the file.
-   * @param \Tozart\os\Directory|string $directory
+   * @param \Tozart\os\DirectoryInterface|string $directory
    *   The directory.
    *
    * @return \Tozart\os\File

@@ -4,7 +4,7 @@ namespace Tozart\Discovery;
 
 use Tozart\Discovery\Filter\DirectoryFilterInterface;
 use Tozart\os\DependencyInjection\FileSystemTrait;
-use Tozart\os\Directory;
+use Tozart\os\DirectoryInterface;
 
 /**
  * Base class for discovery implementations.
@@ -18,7 +18,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
   /**
    * Stack of directory roots in which to search for files.
    *
-   * @var \Tozart\os\Directory[]
+   * @var \Tozart\os\DirectoryInterface[]
    */
   protected $_directoryStack = [];
 
@@ -71,7 +71,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
   /**
    * Add the given directory root to the stack.
    *
-   * @param \Tozart\os\Directory|string $directory
+   * @param \Tozart\os\DirectoryInterface|string $directory
    *   A directory or path.
    */
   public function addDirectory($directory) {
@@ -84,7 +84,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
   /**
    * Retrieve and remove the first element from the stack.
    *
-   * @return \Tozart\os\Directory
+   * @return \Tozart\os\DirectoryInterface
    *   A directory instance.
    */
   public function popDirectory() {
@@ -164,7 +164,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
   /**
    * Find files inside the given directory that match the filter criteria.
    *
-   * @param \Tozart\os\Directory $directory
+   * @param \Tozart\os\DirectoryInterface $directory
    *   A directory instance.
    *
    * @return \Tozart\os\File[]
@@ -173,7 +173,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    *
    * @see \Tozart\Discovery\Filter\DirectoryFilterInterface::evaluate()
    */
-  protected function findIn(Directory $directory) {
+  protected function findIn(DirectoryInterface $directory) {
     $matches = [];
     foreach ($directory->files() as $file) {
       $passed = TRUE;
