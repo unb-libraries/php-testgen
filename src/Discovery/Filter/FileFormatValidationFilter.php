@@ -47,6 +47,29 @@ class FileFormatValidationFilter extends FileTypeFilter {
   /**
    * {@inheritDoc}
    */
+  public static function create(array $configuration) {
+    return new static($configuration['file_type']);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function getId() {
+    return 'file_format';
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function getSpecification() {
+    return [
+      'file_type' => 'yml',
+    ];
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function evaluate(File $file) {
     if ($pass = parent::evaluate($file)) {
       $pass = empty($validation_errors = $this->validator()

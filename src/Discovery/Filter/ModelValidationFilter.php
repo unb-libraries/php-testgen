@@ -21,6 +21,27 @@ class ModelValidationFilter extends FileFormatValidationFilter {
   public function __construct(FileTypeInterface $file_type) {
     parent::__construct($file_type);
     $this->_validator = new ModelValidator($file_type);
+  /**
+   * {@inheritDoc}
+   */
+  public static function create(array $configuration) {
+    return new static($configuration['file_type']);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function getId() {
+    return 'model';
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function getSpecification() {
+    return [
+      'file_type' => 'yml',
+    ];
   }
 
 }

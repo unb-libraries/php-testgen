@@ -7,7 +7,7 @@ use Tozart\os\FileTypeInterface;
 /**
  * Filter for sorting out files are of a file type different to the configured.
  *
- * @package Tozart\os
+ * @package Tozart\Discovery\Filter
  */
 class FileTypeFilter extends FileNamePatternFilter {
 
@@ -37,6 +37,29 @@ class FileTypeFilter extends FileNamePatternFilter {
   public function __construct(FileTypeInterface $file_type) {
     $this->_fileType = $file_type;
     parent::__construct($this->buildPattern());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function create(array $configuration) {
+    return new static($configuration['file_type']);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function getId() {
+    return 'file_type';
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function getSpecification() {
+    return [
+      'file_type' => 'yml',
+    ];
   }
 
   /**

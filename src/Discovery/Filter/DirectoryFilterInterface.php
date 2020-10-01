@@ -12,6 +12,33 @@ use Tozart\os\File;
 interface DirectoryFilterInterface {
 
   /**
+   * Create a filter with the given configuration.
+   *
+   * @param array $configuration
+   *   The configuration array.
+   *
+   * @return static
+   *   A filter instance.
+   */
+  public static function create(array $configuration);
+
+  /**
+   * Retrieve the filter's identifier.
+   *
+   * @return string
+   *   A string.
+   */
+  public static function getId();
+
+  /**
+   * Retrieve the definition of the filter.
+   *
+   * @return array
+   *   An array.
+   */
+  public static function getSpecification();
+
+  /**
    * Evaluate whether the given file passes the filter criteria.
    *
    * @param \Tozart\os\File $file

@@ -7,7 +7,7 @@ use Tozart\os\File;
 /**
  * Filter for sorting out files that do not match a configured name pattern.
  *
- * @package Tozart\os
+ * @package Tozart\Discovery\Filter
  */
 class FileNamePatternFilter implements DirectoryFilterInterface {
 
@@ -34,8 +34,31 @@ class FileNamePatternFilter implements DirectoryFilterInterface {
    * @param string $pattern
    *   A regular expression string.
    */
-  public function __construct($pattern) {
+  public function __construct(string $pattern) {
     $this->_pattern = $pattern;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function create(array $configuration) {
+    return new static($configuration['pattern']);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function getId() {
+    return 'filename';
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function getSpecification() {
+    return [
+      'pattern' => '/.+/',
+    ];
   }
 
   /**
