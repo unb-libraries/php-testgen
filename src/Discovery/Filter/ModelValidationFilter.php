@@ -3,7 +3,7 @@
 namespace Tozart\Discovery\Filter;
 
 use Tozart\os\FileTypeInterface;
-use Tozart\Validation\ModelValidator;
+use Tozart\Validation\ValidatorFactoryTrait;
 
 /**
  * Filter for sorting out invalid model specifications.
@@ -20,7 +20,10 @@ class ModelValidationFilter extends FileFormatValidationFilter {
    */
   public function __construct(FileTypeInterface $file_type) {
     parent::__construct($file_type);
-    $this->_validator = new ModelValidator($file_type);
+    $this->_validator = static::validatorFactory()
+      ->create('model', ['file_type' => $file_type]);
+  }
+
   /**
    * {@inheritDoc}
    */

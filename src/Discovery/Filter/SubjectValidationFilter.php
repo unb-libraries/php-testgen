@@ -2,7 +2,6 @@
 
 namespace Tozart\Discovery\Filter;
 
-use Tozart\Validation\SubjectValidator;
 use Tozart\os\FileTypeInterface;
 
 /**
@@ -20,7 +19,10 @@ class SubjectValidationFilter extends FileFormatValidationFilter {
    */
   public function __construct(FileTypeInterface $file_type) {
     parent::__construct($file_type);
-    $this->_validator = new SubjectValidator($file_type);
+    $this->_validator = static::validatorFactory()
+      ->create('subject', ['file_type' => $file_type]);
+  }
+
   /**
    * {@inheritDoc}
    */

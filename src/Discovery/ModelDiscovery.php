@@ -2,8 +2,8 @@
 
 namespace Tozart\Discovery;
 
+use Tozart\Discovery\Filter\DirectoryFilterFactoryTrait;
 use Tozart\os\FileTypeInterface;
-use Tozart\Validation\ValidatorFactoryTrait;
 
 /**
  * Discovery for model definition files.
@@ -12,7 +12,7 @@ use Tozart\Validation\ValidatorFactoryTrait;
  */
 class ModelDiscovery extends DiscoveryBase {
 
-  use ValidatorFactoryTrait;
+  use DirectoryFilterFactoryTrait;
 
   /**
    * Create a new SubjectModelLocator instance.
@@ -25,8 +25,8 @@ class ModelDiscovery extends DiscoveryBase {
    */
   public function __construct(array $directories, FileTypeInterface $file_type) {
     $filters = [
-      static::validatorFactory()->create('file_format', ['file_type' => $file_type]),
-      static::validatorFactory()->create('model', ['file_type' => $file_type]),
+      static::directoryFilterFactory()->create('file_format', ['file_type' => $file_type]),
+      static::directoryFilterFactory()->create('model', ['file_type' => $file_type]),
     ];
     parent::__construct($directories, $filters);
   }
