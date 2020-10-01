@@ -17,7 +17,7 @@ class ValidatorFactory implements ValidatorFactoryInterface {
   public function create($type, array $configuration) {
     if ($specification = $this->getSpecification($type)) {
       $class = $specification['class'];
-      return new $class($configuration);
+      return call_user_func([$class, 'create'], $specification);
     }
     throw new \Exception("A validator of type \"{$type}\" could not be created.");
   }
@@ -70,7 +70,7 @@ class ValidatorFactory implements ValidatorFactoryInterface {
   protected function getValidatorClasses() {
     return [
       FileFormatValidator::class,
-      ModelValidationFilter::class,
+      ModelValidator::class,
       SpecificationValidator::class,
       SubjectValidator::class,
     ];
