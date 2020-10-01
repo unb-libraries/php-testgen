@@ -2,7 +2,7 @@
 
 namespace Tozart\render;
 
-use Tozart\os\File;
+use Tozart\os\FileInterface;
 
 /**
  * Data structure class containing render information.
@@ -21,7 +21,7 @@ class RenderContext implements RenderContextInterface {
   /**
    * The template file.
    *
-   * @var \Tozart\os\File
+   * @var \Tozart\os\FileInterface
    */
   protected $_template;
 
@@ -44,10 +44,10 @@ class RenderContext implements RenderContextInterface {
    *
    * @param array $bindings
    *   An array of variable names and values.
-   * @param \Tozart\os\File $template
+   * @param \Tozart\os\FileInterface $template
    *   A template file.
    */
-  public function __construct(array $bindings, File $template) {
+  public function __construct(array $bindings, FileInterface $template) {
     $this->_bindings = $bindings;
     $this->_template = $template;
   }

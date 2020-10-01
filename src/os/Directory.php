@@ -30,7 +30,7 @@ class Directory extends \Directory implements DirectoryInterface {
   /**
    * Files in this directory.
    *
-   * @var File[]
+   * @var \Tozart\os\FileInterface[]
    */
   protected $files;
 
@@ -195,7 +195,7 @@ class Directory extends \Directory implements DirectoryInterface {
    * @param string $filename
    *   Filename without directory path.
    *
-   * @return File|false
+   * @return \Tozart\os\FileInterface|false
    *   A File instance. FALSE if directory is not writable.
    */
   public function put($filename) {
@@ -215,7 +215,7 @@ class Directory extends \Directory implements DirectoryInterface {
    * @param string $filename
    *   Name of the file to find.
    *
-   * @return File|false
+   * @return \Tozart\os\FileInterface|false
    *   An instance of File, if one could be found. Otherwise FALSE.
    */
   public function find($filename) {
@@ -228,7 +228,7 @@ class Directory extends \Directory implements DirectoryInterface {
   /**
    * Whether a file with the given name exists inside this directory.
    *
-   * @param string|File $file
+   * @param string|\Tozart\os\FileInterface $file
    *   The file object or name to search for.
    *
    * @return bool
@@ -243,7 +243,7 @@ class Directory extends \Directory implements DirectoryInterface {
   /**
    * Retrieve all files contained in this directory.
    *
-   * @return File[]
+   * @return \Tozart\os\FileInterface[]
    *   Array of File instances.
    */
   public function files() {

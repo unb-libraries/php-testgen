@@ -94,7 +94,7 @@ class FileSystem {
    * @param \Tozart\os\DirectoryInterface|string $directory
    *   The directory.
    *
-   * @return \Tozart\os\File
+   * @return \Tozart\os\FileInterface
    *   A file object.
    */
   public function file($name, $directory) {

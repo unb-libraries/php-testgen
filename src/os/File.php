@@ -9,12 +9,9 @@ use Tozart\os\DependencyInjection\FileSystemTrait;
  *
  * @package Tozart\os
  */
-class File {
+class File implements FileInterface {
 
   use FileSystemTrait;
-
-  const CONTENT_REPLACE = 0;
-  const CONTENT_APPEND = 1;
 
   /**
    * Name of the file.
@@ -45,62 +42,42 @@ class File {
   protected $handle;
 
   /**
-   * Retrieve the name of the file.
-   *
-   * @return string
-   *   A string.
+   * {@inheritDoc}
    */
   public function name() {
     return $this->name;
   }
 
   /**
-   * Retrieve the path to the file.
-   *
-   * @return string
-   *   A string which represents an absolute filesystem path.
+   * {@inheritDoc}
    */
   public function path() {
     return $this->directory()->systemPath() . $this->name();
   }
 
   /**
-   * Retrieve the file extension.
-   *
-   * @return string
-   *   A file extension string, e.g. "php".
+   * {@inheritDoc}
    */
   public function extension() {
     return \pathinfo($this->path())['extension'];
   }
 
   /**
-   * Access permissions for the directory.
-   *
-   * @return int
-   *   The directory's permissions as a numeric mode.
-   *   @see \fileperms()
-   *
+   * {@inheritDoc}
    */
   public function permissions() {
     return \octdec(substr(sprintf('%o', \fileperms($this->path())), -3));
   }
 
   /**
-   * Retrieve the directory.
-   *
-   * @return \Tozart\os\DirectoryInterface
-   *   A Directory instance.
+   * {@inheritDoc}
    */
   public function directory() {
     return $this->directory;
   }
 
   /**
-   * Parse the file by an appropriate parser according to its file type.
-   *
-   * @return mixed
-   *   The parsed content.
+   * {@inheritDoc}
    */
   public function parse() {
     $parser = $this->type()->getParser();
@@ -108,10 +85,7 @@ class File {
   }
 
   /**
-   * Retrieve the file's type.
-   *
-   * @return \Tozart\os\FileTypeInterface
-   *   A file type object.
+   * {@inheritDoc}
    */
   public function type() {
     return $this->type;
@@ -154,22 +128,14 @@ class File {
   }
 
   /**
-   * Retrieve the file contents.
-   *
-   * @return string
-   *   String containing the complete content of the file.
+   * {@inheritDoc}
    */
   public function content() {
     return \file_get_contents($this->path());
   }
 
   /**
-   * Fill the file with the given content.
-   *
-   * @param string $content
-   *   A string.
-   * @param int $mode
-   *   How to treat existing content.
+   * {@inheritDoc}
    */
   public function setContent($content, $mode = self::CONTENT_REPLACE) {
     switch ($mode) {
@@ -183,18 +149,7 @@ class File {
   }
 
   /**
-   * Copy the file to the given destination.
-   *
-   * @param \Tozart\os\DirectoryInterface $destination
-   *   A Directory instance.
-   * @param string $name
-   *   (optional) The name to use at the destination.
-   *   If left blank, the same name as the source will be used.
-   * @param bool $override
-   *   (optional) Whether to override any existing files.
-   *
-   * @return File
-   *   The duplicated file.
+   * {@inheritDoc}
    */
   public function copy(DirectoryInterface $destination, $name = '', $override = TRUE) {
     if (!$name) {
@@ -210,10 +165,7 @@ class File {
   }
 
   /**
-   * String representation of the file.
-   *
-   * @return string
-   *   A file path string.
+   * {@inheritDoc}
    */
   public function __toString() {
     return $this->path();

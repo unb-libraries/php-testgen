@@ -87,6 +87,7 @@ class FileTest extends FileSystemTestCase {
     $destination_dir = new Directory($this->directory()->systemPath() . 'destination');
 
     // Source folder files.
+    // TODO: Reduce mentions of the 'File' class.
     $source1 = new File('source1', $source_dir);
     $source1_content = 'Content of the 1st source file.';
     $source1->setContent($source1_content);

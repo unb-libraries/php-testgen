@@ -75,7 +75,7 @@ class SubjectFactoryTest extends TozartTestCase {
   public function subjectSpecificationProvider() {
     // TODO: For some reasons, two instances of subject discovery are created (one discovers subjects, the other one does not).
     foreach ($this->subjectDiscovery()->discover() as $filename => $file) {
-      /** @var \Tozart\os\File $file */
+      /** @var \Tozart\os\FileInterface $file */
       $specification = $file->parse();
       $model = $this->modelManager()
         ->get($specification['type']);

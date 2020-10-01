@@ -3,7 +3,7 @@
 namespace Tozart\Test\os;
 
 use Tozart\os\Directory;
-use Tozart\os\File;
+use Tozart\os\FileInterface;
 
 /**
  * Test creating and interacting with instances of the Directory class.
@@ -75,7 +75,7 @@ class DirectoryTest extends FileSystemTestCase {
     $dir = new Directory(self::root() . 'dir');
     $dir->put('file1');
 
-    $this->assertInstanceOf(File::class, $dir->find('file1'));
+    $this->assertInstanceOf(FileInterface::class, $dir->find('file1'));
     $this->assertFalse($dir->find('file2'));
   }
 

@@ -2,7 +2,7 @@
 
 namespace Tozart\Validation;
 
-use Tozart\os\File;
+use Tozart\os\FileInterface;
 use Tozart\os\FileTypeInterface;
 
 /**
@@ -67,10 +67,10 @@ class FileFormatValidator implements ValidatorInterface {
    */
   public function validate($object) {
     $errors = [];
-    if (!($object instanceof File)) {
+    if (!($object instanceof FileInterface)) {
       // TODO: Use logging service to log errors.
       $errors[] = sprintf('FileFormatValidators expect input of type %s, %s given.',
-        File::class, get_class($object));
+        FileInterface::class, get_class($object));
     }
     elseif (!$object->type()) {
       $errors[] = sprintf('Unknown file type: %s', $object->path());
@@ -89,7 +89,7 @@ class FileFormatValidator implements ValidatorInterface {
   /**
    * Whether a parser exists for the given file.
    *
-   * @param \Tozart\os\File $file
+   * @param \Tozart\os\FileInterface $file
    *   The file.
    *
    * @return bool
@@ -97,7 +97,7 @@ class FileFormatValidator implements ValidatorInterface {
    *   that can process the file does exist.
    *   FALSE otherwise.
    */
-  protected function canParse(File $file) {
+  protected function canParse(FileInterface $file) {
     try {
       $this->getFileType()
         ->getParser()

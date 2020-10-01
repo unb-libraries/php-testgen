@@ -2,6 +2,11 @@
 
 namespace Tozart\os;
 
+/**
+ * Interface for directory objects.
+ *
+ * @package Tozart\os
+ */
 interface DirectoryInterface {
 
   /**
@@ -64,7 +69,7 @@ interface DirectoryInterface {
    * @param string $filename
    *   Filename without directory path.
    *
-   * @return File|false
+   * @return \Tozart\os\FileInterface|false
    *   A File instance. FALSE if directory is not writable.
    */
   public function put($filename);
@@ -75,7 +80,7 @@ interface DirectoryInterface {
    * @param string $filename
    *   Name of the file to find.
    *
-   * @return File|false
+   * @return \Tozart\os\FileInterface|false
    *   An instance of File, if one could be found. Otherwise FALSE.
    */
   public function find($filename);
@@ -83,7 +88,7 @@ interface DirectoryInterface {
   /**
    * Whether a file with the given name exists inside this directory.
    *
-   * @param string|File $file
+   * @param string|\Tozart\os\FileInterface $file
    *   The file object or name to search for.
    *
    * @return bool
@@ -94,7 +99,7 @@ interface DirectoryInterface {
   /**
    * Retrieve all files contained in this directory.
    *
-   * @return File[]
+   * @return \Tozart\os\FileInterface[]
    *   Array of File instances.
    */
   public function files();

@@ -36,7 +36,7 @@ class TemplateDiscovery extends DiscoveryBase {
     $subject = $key;
     foreach ($this->discover() as $dir => $files) {
       foreach ($files as $file_path => $file) {
-        /** @var \Tozart\os\File $file */
+        /** @var \Tozart\os\FileInterface $file */
         foreach ($subject->getTemplateDiscoveryPatterns() as $pattern) {
           if (preg_match($pattern, $file_path)) {
             return $file;

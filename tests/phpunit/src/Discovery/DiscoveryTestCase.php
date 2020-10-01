@@ -3,7 +3,7 @@
 namespace Tozart\Test\Discovery;
 
 use Tozart\Discovery\DiscoveryBase;
-use Tozart\os\File;
+use Tozart\os\FileInterface;
 use Tozart\Test\TozartTestCase;
 
 /**
@@ -45,7 +45,7 @@ abstract class DiscoveryTestCase extends TozartTestCase {
   /**
    * Retrieve the directories on which to test the discovery implementation.
    *
-   * @return \Tozart\os\Directory[]
+   * @return \Tozart\os\DirectoryInterface[]
    *   Array of directories.
    */
   abstract protected function discoveryRoots();
@@ -64,7 +64,7 @@ abstract class DiscoveryTestCase extends TozartTestCase {
    *
    * @param array $filters
    *   An array of filters.
-   * @param \Tozart\os\File[] $files
+   * @param \Tozart\os\FileInterface[] $files
    *   An array of filenames which the discovery
    *   is expected to find after applying given filters.
    *
@@ -79,7 +79,7 @@ abstract class DiscoveryTestCase extends TozartTestCase {
     if (empty($filters)) {
       $files = [];
       foreach ($this->discovery()->directoryStack() as $source_dir) {
-        $files = array_merge($files, array_map(function (File $file) {
+        $files = array_merge($files, array_map(function (FileInterface $file) {
           return $file->path();
         }, $source_dir->files()));
       }
@@ -101,7 +101,7 @@ abstract class DiscoveryTestCase extends TozartTestCase {
    *   given filter(s).
    *
    * @see \Tozart\Discovery\Filter\DirectoryFilterInterface
-   * @see \Tozart\os\File
+   * @see \Tozart\os\FileInterface
    */
   abstract public function filters();
 

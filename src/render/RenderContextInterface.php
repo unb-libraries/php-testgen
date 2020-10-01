@@ -22,7 +22,7 @@ interface RenderContextInterface {
   /**
    * Retrieve the template file.
    *
-   * @return \Tozart\os\File
+   * @return \Tozart\os\FileInterface
    */
   public function getTemplate();
 

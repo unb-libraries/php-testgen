@@ -31,7 +31,7 @@ class SubjectDiscovery extends DiscoveryBase {
    */
   public function findBy($key) {
     foreach ($this->discover() as $file_path => $file) {
-      /** @var \Tozart\os\File $file */
+      /** @var \Tozart\os\FileInterface $file */
       $subject_specification = $file->parse();
       if ($subject_specification['id'] === $key) {
         return $subject_specification;

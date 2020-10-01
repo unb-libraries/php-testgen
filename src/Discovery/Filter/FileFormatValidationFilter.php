@@ -2,7 +2,7 @@
 
 namespace Tozart\Discovery\Filter;
 
-use Tozart\os\File;
+use Tozart\os\FileInterface;
 use Tozart\os\FileTypeInterface;
 use Tozart\Validation\ValidatorFactoryTrait;
 
@@ -70,7 +70,7 @@ class FileFormatValidationFilter extends FileTypeFilter {
   /**
    * {@inheritDoc}
    */
-  public function evaluate(File $file) {
+  public function evaluate(FileInterface $file) {
     if ($pass = parent::evaluate($file)) {
       $pass = empty($validation_errors = $this->validator()
         ->validate($file));

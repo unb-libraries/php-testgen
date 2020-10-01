@@ -140,7 +140,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
   /**
    * Retrieve the best match out of all located files.
    *
-   * @return \Tozart\os\File
+   * @return \Tozart\os\FileInterface
    *   A file instance.
    */
   public function get() {
@@ -167,7 +167,7 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    * @param \Tozart\os\DirectoryInterface $directory
    *   A directory instance.
    *
-   * @return \Tozart\os\File[]
+   * @return \Tozart\os\FileInterface[]
    *   An array of the form FILENAME => SCORE, where score indicates how
    *   well the filename matches the filter criteria.
    *

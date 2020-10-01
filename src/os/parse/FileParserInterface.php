@@ -2,7 +2,7 @@
 
 namespace Tozart\os\parse;
 
-use Tozart\os\File;
+use Tozart\os\FileInterface;
 
 /**
  * Interface for file parser implementations.
@@ -14,13 +14,13 @@ interface FileParserInterface {
   /**
    * Retrieve the file's content in a structured form.
    *
-   * @param \Tozart\os\File $file
+   * @param \Tozart\os\FileInterface $file
    *   The file to parse.
    *
    * @return mixed
    *   The parsed content.
    */
-  public function parse(File $file);
+  public function parse(FileInterface $file);
 
   /**
    * Retrieve the file types this parser can process.

@@ -3,7 +3,7 @@
 namespace Tozart\os\parse;
 
 use Symfony\Component\Yaml\Yaml;
-use Tozart\os\File;
+use Tozart\os\FileInterface;
 use Tozart\Tozart;
 
 /**
@@ -16,7 +16,7 @@ class YamlParser implements FileParserInterface {
   /**
    * {@inheritDoc}
    */
-  public function parse(File $file) {
+  public function parse(FileInterface $file) {
     return Yaml::parseFile($file->path());
   }
 
