@@ -278,4 +278,16 @@ final class Tozart {
     return $factory;
   }
 
+  /**
+   * The filter factory service.
+   *
+   * @return \Tozart\Discovery\Filter\DirectoryFilterFactoryInterface
+   *   A filter factory instance.
+   */
+  public static function directoryFilterFactory() {
+    /** @var \Tozart\Discovery\Filter\DirectoryFilterFactoryInterface $factory */
+    $factory = static::container()->get('directory_filter.factory');
+    return $factory;
+  }
+
 }

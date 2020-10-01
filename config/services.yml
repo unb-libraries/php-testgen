@@ -64,6 +64,10 @@ services:
   render.renderer:
     class: 'Tozart\render\TwigRenderer'
 
+  # Filter
+  directory_filter.factory:
+    class: Tozart\Discovery\Filter\DirectoryFilterFactory
+
   # Validation
   validator.factory:
     class: Tozart\Validation\ValidatorFactory
