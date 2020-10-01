@@ -34,7 +34,7 @@ interface ValidatorInterface {
    * @return static
    *   A validator instance.
    */
-  public static function create($configuration);
+  public static function create(array $configuration);
 
   /**
    * Validate the given object.

@@ -31,7 +31,7 @@ class ValidatorFactory implements ValidatorFactoryInterface {
    * @return string|null
    *   An array specifying a validator.
    */
-  protected function getSpecification($type) {
+  protected function getSpecification(string $type) {
     $specifications = $this->getSpecifications();
     return array_key_exists($type, $specifications)
       ? $specifications[$type]
@@ -39,10 +39,7 @@ class ValidatorFactory implements ValidatorFactoryInterface {
   }
 
   /**
-   * Retrieve the mapping between validator types and their classes.
-   *
-   * @return array
-   *   An array assigning a fully qualified class name to each validator type.
+   * {@inheritDoc}
    */
   public function getSpecifications() {
     $specifications = [];
@@ -78,7 +75,9 @@ class ValidatorFactory implements ValidatorFactoryInterface {
 
   /**
    * Retrieve the interface which validators must implement.
+   *
    * @return string
+   *   A fully qualified interface name.
    */
   protected function getValidatorInterface() {
     return ValidatorInterface::class;

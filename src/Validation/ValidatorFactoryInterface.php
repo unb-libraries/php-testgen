@@ -20,7 +20,7 @@ interface ValidatorFactoryInterface {
    *
    * @return \Tozart\Validation\ValidatorInterface
    */
-  public function create($type, array $configuration);
+  public function create(string $type, array $configuration);
 
   /**
    * Retrieve the a between validator types and their definition.
