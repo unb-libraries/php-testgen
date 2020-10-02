@@ -175,12 +175,13 @@ abstract class DiscoveryBase implements DiscoveryInterface {
    */
   protected function findIn(DirectoryInterface $directory) {
     $matches = [];
-    foreach ($directory->files() as $file) {
-      $passed = TRUE;
+    foreach ($directory->files() as $filename => $file) {
+      $all_passed = TRUE;
       foreach ($this->filterStack() as $filter) {
-        $passed = $passed && $filter->evaluate($file);
+        $passed = $filter->evaluate($file);
+        $all_passed = $all_passed && $passed;
       }
-      if ($passed) {
+      if ($all_passed) {
         $matches[$file->path()] = $file;
       }
     }
