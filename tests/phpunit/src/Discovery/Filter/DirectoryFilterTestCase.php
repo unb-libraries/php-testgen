@@ -46,6 +46,13 @@ abstract class DirectoryFilterTestCase extends TestCase {
   abstract protected function createFilter();
 
   /**
+   * Test that the filter implements the DirectoryFilterInterface.
+   */
+  public function testImplementsInterface() {
+    $this->assertInstanceOf(DirectoryFilterInterface::class, $this->filter());
+  }
+
+  /**
    * Test the "evaluate" method.
    *
    * @param \Tozart\os\FileInterface $file
