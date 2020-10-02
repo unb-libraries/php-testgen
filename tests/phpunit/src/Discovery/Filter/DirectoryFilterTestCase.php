@@ -81,12 +81,13 @@ abstract class DirectoryFilterTestCase extends TestCase {
    * @param string $name
    *   The name of the file.
    * @param string $extension
-   *   The file type extension of the file.
+   *   (optional )The file type extension of the file.
+   *   Leave blank for no extension.
    *
    * @return \PHPUnit\Framework\MockObject\Stub
    *   An object pretending to be a file.
    */
-  protected function createFile(string $name, string $extension) {
+  protected function createFile(string $name, string $extension = '') {
     if (!empty($extension)) {
       $name = "{$name}.{$extension}";
     }
