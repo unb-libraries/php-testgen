@@ -10,6 +10,33 @@ namespace Tozart\Discovery\Filter;
 class DirectoryFilterFactory implements DirectoryFilterFactoryInterface {
 
   /**
+   * The names of all classes this factory supports.
+   *
+   * @var array
+   */
+  protected $_classes;
+
+  /**
+   * Retrieve the names of all classes this factory supports.
+   *
+   * @return string[]
+   *   An array of fully qualified filter class names.
+   */
+  protected function getTargetClasses() {
+    return $this->_classes;
+  }
+
+  /**
+   * Create a new DirectoryFilterFactory object.
+   *
+   * @param array $classes
+   *   An array of classes which the factory supports.
+   */
+  public function __construct(array $classes) {
+    $this->_classes = $classes;
+  }
+
+  /**
    * {@inheritDoc}
    */
   public function create(string $type, array $configuration) {
@@ -17,7 +44,8 @@ class DirectoryFilterFactory implements DirectoryFilterFactoryInterface {
       $class = $specification['class'];
       return call_user_func([$class, 'create'], $configuration);
     }
-    throw new \Exception("A filter of type \"{$type}\" could not be created.");
+    // TODO: Log the failed creation of a filter.
+    return NULL;
   }
 
   /**
@@ -41,45 +69,54 @@ class DirectoryFilterFactory implements DirectoryFilterFactoryInterface {
    */
   public function getSpecifications() {
     $specifications = [];
-    foreach ($this->getFilterClasses() as $class) {
-      $interface = $this->getFilterInterface();
-      if ($class instanceof $interface) {
-        $id = call_user_func($class, 'getId');
-        $specification = call_user_func($class, 'getSpecification') + [
-            'id' => $id,
-            'class' => $class,
-          ];
+    foreach ($this->getTargetClasses() as $class) {
+      if (!empty($id = $this->tryGetId($class)) && is_array($specification = $this->tryGetSpecification($class))) {
+        $specification += [
+          'id' => $id,
+          'class' => $class,
+        ];
         $specifications[$id] = $specification;
       }
     }
-
     return $specifications;
   }
 
   /**
-   * Retrieve an array of filter class names.
+   * Try retrieving an ID from the given class.
    *
-   * @return string[]
-   *   An array of fully qualified filter class names.
+   * @param string $class
+   *   The fully qualified name of the class.
+   *
+   * @return string
+   *   A string.
    */
-  protected function getFilterClasses() {
-    return [
-      FileFormatValidationFilter::class,
-      FileNamePatternFilter::class,
-      FileTypeFilter::class,
-      ModelValidationFilter::class,
-      SubjectValidationFilter::class,
-    ];
+  protected function tryGetId($class) {
+    try {
+      return call_user_func([$class, 'getId']);
+    }
+    catch (\Exception $e) {
+      // TODO: Log error.
+      return '';
+    }
   }
 
   /**
-   * Retrieve the interface which filters must implement.
+   * Try retrieving a specification from the given class.
    *
-   * @return string
-   *   A fully qualified interface name.
+   * @param string $class
+   *   The fully qualified name of the class.
+   *
+   * @return array
+   *   An array.
    */
-  protected function getFilterInterface() {
-    return DirectoryFilterInterface::class;
+  protected function tryGetSpecification($class) {
+    try {
+      return call_user_func([$class, 'getSpecification']);
+    }
+    catch (\Exception $e) {
+      // TODO: Log error when no specification could be retrieved.
+      return [];
+    }
   }
 
 }
