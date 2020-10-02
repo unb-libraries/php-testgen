@@ -24,7 +24,7 @@ class FileTypeFilter extends FileNamePatternFilter {
    * @return \Tozart\os\FileTypeInterface
    *   A file type object.
    */
-  protected function fileType() {
+  public function fileType() {
     return $this->_fileType;
   }
 
@@ -71,7 +71,7 @@ class FileTypeFilter extends FileNamePatternFilter {
   protected function buildPattern() {
     $extensions = $this->fileType()->getExtensions();
     return str_replace('@extensions',
-      implode('|', $extensions), '/.*\.(@extensions)/');
+      implode('|', $extensions), '/.*\.(@extensions)$/');
   }
 
 }

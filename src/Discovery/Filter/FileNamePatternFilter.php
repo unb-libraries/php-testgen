@@ -65,7 +65,12 @@ class FileNamePatternFilter implements DirectoryFilterInterface {
    * {@inheritDoc}
    */
   public function evaluate(FileInterface $file) {
-    return preg_match($this->getPattern(), $file->name());
+    $passed = preg_match($this->getPattern(), $file->name());
+    if (is_bool($passed) && !$passed) {
+      // TODO: Log the error that occurs.
+      return FALSE;
+    }
+    return boolval($passed);
   }
 
 }
