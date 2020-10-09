@@ -2,8 +2,6 @@
 
 namespace Tozart\Validation;
 
-use Tozart\Discovery\Filter\ModelValidationFilter;
-
 /**
  * Factory to build validators of different types.
  *
@@ -12,14 +10,42 @@ use Tozart\Discovery\Filter\ModelValidationFilter;
 class ValidatorFactory implements ValidatorFactoryInterface {
 
   /**
+   * The names of all classes this factory supports.
+   *
+   * @var array
+   */
+  protected $_classes;
+
+  /**
+   * Retrieve the names of all classes this factory supports.
+   *
+   * @return string[]
+   *   An array of fully qualified validator class names.
+   */
+  protected function getTargetClasses() {
+    return $this->_classes;
+  }
+
+  /**
+   * Create a new ValidatorFactory object.
+   *
+   * @param array $classes
+   *   An array of classes which the factory supports.
+   */
+  public function __construct(array $classes) {
+    $this->_classes = $classes;
+  }
+
+  /**
    * {@inheritDoc}
    */
-  public function create($type, array $configuration) {
+  public function create(string $type, array $configuration) {
     if ($specification = $this->getSpecification($type)) {
       $class = $specification['class'];
-      return call_user_func([$class, 'create'], $specification);
+      return call_user_func([$class, 'create'], $configuration);
     }
-    throw new \Exception("A validator of type \"{$type}\" could not be created.");
+    // TODO: Log the failed creation of a validator.
+    return NULL;
   }
 
   /**
@@ -43,44 +69,54 @@ class ValidatorFactory implements ValidatorFactoryInterface {
    */
   public function getSpecifications() {
     $specifications = [];
-    foreach ($this->getValidatorClasses() as $class) {
-      $interface = $this->getValidatorInterface();
-      if ($class instanceof $interface) {
-        $id = call_user_func($class, 'getId');
-        $specification = call_user_func($class, 'getSpecification') + [
+    foreach ($this->getTargetClasses() as $class) {
+      if (!empty($id = $this->tryGetId($class)) && is_array($specification = $this->tryGetSpecification($class))) {
+        $specification += [
           'id' => $id,
           'class' => $class,
         ];
         $specifications[$id] = $specification;
       }
     }
-
     return $specifications;
   }
 
   /**
-   * Retrieve an array of validator class names.
+   * Try retrieving an ID from the given class.
    *
-   * @return string[]
-   *   An array of fully qualified validator class names.
+   * @param string $class
+   *   The fully qualified name of the class.
+   *
+   * @return string
+   *   A string.
    */
-  protected function getValidatorClasses() {
-    return [
-      FileFormatValidator::class,
-      ModelValidator::class,
-      SpecificationValidator::class,
-      SubjectValidator::class,
-    ];
+  protected function tryGetId(string $class) {
+    try {
+      return call_user_func([$class, 'getId']);
+    }
+    catch (\Exception $e) {
+      // TODO: Log error.
+      return '';
+    }
   }
 
   /**
-   * Retrieve the interface which validators must implement.
+   * Try retrieving a specification from the given class.
    *
-   * @return string
-   *   A fully qualified interface name.
+   * @param string $class
+   *   The fully qualified name of the class.
+   *
+   * @return array
+   *   An array.
    */
-  protected function getValidatorInterface() {
-    return ValidatorInterface::class;
+  protected function tryGetSpecification(string $class) {
+    try {
+      return call_user_func([$class, 'getSpecification']);
+    }
+    catch (\Exception $e) {
+      // TODO: Log error when no specification could be retrieved.
+      return [];
+    }
   }
 
 }
