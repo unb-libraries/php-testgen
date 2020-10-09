@@ -82,13 +82,15 @@ abstract class ValidatorTestCase extends TestCase {
    * @param string $name
    *   The name of the file.
    * @param string $extension
-   *   (optional )The file type extension of the file.
+   *   (optional) The file type extension of the file.
    *   Leave blank for no extension.
+   * @param string $content
+   *   (optional) The content to put in the file.
    *
    * @return \PHPUnit\Framework\MockObject\Stub
    *   An object pretending to be a file.
    */
-  protected function createFile(string $name, string $extension = '') {
+  protected function createFile(string $name, string $extension = '', $content = '') {
     if (!empty($extension)) {
       $name = "{$name}.{$extension}";
     }
@@ -97,6 +99,8 @@ abstract class ValidatorTestCase extends TestCase {
       ->willReturn($name);
     $file->method('extension')
       ->willReturn($extension);
+    $file->method('content')
+      ->willReturn($content);
     return $file;
   }
 
