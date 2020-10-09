@@ -2,7 +2,6 @@
 
 namespace Tozart\Validation;
 
-use Tozart\os\FileInterface;
 use Tozart\os\FileTypeInterface;
 
 /**
@@ -66,47 +65,31 @@ class FileFormatValidator implements ValidatorInterface {
    * {@inheritDoc}
    */
   public function validate($object) {
-    $errors = [];
-    if (!($object instanceof FileInterface)) {
-      // TODO: Use logging service to log errors.
-      $errors[] = sprintf('FileFormatValidators expect input of type %s, %s given.',
-        FileInterface::class, get_class($object));
-    }
-    elseif (!$object->type()) {
-      $errors[] = sprintf('Unknown file type: %s', $object->path());
-    }
-    elseif (!$object->type()->equals($this->getFileType())) {
-      $errors[] = sprintf('File of type %s expected, %s given.',
-        $this->getFileType()->getName(), $object->type()->getName());
-    }
-    elseif (!$this->canParse($object)) {
-      $errors[] = sprintf('File could not be parsed.');
-    }
-
-    return $errors;
+    $parsed_content = $this->tryParse($object);
+    return is_array($parsed_content) && !empty($parsed_content);
   }
 
   /**
-   * Whether a parser exists for the given file.
+   * Try to parse the given object.
    *
-   * @param \Tozart\os\FileInterface $file
-   *   The file.
+   * @param mixed $object
+   *   The object, supposedly a file.
    *
-   * @return bool
-   *   TRUE if the file can be parsed, i.e. a parser
-   *   that can process the file does exist.
-   *   FALSE otherwise.
+   * @return array|null
+   *   The parsed content. NULL if the object
+   *   could not be parsed.
    */
-  protected function canParse(FileInterface $file) {
+  protected function tryParse($object) {
     try {
-      $this->getFileType()
-        ->getParser()
-        ->parse($file);
+      if ($parser = $this->getFileType()->getParser()) {
+        return $parser->parse($object);
+      }
+      return NULL;
     }
     catch (\Exception $e) {
-      return FALSE;
+      // TODO: Log the unexpected behaviour.
+      return NULL;
     }
-    return TRUE;
   }
 
 }
