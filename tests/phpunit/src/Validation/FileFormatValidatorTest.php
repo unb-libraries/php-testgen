@@ -3,7 +3,6 @@
 namespace Tozart\Test\Validation;
 
 use Tozart\os\FileInterface;
-use Tozart\os\FileTypeInterface;
 use Tozart\os\parse\FileParserInterface;
 use Tozart\Validation\FileFormatValidator;
 
@@ -18,29 +17,7 @@ class FileFormatValidatorTest extends ValidatorTestCase {
    * {@inheritDoc}
    */
   protected function createValidator() {
-    return new FileFormatValidator($this->createFileType());
-  }
-
-  /**
-   * Create a file type test double.
-   *
-   * @return \Tozart\os\FileTypeInterface
-   *   An object pretending to be a file type.
-   */
-  protected function createFileType() {
-    $file_type = $this->createStub(FileTypeInterface::class);
-
-    if (!empty($this->getProvidedData())) {
-      $current_file = $this->getProvidedData()[0];
-      $parser = $this->createParser();
-
-      $file_type->method('getParser')
-        ->willReturnCallback(function () use ($current_file, $parser) {
-          return $current_file->extension() === 'test' ? $parser : NULL;
-        });
-    }
-
-    return $file_type;
+    return new FileFormatValidator($this->createParser());
   }
 
   /**

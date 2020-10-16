@@ -2,7 +2,7 @@
 
 namespace Tozart\Validation;
 
-use Tozart\os\FileTypeInterface;
+use Tozart\os\parse\FileParserInterface;
 
 /**
  * Validator of file formats.
@@ -12,20 +12,20 @@ use Tozart\os\FileTypeInterface;
 class FileFormatValidator implements ValidatorInterface {
 
   /**
-   * The file type that determines the expected format for validation.
+   * The parser to determine a file's format validity.
    *
-   * @var \Tozart\os\FileTypeInterface
+   * @var \Tozart\os\parse\FileParserInterface
    */
-  protected $_fileType;
+  protected $_parser;
 
   /**
    * Retrieve the file type that determines the expected format for validation.
    *
-   * @return \Tozart\os\FileTypeInterface
+   * @return \Tozart\os\parse\FileParserInterface
    *   A file type object.
    */
-  public function getFileType() {
-    return $this->_fileType;
+  public function getParser() {
+    return $this->_parser;
   }
 
   /**
@@ -40,25 +40,25 @@ class FileFormatValidator implements ValidatorInterface {
    */
   public static function getSpecification() {
     return [
-      'file_type' => 'yml',
+      'parser' => 'yml',
     ];
   }
 
   /**
    * Create anew FileFormatValidator instance.
    *
-   * @param \Tozart\os\FileTypeInterface $file_type
-   *   A file type object to determine the expected format for validation.
+   * @param \Tozart\os\parse\FileParserInterface $parser
+   *   A file parser.
    */
-  public function __construct(FileTypeInterface $file_type) {
-    $this->_fileType = $file_type;
+  public function __construct(FileParserInterface $parser) {
+    $this->_parser = $parser;
   }
 
   /**
    * {@inheritDoc}
    */
   public static function create($configuration) {
-    return new static($configuration['file_type']);
+    return new static($configuration['parser']);
   }
 
   /**
@@ -81,10 +81,8 @@ class FileFormatValidator implements ValidatorInterface {
    */
   protected function tryParse($object) {
     try {
-      if ($parser = $this->getFileType()->getParser()) {
-        return $parser->parse($object);
-      }
-      return NULL;
+      return $this->getParser()
+        ->parse($object);
     }
     catch (\Exception $e) {
       // TODO: Log the unexpected behaviour.
