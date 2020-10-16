@@ -45,24 +45,22 @@ class FileParserManager {
    *   A file parser object.
    */
   public function addParser(FileParserInterface $parser) {
-    foreach ($parser->getSupportedTypes() as $file_type) {
-      $this->_parsers[$file_type->getName()] = $parser;
-    }
+    $this->_parsers[$parser->getId()] = $parser;
   }
 
   /**
    * Retrieve a parser which can process the given file type.
    *
-   * @param string $type
+   * @param string $id
    *   A file type name.
    *
    * @return \Tozart\os\parse\FileParserInterface|null
    *   A file parser object, if one exists to parse
    *   the given type.
    */
-  public function getParser(string $type) {
-    if (array_key_exists($type, $this->parsers())) {
-      return $this->parsers()[$type];
+  public function getParser(string $id) {
+    if (array_key_exists($id, $parsers = $this->parsers())) {
+      return $parsers[$id];
     }
     return NULL;
   }

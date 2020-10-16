@@ -13,6 +13,16 @@ use Tozart\Tozart;
  */
 class YamlParser implements FileParserInterface {
 
+  public static function getId() {
+    return 'yml';
+  }
+
+  public static function getSpecification() {
+    return [
+      'file_type' => 'yml',
+    ];
+  }
+
   /**
    * {@inheritDoc}
    */

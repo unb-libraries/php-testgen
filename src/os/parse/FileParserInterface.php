@@ -12,6 +12,22 @@ use Tozart\os\FileInterface;
 interface FileParserInterface {
 
   /**
+   * Retrieve the parser's identifier.
+   *
+   * @return string
+   *   A string.
+   */
+  public static function getId();
+
+  /**
+   * Retrieve the definition of the parser.
+   *
+   * @return array
+   *   An array.
+   */
+  public static function getSpecification();
+
+  /**
    * Retrieve the file's content in a structured form.
    *
    * @param \Tozart\os\FileInterface $file
