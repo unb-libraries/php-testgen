@@ -14,28 +14,38 @@ class ModelValidator extends SpecificationValidator {
   /**
    * {@inheritDoc}
    */
-  protected function essentialProperties(array $specification) {
-    return [
-      'type',
-      'class',
-    ];
+  public static function getId() {
+    return 'model';
   }
 
   /**
    * {@inheritDoc}
    */
-  protected function requiredProperties(array $specification) {
-    return [];
+  protected function defaultSpecification() {
+    return [
+      'type' => '',
+      'class' => '',
+      'requirements' => [],
+      'options' => [],
+    ];
   }
 
   /**
-   * {@inheritDoc}
+   * Validation callback for the "type" property.
+   *
+   * @param mixed $type
+   *   The type value.
+   * @param string $property
+   *   The property identifier.
+   * @param array $specification
+   *   The entire specification.
+   *
+   * @return bool
+   *   TRUE if the property is a non-empty string.
+   *   FALSE otherwise.
    */
-  protected function optionalProperties(array $specification) {
-    return [
-      'requirements',
-      'options',
-    ];
+  protected function validateType($type, string $property, array $specification) {
+    return !empty($type) && is_string($type);
   }
 
   /**
@@ -48,20 +58,22 @@ class ModelValidator extends SpecificationValidator {
    * @param array $specification
    *   The entire specification.
    *
-   * @return array
-   *   An array of error message strings.
-   *
-   * @see \Tozart\Validation\SpecificationValidator::validateProperty().
+   * @return bool
+   *   TRUE if the property points to an existing
+   *   class that implements the SubjectInterface.
+   *   FALSE otherwise.
    */
   protected function validateClass($class, string $property, array $specification) {
-    $errors = [];
     if (!class_exists($class)) {
-      $errors[] = "'{$class}' does not exist.";
+      // TODO: Log property set to non-existing class.
+      return FALSE;
     }
-    elseif (!in_array(SubjectInterface::class, class_implements($class))) {
-      $errors[] = "{$class} must implement " . SubjectInterface::class;
+
+    if (!in_array(SubjectInterface::class, class_implements($class))) {
+      // TODO: Log property set to class not implementing the SubjectInterface.
+      return FALSE;
     }
-    return $errors;
+    return TRUE;
   }
 
   /**
@@ -74,20 +86,17 @@ class ModelValidator extends SpecificationValidator {
    * @param array $specification
    *   The entire specification.
    *
-   * @return array
-   *   An array of error message strings.
+   * @return bool
+   *   TRUE if property is an array.
    *
    * @see \Tozart\Validation\SpecificationValidator::validateProperty().
    */
   protected function validateRequirements($requirements, string $property, array $specification) {
-    $errors = [];
     if (!is_array($requirements)) {
-      $errors[] = "{$property} must be of type \"array\"";
+      // TODO: Log property set to a value that's not an array.
+      return FALSE;
     }
-    elseif (empty($requirements)) {
-      $errors[] = "{$property} must not be empty.";
-    }
-    return $errors;
+    return TRUE;
   }
 
   /**
@@ -101,24 +110,27 @@ class ModelValidator extends SpecificationValidator {
    * @param array $specification
    *   The entire specification.
    *
-   * @return array
-   *   An array of error message strings.
+   * @return bool
+   *   TRUE if property is an array where
+   *   each property is assigned a default
+   *   value.
    *
    * @see \Tozart\Validation\SpecificationValidator::validateProperty().
    */
   protected function validateOptions($options, string $property, array $specification) {
-    $errors = [];
     if (!is_array($options)) {
-      $errors[] = "{$property} must be of type \"array\"";
+      // TODO: Log property set to a value that's not an array.
+      return FALSE;
     }
-    else {
-      foreach ($options as $key => $default_value) {
-        if (is_numeric($key) || empty($default_value)) {
-          $errors[] = "{$property} must define a default value.";
-        }
+
+    foreach ($options as $key => $default_value) {
+      if (is_numeric($key) || empty($default_value)) {
+        // TODO: Log property not defining a default value.
+        return FALSE;
       }
     }
-    return $errors;
+
+    return TRUE;
   }
 
 }
