@@ -2,6 +2,8 @@
 
 namespace Tozart\Validation;
 
+use Tozart\Model\Model;
+use Tozart\Model\ModelInterface;
 use Tozart\Subject\SubjectInterface;
 
 /**
@@ -24,7 +26,8 @@ class ModelValidator extends SpecificationValidator {
   protected function defaultSpecification() {
     return [
       'type' => '',
-      'class' => '',
+      'class' => Model::class,
+      'subject_class' => '',
       'requirements' => [],
       'options' => [],
     ];
@@ -60,10 +63,38 @@ class ModelValidator extends SpecificationValidator {
    *
    * @return bool
    *   TRUE if the property points to an existing
-   *   class that implements the SubjectInterface.
+   *   class that implements the ModelInterface.
    *   FALSE otherwise.
    */
   protected function validateClass($class, string $property, array $specification) {
+    if (!class_exists($class)) {
+      // TODO: Log property set to non-existing class.
+      return FALSE;
+    }
+
+    if (!in_array(ModelInterface::class, class_implements($class))) {
+      // TODO: Log property set to class not implementing the SubjectInterface.
+      return FALSE;
+    }
+    return TRUE;
+  }
+
+  /**
+   * Validation callback for the "subject_class" property.
+   *
+   * @param mixed $class
+   *   The class value.
+   * @param string $property
+   *   The property identifier.
+   * @param array $specification
+   *   The entire specification.
+   *
+   * @return bool
+   *   TRUE if the property points to an existing
+   *   class that implements the SubjectInterface.
+   *   FALSE otherwise.
+   */
+  protected function validateSubjectClass($class, string $property, array $specification) {
     if (!class_exists($class)) {
       // TODO: Log property set to non-existing class.
       return FALSE;
