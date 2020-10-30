@@ -1,4 +1,0 @@
-type: sample
-class: 'Tozart\Test\Subject\ExampleSubject'
-requirements:
-  - requiredAttribute

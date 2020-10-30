@@ -1,8 +1,0 @@
-type: page
-# This model should not be discovered because the defined "class" does not exist.
-class: 'Tozart\Test\Subject\InvalidSubject'
-requirements:
-  - url
-  - title
-options:
-  public: TRUE

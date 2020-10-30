@@ -1,7 +1,0 @@
-# This model should not be discovered because no "type" is defined.
-class: 'Tozart\Test\Subject\ExampleSubject'
-requirements:
-  - url
-  - title
-options:
-  public: TRUE

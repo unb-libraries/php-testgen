@@ -1,4 +1,0 @@
-id: 'invalid_2'
-type: 'invalid'
-# This suject should not be discovered because the required property "url" is not defined.
-title: '404'

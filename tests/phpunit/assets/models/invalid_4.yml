@@ -1,9 +1,0 @@
-type: page
-class: 'Tozart\Test\Subject\ExampleSubject'
-requirements:
-  - url
-  - title
-# This model should not be discovered because the optional
-# property "public" does not define a default value.
-options:
-  public:

@@ -1,7 +1,0 @@
-type: page
-class: 'Tozart\Test\Subject\ExampleSubject'
-  requirements:
-    - url
-    - title
-options:
-  public: TRUE

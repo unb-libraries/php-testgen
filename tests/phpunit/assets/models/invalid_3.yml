@@ -1,6 +1,0 @@
-type: example
-class: 'Tozart\Test\Subject\ExampleSubject'
-# This model should not be discovered because "requirements" is not an array.
-requirements: property1
-options:
-  public: TRUE

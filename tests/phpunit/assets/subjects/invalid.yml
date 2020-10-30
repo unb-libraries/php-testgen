@@ -1,5 +1,0 @@
-id: 'invalid'
-# This suject should not be discovered because the "invalid" model type does not exist.
-type: 'invalid'
-url: '/404'
-title: '404'
