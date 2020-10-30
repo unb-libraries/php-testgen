@@ -25,6 +25,12 @@ services:
       - TWIG
       - [twig]
     public: FALSE
+  file_system.parse.yaml:
+    class: 'Tozart\os\parse\YamlParser'
+  file_system.parse.manager:
+    class: Tozart\os\parse\FileParserManager
+    arguments:
+    - ['@file_system.parse.yaml']
   file_system:
     class: 'Tozart\os\FileSystem'
     arguments:
