@@ -19,7 +19,7 @@ abstract class SpecificationValidator extends FileFormatValidator {
       $specification = $this->buildSpecification($object);
       foreach ($specification as $property => $value) {
         if ($valid && is_callable($callback = $this->getPropertyCallback($property))) {
-          $valid = call_user_func_array($callback, [$value, $property, $specification]);
+          $valid = call_user_func_array($callback, [$value, $property, &$specification]);
         }
       }
     }
@@ -52,17 +52,19 @@ abstract class SpecificationValidator extends FileFormatValidator {
    *
    * @param string $property
    *   The property Identifier.
+   * @param mixed $target
+   *   The target class or object for the callback.
    *
    * @return array
    *   A callable array. The method name will be "validateTheProperty"
    *   if the property identifier is "the_property".
    */
-  private function getPropertyCallback(string $property) {
+  protected function getPropertyCallback(string $property, $target = NULL) {
     $upper_camel_case_property = implode('', array_map(function ($string) {
       return ucfirst($string);
     }, explode('_', $property)));
     $callback_name = 'validate' . $upper_camel_case_property;
-    return [$this, $callback_name];
+    return [$target ?: $this, $callback_name];
   }
 
 }

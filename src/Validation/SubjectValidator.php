@@ -2,8 +2,8 @@
 
 namespace Tozart\Validation;
 
+use Tozart\Model\ModelFactoryTrait;
 use Tozart\Model\ModelInterface;
-use Tozart\Tozart;
 
 /**
  * Validator for subject specifications.
@@ -12,12 +12,7 @@ use Tozart\Tozart;
  */
 class SubjectValidator extends SpecificationValidator {
 
-  /**
-   * The model factory.
-   *
-   * @var \Tozart\Discovery\FactoryInterface
-   */
-  protected $_modelFactory;
+  use ModelFactoryTrait;
 
   /**
    * The model against which the subject is to be verified.
@@ -25,19 +20,6 @@ class SubjectValidator extends SpecificationValidator {
    * @var \Tozart\Model\ModelInterface
    */
   protected $_model;
-
-  /**
-   * Retrieve the model factory.
-   *
-   * @return \Tozart\Model\ModelFactory
-   *   A model factory instance.
-   */
-  protected function modelFactory() {
-    if (!isset($this->_modelFactory)) {
-      $this->_modelFactory = Tozart::modelFactory();
-    }
-    return $this->_modelFactory;
-  }
 
   /**
    * Retrieve the model against which the subject is to be verified.
@@ -62,50 +44,49 @@ class SubjectValidator extends SpecificationValidator {
   /**
    * {@inheritDoc}
    */
-  protected function essentialProperties(array $specification) {
+  public function validate($object) {
+    if ($valid = parent::validate($object)) {
+      $model = $this->getModel();
+      $properties = array_merge($model->getRequirements(), $model->getOptions());
+      $specification = $this->buildSpecification($object) + $properties;
+      foreach (array_intersect_key($specification, $properties) as $property => $value) {
+        if ($valid && is_callable($callback = $this->getPropertyCallback($property, $model))) {
+          $valid = call_user_func_array($callback, [$value, $property, &$specification]);
+        }
+      }
+    }
+    return $valid;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  protected function defaultSpecification() {
     return [
-      'type'
+      'type' => '',
     ];
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  protected function requiredProperties(array $specification) {
-    return $this->getModel()->getRequirements();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  protected function optionalProperties(array $specification) {
-    return array_keys($this->getModel()->getOptions());
   }
 
   /**
    * Callback to validate the "type" property.
    *
    * @param string $type
-   *   A string.
+   *   The type value.
    * @param string $property
-   *   A string.
+   *   The name of the property.
    * @param array $specification
-   *   The specification.
+   *   The complete specification.
    *
-   * @return array
-   *   An array of error message strings.
-   *
-   * @see \Tozart\Validation\SpecificationValidator::validateProperty().
+   * @return bool
+   *   TRUE if a model of the given type exists.
    */
-  protected function validateType($type, $property, array $specification) {
-    $errors = [];
+  protected function validateType(string $type, string $property, array &$specification) {
     if ($model = $this->modelFactory()->create($type)) {
       $this->setModel($model);
+      return TRUE;
     }
-    else {
-      $errors[] = "A model of type \"{$type}\" does not exist.";
-    }
-    return $errors;
+    // TODO: Log non-existing model type.
+    return FALSE;
   }
 
 }
