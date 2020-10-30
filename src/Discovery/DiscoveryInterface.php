@@ -34,16 +34,4 @@ interface DiscoveryInterface {
    */
   public function discover();
 
-  /**
-   * Retrieve the resource with the given key.
-   *
-   * @param string $key
-   *   Key identifying the resource to retrieve.
-   *
-   * @return mixed|false
-   *   An object. FALSE if no resource could
-   *   be found.
-   */
-  public function findBy($key);
-
 }
