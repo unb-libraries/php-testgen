@@ -45,7 +45,7 @@ class Model implements ModelInterface {
    */
   public function __construct(array $specification) {
     $this->type = $specification['type'];
-    $this->subjectClass = $specification['class'];
+    $this->subjectClass = $specification['subject_class'];
     $this->requirements = array_key_exists('requirements', $specification)
       ? $specification['requirements']
       : [];

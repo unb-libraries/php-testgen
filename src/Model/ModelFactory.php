@@ -15,7 +15,7 @@ class ModelFactory extends FactoryBase {
    * {@inheritDoc}
    */
   protected function doCreate($specification) {
-    $constructor = [Model::class, 'create'];
+    $constructor = [$specification['class'], 'create'];
     return call_user_func($constructor, $specification);
   }
 
