@@ -2,6 +2,8 @@
 
 namespace Tozart\Discovery;
 
+use Tozart\Discovery\Filter\DirectoryFilterInterface;
+
 /**
  * Interface for discovery implementations.
  *
@@ -18,12 +20,70 @@ interface DiscoveryInterface {
   public function directoryStack();
 
   /**
+   * Add the given directories to the stack, in reverse order.
+   *
+   * @param array $directories
+   *   An array of directory roots. The first element will be added last.
+   */
+  public function addDirectories(array $directories);
+
+  /**
+   * Add the given directory root to the stack.
+   *
+   * @param \Tozart\os\DirectoryInterface|string $directory
+   *   A directory or path.
+   */
+  public function addDirectory($directory);
+
+  /**
+   * Retrieve and remove the first element from the stack.
+   *
+   * @return \Tozart\os\DirectoryInterface
+   *   A directory instance.
+   */
+  public function popDirectory();
+
+  /**
+   * Remove all directory roots from the stack.
+   */
+  public function clearDirectories();
+
+  /**
    * Retrieve the stack of directory filters.
    *
    * @return \Tozart\Discovery\Filter\DirectoryFilterInterface[]
    *   An array of directory filter instances.
    */
   public function filterStack();
+
+  /**
+   * Add the given filters to the stack, in reverse order.
+   *
+   * @param array $filters
+   *   An array of directory filters. The first element will be added last.
+   */
+  public function addFilters(array $filters);
+
+  /**
+   * Add the given directory filter to the stack.
+   *
+   * @param \Tozart\Discovery\Filter\DirectoryFilterInterface $filter
+   *   A directory filter instance.
+   */
+  public function addFilter(DirectoryFilterInterface $filter);
+
+  /**
+   * Grab the first filter from the stack.
+   *
+   * @return \Tozart\Discovery\Filter\DirectoryFilterInterface $filter
+   *   A directory filter instance.
+   */
+  public function popFilter();
+
+  /**
+   * Remove all filters from the stack.
+   */
+  public function clearFilters();
 
   /**
    * Locate files in any of the source roots that match the filter criteria.
