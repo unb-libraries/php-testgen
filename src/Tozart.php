@@ -176,23 +176,23 @@ final class Tozart {
   /**
    * The file parser manager service.
    *
-   * @return \Tozart\os\parse\FileParserManager
+   * @return \Tozart\os\parse\FileParserManagerInterface
    *   A file parser manager service instance.
    */
   public static function fileParserManager() {
-    /** @var \Tozart\os\parse\FileParserManager $file_parser_manager */
-    $file_parser_manager = static::container()->get('file_system.parser.manager');
+    /** @var \Tozart\os\parse\FileParserManagerInterface $file_parser_manager */
+    $file_parser_manager = static::container()->get('file_system.parse.manager');
     return $file_parser_manager;
   }
 
   /**
    * The subject discovery service.
    *
-   * @return \Tozart\Discovery\SubjectDiscovery
+   * @return \Tozart\Discovery\DiscoveryInterface
    *   A subject discovery service instance.
    */
   public static function subjectDiscovery() {
-    /** @var \Tozart\Discovery\SubjectDiscovery $subject_discovery */
+    /** @var \Tozart\Discovery\DiscoveryInterface $subject_discovery */
     $subject_discovery = static::container()->get('subject.discovery');
     return $subject_discovery;
   }

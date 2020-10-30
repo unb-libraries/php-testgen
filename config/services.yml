@@ -1,6 +1,11 @@
 parameters:
   model_root: '%MODEL_ROOT%'
   template_root: '%TEMPLATE_ROOT%'
+  validators:
+    - Tozart\Validation\FileFormatValidator
+    - Tozart\Validation\ModelValidator
+    - Tozart\Validation\SpecificationValidator
+    - Tozart\Validation\SubjectValidator
   directory_filters:
     - Tozart\Discovery\Filter\FileFormatValidationFilter
     - Tozart\Discovery\Filter\FileNamePatternFilter
@@ -10,8 +15,6 @@ parameters:
 
 services:
   # File system
-  file_system.parse.yaml:
-    class: 'Tozart\os\parse\YamlParser'
   file_system.file_type.yaml:
     class: 'Tozart\os\FileType'
     arguments:
@@ -36,11 +39,45 @@ services:
     arguments:
       - ['@file_system.file_type.yaml', '@file_system.file_type.twig']
 
+  # Validation
+  validator.factory:
+    class: Tozart\Validation\ValidatorFactory
+    arguments: [%validators%]
+  validator.model:
+    class: Tozart\Validation\ModelValidator
+    factory: [@validator.factory, create]
+    arguments:
+      - model
+
+  # Filter
+  directory_filter.factory:
+    class: Tozart\Discovery\Filter\DirectoryFilterFactory
+    arguments: [ '%directory_filters%' ]
+  directory_filter.filetype.yaml:
+    class: Tozart\Discovery\Filter\FileTypeFilter
+    factory: [@directory_filter.factory, create]
+    arguments:
+      - file_type,
+      - {file_type: @file_system.file_type.yaml}
+  directory_filter.filetype.twig:
+    class: Tozart\Discovery\Filter\FileTypeFilter
+    factory: [ @directory_filter.factory, create ]
+    arguments:
+      - file_type,
+      - { file_type: @file_system.file_type.twig }
+  directory_filter.model:
+    class: Tozart\Discovery\Filter\FileValidationFilter
+    factory: @directory_filter.factory
+    arguments:
+      - model
+      - validator:
+
   # Models
   model.discovery:
-    class: 'Tozart\Discovery\ModelDiscovery'
+    class: Tozart\Discovery\FileSystemDiscovery
     arguments:
       - ['%model_root%']
+      - [@directory_filter.filetype.yaml]
       - '@file_system.file_type.yaml'
   model.factory:
     class: 'Tozart\Model\ModelFactory'
@@ -53,9 +90,10 @@ services:
 
   # Subjects
   subject.discovery:
-    class: 'Tozart\Discovery\SubjectDiscovery'
+    class: Tozart\Discovery\FileSystemDiscovery
     arguments:
       - []
+      - ['@directory_filter.filetype.yaml']
       - '@file_system.file_type.yaml'
   subject.factory:
     class: 'Tozart\Subject\SubjectFactory'
@@ -69,18 +107,18 @@ services:
 
   # Templates
   render.template_discovery:
-    class: 'Tozart\Discovery\TemplateDiscovery'
+    class: Tozart\Discovery\FileSystemDiscovery
     arguments:
       - ['%template_root%']
+      - ['@directory_filter.filetype.twig']
       - '@file_system.file_type.twig'
+  render.template_finder:
+    class: Tozart\render\TemplateFinder
+    arguments:
+      - '@render.template_discovery'
+  render.context_factory:
+    class: Tozart\render\RenderContextFactory
+    arguments:
+      - '@render.template_finder'
   render.renderer:
     class: 'Tozart\render\TwigRenderer'
-
-  # Filter
-  directory_filter.factory:
-    class: Tozart\Discovery\Filter\DirectoryFilterFactory
-    arguments: ['%directory_filters%']
-
-  # Validation
-  validator.factory:
-    class: Tozart\Validation\ValidatorFactory
