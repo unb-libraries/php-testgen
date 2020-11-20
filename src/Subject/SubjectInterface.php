@@ -52,6 +52,7 @@ interface SubjectInterface {
    */
   public function getProperties();
 
+  // TODO: Determine template discovery patterns in template finder.
   /**
    * Array of search patterns which template file names must match in order to be chosen to render this subject.
    *

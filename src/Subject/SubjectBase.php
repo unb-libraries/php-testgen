@@ -114,8 +114,8 @@ abstract class SubjectBase implements SubjectInterface {
     $id = $this->getId();
     $model_type = $this->getModel()->getType();
     return [
-      "/\{$id\}\.\{$model_type\}.*/",
-      "\{$model_type\}.*",
+      "/{$id}\.{$model_type}.*/",
+      "{$model_type}.*",
     ];
   }
 
