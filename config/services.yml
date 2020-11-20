@@ -1,6 +1,6 @@
 parameters:
-  model_root: '%MODEL_ROOT%'
-  template_root: '%TEMPLATE_ROOT%'
+  model_root: '%model_root%'
+  template_root: '%template_root%'
   validators:
     - Tozart\Validation\FileFormatValidator
     - Tozart\Validation\ModelValidator
@@ -40,7 +40,7 @@ services:
   # Validation
   validator.factory:
     class: Tozart\Validation\ValidatorFactory
-    arguments: [%validators%]
+    arguments: ['%validators%']
   validator.model:
     class: Tozart\Validation\ModelValidator
     factory: ['@validator.factory', create]

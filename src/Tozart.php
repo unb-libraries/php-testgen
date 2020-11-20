@@ -59,18 +59,18 @@ final class Tozart {
       $loader = new YamlFileLoader($container, new FileLocator(self::CONFIG_DIR));
       $loader->load('services.yml');
 
-      $container->setParameter('TOZART_ROOT', defined('TOZART_ROOT')
+      $container->setParameter('tozart_root', defined('TOZART_ROOT')
         ? TOZART_ROOT
         : self::PROJECT_ROOT);
-      $container->setParameter('MODEL_ROOT', defined('MODEL_ROOT')
+      $container->setParameter('model_root', defined('MODEL_ROOT')
         ? MODEL_ROOT
-        : rtrim($container->getParameter('TOZART_ROOT')) . DIRECTORY_SEPARATOR . 'models');
-      $container->setParameter('SUBJECT_ROOT', defined('SUBJECT_ROOT')
+        : rtrim($container->getParameter('tozart_root')) . DIRECTORY_SEPARATOR . 'models');
+      $container->setParameter('subject_root', defined('SUBJECT_ROOT')
         ? SUBJECT_ROOT
-        : rtrim($container->getParameter('TOZART_ROOT')) . DIRECTORY_SEPARATOR . 'subjects');
-      $container->setParameter('TEMPLATE_ROOT', defined('TEMPLATE_ROOT')
+        : rtrim($container->getParameter('tozart_root')) . DIRECTORY_SEPARATOR . 'subjects');
+      $container->setParameter('template_root', defined('TEMPLATE_ROOT')
         ? TEMPLATE_ROOT
-        : rtrim($container->getParameter('TOZART_ROOT')) . DIRECTORY_SEPARATOR . 'templates');
+        : rtrim($container->getParameter('tozart_root')) . DIRECTORY_SEPARATOR . 'templates');
     }
     catch (\Exception $e) {
       // TODO: Log error during container initialization.
