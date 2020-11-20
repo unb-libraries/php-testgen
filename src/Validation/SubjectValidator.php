@@ -44,6 +44,22 @@ class SubjectValidator extends SpecificationValidator {
   /**
    * {@inheritDoc}
    */
+  public static function getId() {
+    return 'subject';
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  protected function defaultSpecification() {
+    return [
+      'type' => '',
+    ];
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function validate($object) {
     if ($valid = parent::validate($object)) {
       $model = $this->getModel();
@@ -56,15 +72,6 @@ class SubjectValidator extends SpecificationValidator {
       }
     }
     return $valid;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  protected function defaultSpecification() {
-    return [
-      'type' => '',
-    ];
   }
 
   /**
