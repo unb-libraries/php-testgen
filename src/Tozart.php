@@ -5,7 +5,6 @@ namespace Tozart;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Tozart\render\RenderContext;
 
 /**
  * Where it all begins.
@@ -225,21 +224,19 @@ final class Tozart {
   }
 
   /**
-   * Write tests for all available subjects.
+   * Write tests for all discoverable subjects.
    *
-   * @param mixed $dir
+   * @param \Tozart\os\DirectoryInterface|string $destination
    *   The output directory or path.
    */
-  public function generate($dir) {
-    if (is_string($dir)) {
-      $dir = $this->fileSystem()->dir($dir);
+  public function generate($destination) {
+    if (is_string($destination)) {
+      $destination = $this->fileSystem()->dir($destination);
     }
+
     foreach ($this->subjectManager()->subjects() as $subject_id => $subject) {
-      $template = $this->templateDiscovery()->findBy($subject);
-      // TODO: Outsource creation of render context into a separate component.
-      $context = new RenderContext($subject->getProperties(), $template);
-      if ($content = $this->renderer()->render($context)) {
-        $test_case = $dir->put($template->name());
+      if (($context = static::contextFactory()->create($subject)) && ($content = static::renderer()->render($context))) {
+        $test_case = $destination->put($context->getTemplate()->name());
         $test_case->setContent($content);
       }
     }
@@ -255,6 +252,30 @@ final class Tozart {
     /** @var \Tozart\Discovery\DiscoveryInterface $template_discovery */
     $template_discovery = static::container()->get('render.template_discovery');
     return $template_discovery;
+  }
+
+  /**
+   * The template finder service.
+   *
+   * @return \Tozart\render\TemplateFinderInterface
+   *   A template finder service instance.
+   */
+  public static function templateFinder() {
+    /** @var \Tozart\render\TemplateFinderInterface $template_finder */
+    $template_finder = static::container()->get('render.template_finder');
+    return $template_finder;
+  }
+
+  /**
+   * The context factory service.
+   *
+   * @return \Tozart\render\RenderContextFactoryInterface
+   *   A render context factory service instance.
+   */
+  public static function contextFactory() {
+    /** @var \Tozart\render\RenderContextFactoryInterface $context_factory */
+    $context_factory = static::container()->get('render.context_factory');
+    return $context_factory;
   }
 
   /**
