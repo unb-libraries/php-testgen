@@ -21,6 +21,13 @@ class TemplateFinder implements TemplateFinderInterface {
   protected $templateDiscovery;
 
   /**
+   * The directories to search in.
+   *
+   * @var \Tozart\os\DirectoryInterface[]
+   */
+  protected $directories;
+
+  /**
    * Retrieve the template discovery.
    *
    * @return \Tozart\Discovery\DiscoveryInterface
@@ -28,6 +35,22 @@ class TemplateFinder implements TemplateFinderInterface {
    */
   protected function templateDiscovery() {
     return $this->templateDiscovery;
+  }
+
+  /**
+   * Retrieve the directories to search in. Sorted by relevance.
+   *
+   * @return \Tozart\os\DirectoryInterface[]
+   *   An array of directories, keyed by each directory's path.
+   */
+  protected function directories() {
+    if (empty($this->directories)) {
+      $this->directories = [];
+      foreach (array_reverse($this->templateDiscovery()->directoryStack()) as $directory) {
+        $this->directories[$directory->systemPath()] = $directory;
+      }
+    }
+    return $this->directories;
   }
 
   /**
@@ -51,16 +74,19 @@ class TemplateFinder implements TemplateFinderInterface {
    *   be located.
    */
   public function findTemplate(SubjectInterface $subject) {
-    $scores = [];
-    foreach ($this->templateDiscovery()->discover() as $template) {
-      if ($score = $this->calculateScore($template, $subject)) {
-        $scores[$template->name()] = $score;
+    $best_match = [];
+    foreach ($templates = $this->templateDiscovery()->discover() as $id => $template) {
+      $score = $this->calculateScore($template, $subject);
+      if ($score && (empty($best_match) || $best_match['score'] < $score)) {
+        $best_match = [
+          'score' => $score,
+          'template' => $template,
+        ];
       }
     }
 
-    if (!empty($scores)) {
-      arsort($scores, SORT_NUMERIC);
-      return $scores[array_keys($scores)[0]];
+    if (!empty($best_match)) {
+      return $best_match['template'];
     }
     return FALSE;
   }
@@ -80,18 +106,22 @@ class TemplateFinder implements TemplateFinderInterface {
    *   is not suitable.
    */
   protected function calculateScore(FileInterface $file, SubjectInterface $subject) {
-    $patterns = $subject->getTemplateDiscoveryPatterns();
-    $directories = $this->templateDiscovery()->directoryStack();
-    foreach (array_values($patterns) as $index => $pattern) {
+    $score = 0;
+    $directories = $this->directories();
+    $patterns = array_values(array_reverse($subject->getTemplateDiscoveryPatterns()));
+
+    foreach ($patterns as $index => $pattern) {
       if (preg_match($pattern, $file->name())) {
-        $pattern_factor = count($patterns) - $index - 1;
-        $directory_factor = array_keys(array_filter($directories, function ($directory) use ($file) {
-          return $directory->systemPath() === $file->directory()->systemPath();
-        }))[0];
-        return count($directories) * $pattern_factor + $directory_factor;
+        $pattern_relevance = $index + 1;
+        $directory_relevance = array_search($file->directory()->systemPath(), array_keys($directories));
+
+        $pattern_score = count($directories) * $pattern_relevance + $directory_relevance;
+        if ($pattern_score > $score) {
+          $score = $pattern_score;
+        }
       }
     }
-    return 0;
+    return $score;
   }
 
 }
