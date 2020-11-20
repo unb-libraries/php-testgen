@@ -16,7 +16,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "symfony/config": "^3.4",
+        "symfony/config": "^4.4",
         "symfony/dependency-injection": "^3.4",
         "symfony/yaml": "^3.4",
         "twig/twig": "^1.4"
