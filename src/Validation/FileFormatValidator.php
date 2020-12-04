@@ -82,7 +82,7 @@ class FileFormatValidator implements ValidatorInterface {
   protected function tryParse($object) {
     try {
       return $this->getParser()
-        ->parse($object);
+        ->parse($object->path());
     }
     catch (\Exception $e) {
       // TODO: Log the unexpected behaviour.

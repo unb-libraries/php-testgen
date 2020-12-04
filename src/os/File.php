@@ -81,7 +81,7 @@ class File implements FileInterface {
    */
   public function parse() {
     $parser = $this->type()->getParser();
-    return $parser->parse($this);
+    return $parser->parse($this->path());
   }
 
   /**

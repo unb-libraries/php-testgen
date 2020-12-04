@@ -35,4 +35,15 @@ interface FileParserManagerInterface {
    */
   public function getParser(string $id);
 
+  /**
+   * Retrieve the file's content in a structured form.
+   *
+   * @param \Tozart\os\FileInterface|string $file
+   *   The file to parse.
+   *
+   * @return mixed
+   *   The parsed content.
+   */
+  public function parse($file);
+
 }

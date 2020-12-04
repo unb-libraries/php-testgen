@@ -33,7 +33,7 @@ abstract class SpecificationValidator extends FileFormatValidator {
    * @return array|mixed
    */
   protected function buildSpecification(FileInterface $file) {
-    return $this->getParser()->parse($file)
+    return $this->getParser()->parse($file->path())
       + $this->defaultSpecification();
   }
 

@@ -30,13 +30,13 @@ interface FileParserInterface {
   /**
    * Retrieve the file's content in a structured form.
    *
-   * @param \Tozart\os\FileInterface $file
+   * @param string $filepath
    *   The file to parse.
    *
    * @return mixed
    *   The parsed content.
    */
-  public function parse(FileInterface $file);
+  public function parse($filepath);
 
   /**
    * Retrieve the file types this parser can process.

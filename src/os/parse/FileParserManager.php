@@ -2,12 +2,17 @@
 
 namespace Tozart\os\parse;
 
+use Tozart\os\DependencyInjection\FileSystemTrait;
+use Tozart\Tozart;
+
 /**
  * Manager of file parser instances.
  *
  * @package Tozart\os\parse
  */
-class FileParserManager {
+class FileParserManager implements FileParserManagerInterface {
+
+  use FileSystemTrait;
 
   /**
    * Available file parsers.
@@ -63,6 +68,20 @@ class FileParserManager {
       return $parsers[$id];
     }
     return NULL;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function parse($file) {
+    if (is_string($file)) {
+      $file = static::fileSystem()->file($file, '', TRUE);
+    }
+
+    if ($parser = $this->getParser($file->type()->getName())) {
+      return $parser->parse($file->path());
+    }
+    return FALSE;
   }
 
 }
