@@ -68,7 +68,7 @@ abstract class SubjectBase implements SubjectInterface {
    */
   protected function setProperties(array $properties) {
     foreach ($properties as $property => $value) {
-      $this->set($property, $properties);
+      $this->set($property, $value);
     }
   }
 
