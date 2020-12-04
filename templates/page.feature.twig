@@ -4,11 +4,11 @@
 Feature: Visit a page
   As an internet user
   In order to use a website
-  I need to be able to access its pages
+  I need to be able to access a page.
 
 {% if private %}
 
-  Scenario: Grant acccess to authenticated users
+  Scenario: Grant access to authenticated users
     Given I am logged in
     When I go to {{url}}
     Then I should get an HTTP 200 response

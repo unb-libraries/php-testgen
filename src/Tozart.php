@@ -234,10 +234,16 @@ final class Tozart {
       $destination = $this->fileSystem()->dir($destination);
     }
 
-    foreach ($this->subjectManager()->subjects() as $subject_id => $subject) {
-      if (($context = static::contextFactory()->create($subject)) && ($content = static::renderer()->render($context))) {
-        $test_case = $destination->put($context->getTemplate()->name());
-        $test_case->setContent($content);
+    foreach (self::subjectDiscovery()->discover() as $filepath) {
+      if ($specification = $this->fileParserManager()->parse($filepath)) {
+        if ($subject = $this->subjectFactory()->createFromSpecification($specification)) {
+          if (($context = $this->contextFactory()->create($subject)) && ($content = $this->renderer()->render($context))) {
+
+            // TODO: Use unique names for each subject.
+            $test_case = $destination->put($context->getTemplate()->name());
+            $test_case->setContent($content);
+          }
+        }
       }
     }
   }
