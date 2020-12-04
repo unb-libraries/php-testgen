@@ -14,12 +14,12 @@ use Tozart\Tozart;
 class YamlParser implements FileParserInterface {
 
   public static function getId() {
-    return 'yml';
+    return 'yaml';
   }
 
   public static function getSpecification() {
     return [
-      'file_type' => 'yml',
+      'file_type' => 'yaml',
     ];
   }
 
