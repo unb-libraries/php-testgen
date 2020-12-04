@@ -13,6 +13,8 @@ use Tozart\Model\ModelManagerInterface;
  */
 class SubjectFactory extends FactoryBase {
 
+  // TODO: Refactor SubjectFactory. Get rid of FactoryBase.
+
   /**
    * The model manager.
    *
@@ -41,6 +43,26 @@ class SubjectFactory extends FactoryBase {
   public function __construct(DiscoveryInterface $discovery, ModelManagerInterface $model_manager) {
     parent::__construct($discovery);
     $this->_modelManager = $model_manager;
+  }
+
+  /**
+   * Create a subject object from the given specification.
+   *
+   * @param array $specification
+   *   The specification.
+   *
+   * @return \Tozart\Subject\SubjectInterface
+   *   A subject object.
+   */
+  public function createFromSpecification(array $specification) {
+    return $this->doCreate($specification);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  protected function findSpecification($key) {
+    return FALSE;
   }
 
   /**

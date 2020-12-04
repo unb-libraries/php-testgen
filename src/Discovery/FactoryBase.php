@@ -2,6 +2,8 @@
 
 namespace Tozart\Discovery;
 
+use Tozart\Tozart;
+
 /**
  * Base class for factory implementations.
  *
@@ -56,12 +58,7 @@ abstract class FactoryBase implements FactoryInterface {
    *   A specification array. FALSE if no specification
    *   exists for the given type.
    */
-  protected function findSpecification($key) {
-    if ($specification = $this->discovery()->findBy($key)) {
-      return $specification;
-    }
-    return FALSE;
-  }
+  abstract protected function findSpecification($key);
 
   /**
    * Actually build the resource from the given specification.
