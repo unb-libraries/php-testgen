@@ -111,11 +111,12 @@ abstract class SubjectBase implements SubjectInterface {
    * {@inheritDoc}
    */
   public function getTemplateDiscoveryPatterns() {
+    // TODO: TemplateFinder should define template naming patterns.
     $id = $this->getId();
     $model_type = $this->getModel()->getType();
     return [
-      "/{$id}\.{$model_type}.*/",
-      "{$model_type}.*",
+      "#^{$id}\.{$model_type}.*$#",
+      "#^{$model_type}.*$#",
     ];
   }
 
