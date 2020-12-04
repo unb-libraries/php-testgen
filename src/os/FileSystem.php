@@ -89,19 +89,28 @@ class FileSystem {
   /**
    * Retrieve a file instance reflecting the given name and directory.
    *
-   * @param string $name
+   * @param string $path
    *   The name of the file.
    * @param \Tozart\os\DirectoryInterface|string $directory
    *   The directory.
+   * @param bool $absolute
+   *   Whether the given path is absolute.
    *
    * @return \Tozart\os\FileInterface
    *   A file object.
    */
-  public function file($name, $directory) {
+  public function file($path, $directory = DIRECTORY_SEPARATOR, $absolute = FALSE) {
+    if ($absolute) {
+      $segments = explode(DIRECTORY_SEPARATOR, $path);
+      // TODO: Creation of an absolute directory path should be platform independent.
+      $directory = DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, array_splice($segments, 0, -1));
+      $path = $segments[0];
+    }
+
     if (is_string($directory)) {
       $directory = $this->dir($directory);
     }
-    return new File($name, $directory);
+    return new File($path, $directory);
   }
 
 
