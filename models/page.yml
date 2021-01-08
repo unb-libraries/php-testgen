@@ -6,4 +6,5 @@ requirements:
   - url
 # Optional model properties
 options:
-  private: FALSE
+  public: TRUE
+  grant_access: { }

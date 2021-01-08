@@ -6,23 +6,36 @@ Feature: Visit a page
   In order to use a website
   I need to be able to access a page.
 
-{% if private %}
+{% if public %}
 
-  Scenario: Grant access to authenticated users
-    Given I am logged in
+  Scenario: Grant public acccess
+    Given I am not logged in
     When I go to {{url}}
     Then I should get an HTTP 200 response
+
+{% else %}
+
+  {% if grant_access is not empty %}
+  Background:
+    Given users:
+    | name | mail | roles |
+    {% for user_role in grant_access %}
+      {% set user = "user_%s"|format(loop.index) %}
+      {{ "| %s | %s@example.com | %s |" | format(user, user, user_role) }}
+    {% endfor %}
+
+    {% for user_role in grant_access %}
+      {% set user = "user_%s"|format(loop.index) %}
+      Scenario: Grant acccess to {{ user }}
+        Given I am logged in as {{ user }}
+        When I go to {{url}}
+        Then I should get an HTTP 200 response
+    {% endfor %}
+  {% endif %}
 
   Scenario: Deny acccess to unauthenticated users
     Given I am not logged in
     When I go to {{url}}
     Then I should get an HTTP 403 response
-
-{% else %}
-
-  Scenario: Grant acccess to everyone
-    Given I am not logged in
-    When I go to {{url}}
-    Then I should get an HTTP 200 response
 
 {% endif %}
