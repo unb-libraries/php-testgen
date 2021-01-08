@@ -5,6 +5,7 @@ namespace Tozart;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Tozart\os\DirectoryInterface;
 
 /**
  * Where it all begins.
@@ -226,14 +227,18 @@ final class Tozart {
   /**
    * Write tests for all discoverable subjects.
    *
+   * @param \Tozart\os\DirectoryInterface|string $subject_root
+   *   The subject directory or path.
    * @param \Tozart\os\DirectoryInterface|string $destination
    *   The output directory or path.
    */
-  public function generate($destination) {
+  public function generate($subject_root, $destination) {
     if (is_string($destination)) {
       $destination = $this->fileSystem()->dir($destination);
     }
 
+    // TODO: Allow passing of subject root directory as parameter.
+    self::subjectDiscovery()->addDirectory($subject_root);
     foreach (self::subjectDiscovery()->discover() as $filepath) {
       if ($specification = $this->fileParserManager()->parse($filepath)) {
         if ($subject = $this->subjectFactory()->createFromSpecification($specification)) {
@@ -246,6 +251,7 @@ final class Tozart {
         }
       }
     }
+    self::subjectDiscovery()->popDirectory();
   }
 
   /**
