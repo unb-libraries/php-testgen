@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\Subject;
+namespace Trupal\Subject;
 
 /**
  * Interface for subject implementations.
  *
- * @package Tozart\Subject
+ * @package Trupal\Subject
  */
 interface SubjectInterface {
 
@@ -28,7 +28,7 @@ interface SubjectInterface {
   /**
    * The model which the subject is build from.
    *
-   * @return \Tozart\Model\ModelInterface
+   * @return \Trupal\Model\ModelInterface
    *   A model instance.
    */
   public function getModel();

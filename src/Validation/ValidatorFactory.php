@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\Validation;
+namespace Trupal\Validation;
 
 /**
  * Factory to build validators of different types.
  *
- * @package Tozart\Validation
+ * @package Trupal\Validation
  */
 class ValidatorFactory implements ValidatorFactoryInterface {
 

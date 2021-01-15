@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\Test;
+namespace Trupal\Test;
 
 /**
  * Trait to test protected or private methods.
  *
- * @package Tozart\Test
+ * @package Trupal\Test
  */
 trait PrivateAccessTrait {
 

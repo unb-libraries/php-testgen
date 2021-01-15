@@ -1,16 +1,16 @@
 <?php
 
-namespace Tozart\Test\Validation;
+namespace Trupal\Test\Validation;
 
-use Tozart\Discovery\FactoryInterface;
-use Tozart\Test\Subject\ExampleSubject;
+use Trupal\Discovery\FactoryInterface;
+use Trupal\Test\Subject\ExampleSubject;
 
 /**
  * Test the SubjectValidator class.
  *
- * @covers \Tozart\Validation\SubjectValidator
+ * @covers \Trupal\Validation\SubjectValidator
  *
- * @package Tozart\Test\Validation
+ * @package Trupal\Test\Validation
  */
 class SubjectValidatorTest extends SpecificationValidatorTest {
 
@@ -24,7 +24,7 @@ class SubjectValidatorTest extends SpecificationValidatorTest {
   /**
    * Create a model factory test double.
    *
-   * @return \Tozart\Discovery\FactoryInterface
+   * @return \Trupal\Discovery\FactoryInterface
    *   An object pretending to be a model factory.
    */
   protected function createModelFactory() {
@@ -39,7 +39,7 @@ class SubjectValidatorTest extends SpecificationValidatorTest {
   /**
    * Create a model test double.
    *
-   * @return \Tozart\Model\ModelInterface
+   * @return \Trupal\Model\ModelInterface
    *   An object pretending to be a model.
    */
   protected function createModel() {

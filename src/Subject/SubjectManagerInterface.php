@@ -1,18 +1,18 @@
 <?php
 
-namespace Tozart\Subject;
+namespace Trupal\Subject;
 
 /**
  * Interface for subject manager implementations.
  *
- * @package Tozart\Subject
+ * @package Trupal\Subject
  */
 interface SubjectManagerInterface {
 
   /**
    * Retrieve all subjects.
    *
-   * @return \Tozart\Subject\SubjectInterface[]
+   * @return \Trupal\Subject\SubjectInterface[]
    *   An array of subject instances, keyed
    *   by their IDs.
    */
@@ -36,7 +36,7 @@ interface SubjectManagerInterface {
    * @param string $id
    *   A string.
    *
-   * @return \Tozart\Subject\SubjectInterface
+   * @return \Trupal\Subject\SubjectInterface
    *   A subject instance.
    */
   public function get($id);

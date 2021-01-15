@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\Validation;
+namespace Trupal\Validation;
 
 /**
  * Interface for validator factory implementations.
  *
- * @package Tozart\Validation
+ * @package Trupal\Validation
  */
 interface ValidatorFactoryInterface {
 
@@ -18,7 +18,7 @@ interface ValidatorFactoryInterface {
    *   An array containing options to initially
    *   configure the validator.
    *
-   * @return \Tozart\Validation\ValidatorInterface
+   * @return \Trupal\Validation\ValidatorInterface
    */
   public function create(string $type, array $configuration);
 

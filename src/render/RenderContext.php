@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\render;
+namespace Trupal\render;
 
-use Tozart\os\FileInterface;
+use Trupal\os\FileInterface;
 
 /**
  * Data structure class containing render information.
  *
- * @package Tozart\render
+ * @package Trupal\render
  */
 class RenderContext implements RenderContextInterface {
 
@@ -21,7 +21,7 @@ class RenderContext implements RenderContextInterface {
   /**
    * The template file.
    *
-   * @var \Tozart\os\FileInterface
+   * @var \Trupal\os\FileInterface
    */
   protected $_template;
 
@@ -54,7 +54,7 @@ class RenderContext implements RenderContextInterface {
    *
    * @param array $bindings
    *   An array of variable names and values.
-   * @param \Tozart\os\FileInterface $template
+   * @param \Trupal\os\FileInterface $template
    *   A template file.
    */
   public function __construct(array $bindings, FileInterface $template) {

@@ -1,23 +1,23 @@
 <?php
 
-namespace Tozart\render;
+namespace Trupal\render;
 
-use Tozart\Subject\SubjectInterface;
+use Trupal\Subject\SubjectInterface;
 
 /**
  * Interface for render context factories.
  *
- * @package Tozart\render
+ * @package Trupal\render
  */
 interface RenderContextFactoryInterface {
 
   /**
    * Create a context to render the given subject.
    *
-   * @param \Tozart\Subject\SubjectInterface $subject
+   * @param \Trupal\Subject\SubjectInterface $subject
    *   The subject.
    *
-   * @return \Tozart\render\RenderContextInterface
+   * @return \Trupal\render\RenderContextInterface
    *   A render context instance.
    */
   public function create(SubjectInterface $subject);

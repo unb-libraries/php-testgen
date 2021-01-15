@@ -1,27 +1,27 @@
 <?php
 
-namespace Tozart\render;
+namespace Trupal\render;
 
-use Tozart\Subject\SubjectInterface;
+use Trupal\Subject\SubjectInterface;
 
 /**
  * Factory for creating render context instances.
  *
- * @package Tozart\render
+ * @package Trupal\render
  */
 class RenderContextFactory implements RenderContextFactoryInterface {
 
   /**
    * The template finder.
    *
-   * @var \Tozart\render\TemplateFinderInterface
+   * @var \Trupal\render\TemplateFinderInterface
    */
   protected $_templateFinder;
 
   /**
    * Retrieve the template finder.
    *
-   * @return \Tozart\render\TemplateFinderInterface
+   * @return \Trupal\render\TemplateFinderInterface
    *   A template finder object.
    */
   protected function templateFinder() {
@@ -31,7 +31,7 @@ class RenderContextFactory implements RenderContextFactoryInterface {
   /**
    * Create a new RenderContextFactory instance.
    *
-   * @param \Tozart\render\TemplateFinderInterface $template_finder
+   * @param \Trupal\render\TemplateFinderInterface $template_finder
    *   A template finder object.
    */
   public function __construct(TemplateFinderInterface $template_finder) {

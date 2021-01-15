@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\Model;
+namespace Trupal\Model;
 
 /**
  * Class to represent a model specification.
  *
- * @package Tozart\Model
+ * @package Trupal\Model
  */
 class Model implements ModelInterface {
 

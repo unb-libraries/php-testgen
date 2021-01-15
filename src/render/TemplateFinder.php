@@ -1,36 +1,36 @@
 <?php
 
-namespace Tozart\render;
+namespace Trupal\render;
 
-use Tozart\Discovery\DiscoveryInterface;
-use Tozart\os\FileInterface;
-use Tozart\Subject\SubjectInterface;
+use Trupal\Discovery\DiscoveryInterface;
+use Trupal\os\FileInterface;
+use Trupal\Subject\SubjectInterface;
 
 /**
  * Class for retrieving the best matching template for a given subject.
  *
- * @package Tozart\render
+ * @package Trupal\render
  */
 class TemplateFinder implements TemplateFinderInterface {
 
   /**
    * The template discovery.
    *
-   * @var \Tozart\Discovery\DiscoveryInterface
+   * @var \Trupal\Discovery\DiscoveryInterface
    */
   protected $templateDiscovery;
 
   /**
    * The directories to search in.
    *
-   * @var \Tozart\os\DirectoryInterface[]
+   * @var \Trupal\os\DirectoryInterface[]
    */
   protected $directories;
 
   /**
    * Retrieve the template discovery.
    *
-   * @return \Tozart\Discovery\DiscoveryInterface
+   * @return \Trupal\Discovery\DiscoveryInterface
    *   A template discovery object.
    */
   protected function templateDiscovery() {
@@ -40,7 +40,7 @@ class TemplateFinder implements TemplateFinderInterface {
   /**
    * Retrieve the directories to search in. Sorted by relevance.
    *
-   * @return \Tozart\os\DirectoryInterface[]
+   * @return \Trupal\os\DirectoryInterface[]
    *   An array of directories, keyed by each directory's path.
    */
   protected function directories() {
@@ -56,7 +56,7 @@ class TemplateFinder implements TemplateFinderInterface {
   /**
    * Create a new TemplateFinder instance.
    *
-   * @param \Tozart\Discovery\DiscoveryInterface $template_discovery
+   * @param \Trupal\Discovery\DiscoveryInterface $template_discovery
    *   A template discovery object.
    */
   public function __construct(DiscoveryInterface $template_discovery) {
@@ -66,7 +66,7 @@ class TemplateFinder implements TemplateFinderInterface {
   /**
    * Find a suitable template to render the given subject.
    *
-   * @param \Tozart\Subject\SubjectInterface $subject
+   * @param \Trupal\Subject\SubjectInterface $subject
    *   The subject.
    *
    * @return FileInterface|false
@@ -94,9 +94,9 @@ class TemplateFinder implements TemplateFinderInterface {
   /**
    * Calculate a score value indicating how well suitable the given template file is to render the given subject.
    *
-   * @param \Tozart\os\FileInterface $file
+   * @param \Trupal\os\FileInterface $file
    *   The template file.
-   * @param \Tozart\Subject\SubjectInterface $subject
+   * @param \Trupal\Subject\SubjectInterface $subject
    *   The subject.
    *
    * @return float|int

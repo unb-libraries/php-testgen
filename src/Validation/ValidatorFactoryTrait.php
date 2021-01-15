@@ -1,24 +1,24 @@
 <?php
 
-namespace Tozart\Validation;
+namespace Trupal\Validation;
 
-use Tozart\Tozart;
+use Trupal\Trupal;
 
 /**
  * Dependency injection of the validator factory service.
  *
- * @package Tozart\Validation
+ * @package Trupal\Validation
  */
 trait ValidatorFactoryTrait {
 
   /**
    * Inject the validator factory service.
    *
-   * @return \Tozart\Validation\ValidatorFactoryInterface
+   * @return \Trupal\Validation\ValidatorFactoryInterface
    *   A validator factory instance.
    */
   public static function validatorFactory() {
-    return Tozart::validatorFactory();
+    return Trupal::validatorFactory();
   }
 
 }

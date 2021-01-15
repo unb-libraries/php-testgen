@@ -1,14 +1,14 @@
 <?php
 
-namespace Tozart\Test\Discovery\Filter;
+namespace Trupal\Test\Discovery\Filter;
 
-use Tozart\Discovery\Filter\DirectoryFilterInterface;
-use Tozart\os\FileInterface;
+use Trupal\Discovery\Filter\DirectoryFilterInterface;
+use Trupal\os\FileInterface;
 
 /**
  * Filter without real behaviour, for testing purposes.
  *
- * @package Tozart\Test\Discovery\Filter
+ * @package Trupal\Test\Discovery\Filter
  */
 class FakeFilter implements DirectoryFilterInterface {
 

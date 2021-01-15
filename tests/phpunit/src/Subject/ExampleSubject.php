@@ -1,8 +1,8 @@
 <?php
 
-namespace Tozart\Test\Subject;
+namespace Trupal\Test\Subject;
 
-use Tozart\Subject\SubjectBase;
+use Trupal\Subject\SubjectBase;
 
 class ExampleSubject extends SubjectBase {
 }

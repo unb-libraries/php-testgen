@@ -2,53 +2,53 @@ parameters:
   model_root: '%model_root%'
   template_root: '%template_root%'
   validators:
-    - Tozart\Validation\FileFormatValidator
-    - Tozart\Validation\ModelValidator
-    - Tozart\Validation\SpecificationValidator
-    - Tozart\Validation\SubjectValidator
+    - Trupal\Validation\FileFormatValidator
+    - Trupal\Validation\ModelValidator
+    - Trupal\Validation\SpecificationValidator
+    - Trupal\Validation\SubjectValidator
   directory_filters:
-    - Tozart\Discovery\Filter\FileNamePatternFilter
-    - Tozart\Discovery\Filter\FileTypeFilter
-    - Tozart\Discovery\Filter\FileValidationFilter
+    - Trupal\Discovery\Filter\FileNamePatternFilter
+    - Trupal\Discovery\Filter\FileTypeFilter
+    - Trupal\Discovery\Filter\FileValidationFilter
 
 services:
   # File system
   file_system.file_type.yaml:
-    class: Tozart\os\FileType
+    class: Trupal\os\FileType
     arguments:
       - YAML
       - [yml, yaml]
       - '@file_system.parse.yaml'
     public: FALSE
   file_system.file_type.twig:
-    class: Tozart\os\FileType
+    class: Trupal\os\FileType
     arguments:
       - TWIG
       - [twig]
     public: FALSE
   file_system.parse.yaml:
-    class: Tozart\os\parse\YamlParser
+    class: Trupal\os\parse\YamlParser
   file_system.parse.manager:
-    class: Tozart\os\parse\FileParserManager
+    class: Trupal\os\parse\FileParserManager
     arguments:
       - ['@file_system.parse.yaml']
   file_system:
-    class: Tozart\os\FileSystem
+    class: Trupal\os\FileSystem
     arguments:
       - ['@file_system.file_type.yaml', '@file_system.file_type.twig']
 
   # Validation
   validator.factory:
-    class: Tozart\Validation\ValidatorFactory
+    class: Trupal\Validation\ValidatorFactory
     arguments: ['%validators%']
   validator.model:
-    class: Tozart\Validation\ModelValidator
+    class: Trupal\Validation\ModelValidator
     factory: ['@validator.factory', create]
     arguments:
       - model
       - parser: '@file_system.parse.yaml'
   validator.subject:
-    class: Tozart\Validation\SubjectValidator
+    class: Trupal\Validation\SubjectValidator
     factory: ['@validator.factory', create]
     arguments:
       - subject
@@ -56,28 +56,28 @@ services:
 
   # Filter
   directory_filter.factory:
-    class: Tozart\Discovery\Filter\DirectoryFilterFactory
+    class: Trupal\Discovery\Filter\DirectoryFilterFactory
     arguments: ['%directory_filters%']
   directory_filter.filetype.yaml:
-    class: Tozart\Discovery\Filter\FileTypeFilter
+    class: Trupal\Discovery\Filter\FileTypeFilter
     factory: ['@directory_filter.factory', create]
     arguments:
       - file_type
       - file_type: '@file_system.file_type.yaml'
   directory_filter.filetype.twig:
-    class: Tozart\Discovery\Filter\FileTypeFilter
+    class: Trupal\Discovery\Filter\FileTypeFilter
     factory: ['@directory_filter.factory', create]
     arguments:
       - file_type
       - file_type: '@file_system.file_type.twig'
   directory_filter.model:
-    class: Tozart\Discovery\Filter\FileValidationFilter
+    class: Trupal\Discovery\Filter\FileValidationFilter
     factory: ['@directory_filter.factory', create]
     arguments:
       - validate
       - validator: '@validator.model'
   directory_filter.subject:
-    class: Tozart\Discovery\Filter\FileValidationFilter
+    class: Trupal\Discovery\Filter\FileValidationFilter
     factory: ['@directory_filter.factory', create]
     arguments:
       - validate
@@ -85,51 +85,51 @@ services:
 
   # Models
   model.discovery:
-    class: Tozart\Discovery\FileSystemDiscovery
+    class: Trupal\Discovery\FileSystemDiscovery
     arguments:
       - ['%model_root%']
       - ['@directory_filter.filetype.yaml']
       - '@file_system.file_type.yaml'
   model.factory:
-    class: Tozart\Model\ModelFactory
+    class: Trupal\Model\ModelFactory
     arguments:
       - '@model.discovery'
   model.manager:
-    class: Tozart\Model\ModelManager
+    class: Trupal\Model\ModelManager
     arguments:
       - '@model.factory'
 
   # Subjects
   subject.discovery:
-    class: Tozart\Discovery\FileSystemDiscovery
+    class: Trupal\Discovery\FileSystemDiscovery
     arguments:
       - []
       - ['@directory_filter.filetype.yaml']
       - '@file_system.file_type.yaml'
   subject.factory:
-    class: Tozart\Subject\SubjectFactory
+    class: Trupal\Subject\SubjectFactory
     arguments:
       - '@subject.discovery'
       - '@model.manager'
   subject.manager:
-    class: Tozart\Subject\SubjectManager
+    class: Trupal\Subject\SubjectManager
     arguments:
       - '@subject.factory'
 
   # Templates
   render.template_discovery:
-    class: Tozart\Discovery\FileSystemDiscovery
+    class: Trupal\Discovery\FileSystemDiscovery
     arguments:
       - ['%template_root%']
       - ['@directory_filter.filetype.twig']
       - '@file_system.file_type.twig'
   render.template_finder:
-    class: Tozart\render\TemplateFinder
+    class: Trupal\render\TemplateFinder
     arguments:
       - '@render.template_discovery'
   render.context_factory:
-    class: Tozart\render\RenderContextFactory
+    class: Trupal\render\RenderContextFactory
     arguments:
       - '@render.template_finder'
   render.renderer:
-    class: 'Tozart\render\TwigRenderer'
+    class: 'Trupal\render\TwigRenderer'

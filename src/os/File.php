@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\os;
+namespace Trupal\os;
 
-use Tozart\os\DependencyInjection\FileSystemTrait;
+use Trupal\os\DependencyInjection\FileSystemTrait;
 
 /**
  * Class to interact with a file in the filesystem.
  *
- * @package Tozart\os
+ * @package Trupal\os
  */
 class File implements FileInterface {
 
@@ -23,14 +23,14 @@ class File implements FileInterface {
   /**
    * The directory which contains the file.
    *
-   * @var \Tozart\os\DirectoryInterface
+   * @var \Trupal\os\DirectoryInterface
    */
   protected $directory;
 
   /**
    * The type of the file.
    *
-   * @var \Tozart\os\FileTypeInterface
+   * @var \Trupal\os\FileTypeInterface
    */
   protected $type;
 
@@ -116,7 +116,7 @@ class File implements FileInterface {
    *
    * @param string $name
    *   Name of the file.
-   * @param \Tozart\os\DirectoryInterface $directory
+   * @param \Trupal\os\DirectoryInterface $directory
    *   Directory which contains the file.
    */
   public function __construct($name, DirectoryInterface $directory) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tozart\Model;
+namespace Trupal\Model;
 
 /**
  * Public interface for model implementations.
@@ -9,7 +9,7 @@ namespace Tozart\Model;
  * each subject must define in order to
  * generate test cases from it.
  *
- * @package Tozart\Model
+ * @package Trupal\Model
  */
 interface ModelInterface {
 

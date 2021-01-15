@@ -1,9 +1,9 @@
 <?php
 
-namespace Tozart\Test\os;
+namespace Trupal\Test\os;
 
 use PHPUnit\Framework\TestCase;
-use Tozart\os\DependencyInjection\FileSystemTrait;
+use Trupal\os\DependencyInjection\FileSystemTrait;
 
 abstract class FileSystemTestCase extends TestCase {
 

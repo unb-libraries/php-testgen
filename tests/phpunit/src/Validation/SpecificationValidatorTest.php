@@ -1,15 +1,15 @@
 <?php
 
-namespace Tozart\Test\Validation;
+namespace Trupal\Test\Validation;
 
 use Symfony\Component\Yaml\Yaml;
-use Tozart\os\FileInterface;
-use Tozart\os\parse\FileParserInterface;
+use Trupal\os\FileInterface;
+use Trupal\os\parse\FileParserInterface;
 
 /**
  * Test the SpecificationValidator class.
  *
- * @package Tozart\Test\Validation
+ * @package Trupal\Test\Validation
  */
 class SpecificationValidatorTest extends ValidatorTestCase {
 
@@ -23,7 +23,7 @@ class SpecificationValidatorTest extends ValidatorTestCase {
   /**
    * Create a parser test double.
    *
-   * @return \Tozart\os\parse\FileParserInterface
+   * @return \Trupal\os\parse\FileParserInterface
    *   An object pretending to be a file parser.
    */
   protected function createParser() {

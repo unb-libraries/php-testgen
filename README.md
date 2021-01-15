@@ -1,2 +1,2 @@
-# php-testgen
-Auto-generate automated testing.
+# Trupal
+Generate test cases instead of rewriting the common scenarios.

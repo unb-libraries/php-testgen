@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\os\parse;
+namespace Trupal\os\parse;
 
-use Tozart\os\FileInterface;
+use Trupal\os\FileInterface;
 
 /**
  * Interface for file parser implementations.
  *
- * @package Tozart\os\parse
+ * @package Trupal\os\parse
  */
 interface FileParserInterface {
 
@@ -41,7 +41,7 @@ interface FileParserInterface {
   /**
    * Retrieve the file types this parser can process.
    *
-   * @return \Tozart\os\FileTypeInterface[]
+   * @return \Trupal\os\FileTypeInterface[]
    *   An array of file types.
    */
   public function getSupportedTypes();

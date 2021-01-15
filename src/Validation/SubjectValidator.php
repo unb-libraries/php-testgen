@@ -1,14 +1,14 @@
 <?php
 
-namespace Tozart\Validation;
+namespace Trupal\Validation;
 
-use Tozart\Model\ModelFactoryTrait;
-use Tozart\Model\ModelInterface;
+use Trupal\Model\ModelFactoryTrait;
+use Trupal\Model\ModelInterface;
 
 /**
  * Validator for subject specifications.
  *
- * @package Tozart\Validation
+ * @package Trupal\Validation
  */
 class SubjectValidator extends SpecificationValidator {
 
@@ -17,14 +17,14 @@ class SubjectValidator extends SpecificationValidator {
   /**
    * The model against which the subject is to be verified.
    *
-   * @var \Tozart\Model\ModelInterface
+   * @var \Trupal\Model\ModelInterface
    */
   protected $_model;
 
   /**
    * Retrieve the model against which the subject is to be verified.
    *
-   * @return \Tozart\Model\ModelInterface
+   * @return \Trupal\Model\ModelInterface
    *   A model instance.
    */
   protected function getModel() {
@@ -34,7 +34,7 @@ class SubjectValidator extends SpecificationValidator {
   /**
    * Assign a model for verification.
    *
-   * @param \Tozart\Model\ModelInterface $model
+   * @param \Trupal\Model\ModelInterface $model
    *   A model instance.
    */
   protected function setModel(ModelInterface $model) {

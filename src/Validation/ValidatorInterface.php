@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\Validation;
+namespace Trupal\Validation;
 
 /**
  * Interface for validator implementations.
  *
- * @package Tozart\validate
+ * @package Trupal\validate
  */
 interface ValidatorInterface {
 

@@ -1,20 +1,20 @@
 <?php
 
-namespace Tozart\Subject;
+namespace Trupal\Subject;
 
-use Tozart\Model\ModelInterface;
+use Trupal\Model\ModelInterface;
 
 /**
  * Base class for models.
  *
- * @package Tozart\model
+ * @package Trupal\model
  */
 abstract class SubjectBase implements SubjectInterface {
 
   /**
    * The model definition.
    *
-   * @var \Tozart\Model\ModelInterface
+   * @var \Trupal\Model\ModelInterface
    */
   protected $_model;
 
@@ -50,7 +50,7 @@ abstract class SubjectBase implements SubjectInterface {
   /**
    * Create a new model instance.
    *
-   * @param \Tozart\Model\ModelInterface $model
+   * @param \Trupal\Model\ModelInterface $model
    *   The model definition.
    * @param array $properties
    *   The subject properties.

@@ -1,33 +1,33 @@
 <?php
 
-namespace Tozart\Test\Discovery;
+namespace Trupal\Test\Discovery;
 
 use PHPUnit\Framework\TestCase;
-use Tozart\Discovery\FileSystemDiscovery;
-use Tozart\Discovery\Filter\DirectoryFilterInterface;
-use Tozart\os\DirectoryInterface;
-use Tozart\os\FileInterface;
+use Trupal\Discovery\FileSystemDiscovery;
+use Trupal\Discovery\Filter\DirectoryFilterInterface;
+use Trupal\os\DirectoryInterface;
+use Trupal\os\FileInterface;
 
 /**
  * Test the FileSystemDiscovery class.
  *
- * @covers \Tozart\Discovery\FileSystemDiscovery
+ * @covers \Trupal\Discovery\FileSystemDiscovery
  *
- * @package Tozart\Test\Discovery
+ * @package Trupal\Test\Discovery
  */
 class FileSystemDiscoveryTest extends TestCase {
 
   /**
    * The discovery.
    *
-   * @var \Tozart\Discovery\DiscoveryInterface
+   * @var \Trupal\Discovery\DiscoveryInterface
    */
   protected $_discovery;
 
   /**
    * Retrieve the discovery.
    *
-   * @return \Tozart\Discovery\DiscoveryInterface
+   * @return \Trupal\Discovery\DiscoveryInterface
    *   A discovery object.
    */
   protected function discovery() {

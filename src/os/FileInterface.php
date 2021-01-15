@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\os;
+namespace Trupal\os;
 
 /**
  * Interface for file objects.
  *
- * @package Tozart\os
+ * @package Trupal\os
  */
 interface FileInterface {
 
@@ -49,7 +49,7 @@ interface FileInterface {
   /**
    * Retrieve the directory.
    *
-   * @return \Tozart\os\DirectoryInterface
+   * @return \Trupal\os\DirectoryInterface
    *   A Directory instance.
    */
   public function directory();
@@ -65,7 +65,7 @@ interface FileInterface {
   /**
    * Retrieve the file's type.
    *
-   * @return \Tozart\os\FileTypeInterface
+   * @return \Trupal\os\FileTypeInterface
    *   A file type object.
    */
   public function type();
@@ -91,7 +91,7 @@ interface FileInterface {
   /**
    * Copy the file to the given destination.
    *
-   * @param \Tozart\os\DirectoryInterface $destination
+   * @param \Trupal\os\DirectoryInterface $destination
    *   A Directory instance.
    * @param string $name
    *   (optional) The name to use at the destination.
@@ -99,7 +99,7 @@ interface FileInterface {
    * @param bool $override
    *   (optional) Whether to override any existing files.
    *
-   * @return \Tozart\os\FileInterface
+   * @return \Trupal\os\FileInterface
    *   The duplicated file.
    */
   public function copy(DirectoryInterface $destination, $name = '', $override = TRUE);

@@ -1,24 +1,24 @@
 <?php
 
-namespace Tozart\os\DependencyInjection;
+namespace Trupal\os\DependencyInjection;
 
-use Tozart\Tozart;
+use Trupal\Trupal;
 
 /**
  * Dependency injection of the filesystem service.
  *
- * @package Tozart\os
+ * @package Trupal\os
  */
 trait FileSystemTrait {
 
   /**
    * Inject the file system service.
    *
-   * @return \Tozart\os\FileSystem
+   * @return \Trupal\os\FileSystem
    *   A file system service instance.
    */
   public static function fileSystem() {
-    return Tozart::fileSystem();
+    return Trupal::fileSystem();
   }
 
 }

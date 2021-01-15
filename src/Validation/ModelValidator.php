@@ -1,15 +1,15 @@
 <?php
 
-namespace Tozart\Validation;
+namespace Trupal\Validation;
 
-use Tozart\Model\Model;
-use Tozart\Model\ModelInterface;
-use Tozart\Subject\SubjectInterface;
+use Trupal\Model\Model;
+use Trupal\Model\ModelInterface;
+use Trupal\Subject\SubjectInterface;
 
 /**
  * Validator for model specifications.
  *
- * @package Tozart\Validation
+ * @package Trupal\Validation
  */
 class ModelValidator extends SpecificationValidator {
 
@@ -120,7 +120,7 @@ class ModelValidator extends SpecificationValidator {
    * @return bool
    *   TRUE if property is an array.
    *
-   * @see \Tozart\Validation\SpecificationValidator::validateProperty().
+   * @see \Trupal\Validation\SpecificationValidator::validateProperty().
    */
   protected function validateRequirements($requirements, string $property, array $specification) {
     if (!is_array($requirements)) {
@@ -146,7 +146,7 @@ class ModelValidator extends SpecificationValidator {
    *   each property is assigned a default
    *   value.
    *
-   * @see \Tozart\Validation\SpecificationValidator::validateProperty().
+   * @see \Trupal\Validation\SpecificationValidator::validateProperty().
    */
   protected function validateOptions($options, string $property, array $specification) {
     if (!is_array($options)) {

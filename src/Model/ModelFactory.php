@@ -1,14 +1,14 @@
 <?php
 
-namespace Tozart\Model;
+namespace Trupal\Model;
 
-use Tozart\Discovery\FactoryBase;
-use Tozart\Tozart;
+use Trupal\Discovery\FactoryBase;
+use Trupal\Trupal;
 
 /**
  * Factory for creating model instances.
  *
- * @package Tozart\Model
+ * @package Trupal\Model
  */
 class ModelFactory extends FactoryBase {
 
@@ -32,7 +32,7 @@ class ModelFactory extends FactoryBase {
    */
   protected function findSpecification($key) {
     foreach ($this->discovery()->discover() as $filepath) {
-      $specification = Tozart::fileParserManager()->parse($filepath);
+      $specification = Trupal::fileParserManager()->parse($filepath);
       if ($specification['type'] = $key) {
         return $specification;
       }

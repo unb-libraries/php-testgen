@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\os\DependencyInjection;
+namespace Trupal\os\DependencyInjection;
 
-use Tozart\Tozart;
+use Trupal\Trupal;
 
 /**
  * Dependency injection for file parsers.
  *
- * @package Tozart\os\DependencyInjection
+ * @package Trupal\os\DependencyInjection
  */
 trait FileParsingTrait {
 
@@ -17,11 +17,11 @@ trait FileParsingTrait {
    * @param string $type
    *   A file type.
    *
-   * @return \Tozart\os\parse\FileParserInterface|null
+   * @return \Trupal\os\parse\FileParserInterface|null
    *   A file parser object.
    */
   public static function parser(string $type) {
-    return Tozart::fileParserManager()
+    return Trupal::fileParserManager()
       ->getParser($type);
   }
 

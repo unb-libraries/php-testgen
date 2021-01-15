@@ -1,15 +1,15 @@
 <?php
 
-namespace Tozart\Discovery;
+namespace Trupal\Discovery;
 
-use Tozart\Discovery\Filter\DirectoryFilterInterface;
-use Tozart\os\DependencyInjection\FileSystemTrait;
-use Tozart\os\DirectoryInterface;
+use Trupal\Discovery\Filter\DirectoryFilterInterface;
+use Trupal\os\DependencyInjection\FileSystemTrait;
+use Trupal\os\DirectoryInterface;
 
 /**
  * Base class for discovery implementations.
  *
- * @package Tozart\os
+ * @package Trupal\os
  */
 class FileSystemDiscovery implements DiscoveryInterface {
 
@@ -18,14 +18,14 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Stack of directory roots in which to search for files.
    *
-   * @var \Tozart\os\DirectoryInterface[]
+   * @var \Trupal\os\DirectoryInterface[]
    */
   protected $_directoryStack = [];
 
   /**
    * Stack of directory filters.
    *
-   * @var \Tozart\Discovery\Filter\DirectoryFilterInterface[]
+   * @var \Trupal\Discovery\Filter\DirectoryFilterInterface[]
    */
   protected $_filterStack = [];
 
@@ -71,7 +71,7 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Add the given directory root to the stack.
    *
-   * @param \Tozart\os\DirectoryInterface|string $directory
+   * @param \Trupal\os\DirectoryInterface|string $directory
    *   A directory or path.
    */
   public function addDirectory($directory) {
@@ -84,7 +84,7 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Retrieve and remove the first element from the stack.
    *
-   * @return \Tozart\os\DirectoryInterface
+   * @return \Trupal\os\DirectoryInterface
    *   A directory instance.
    */
   public function popDirectory() {
@@ -113,7 +113,7 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Add the given directory filter to the stack.
    *
-   * @param \Tozart\Discovery\Filter\DirectoryFilterInterface $filter
+   * @param \Trupal\Discovery\Filter\DirectoryFilterInterface $filter
    *   A directory filter instance.
    */
   public function addFilter(DirectoryFilterInterface $filter) {
@@ -123,7 +123,7 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Grab the first filter from the stack.
    *
-   * @return \Tozart\Discovery\Filter\DirectoryFilterInterface $filter
+   * @return \Trupal\Discovery\Filter\DirectoryFilterInterface $filter
    *   A directory filter instance.
    */
   public function popFilter() {
@@ -140,7 +140,7 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Retrieve the best match out of all located files.
    *
-   * @return \Tozart\os\FileInterface
+   * @return \Trupal\os\FileInterface
    *   A file instance.
    */
   public function get() {
@@ -164,14 +164,14 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Find files inside the given directory that match the filter criteria.
    *
-   * @param \Tozart\os\DirectoryInterface $directory
+   * @param \Trupal\os\DirectoryInterface $directory
    *   A directory instance.
    *
-   * @return \Tozart\os\FileInterface[]
+   * @return \Trupal\os\FileInterface[]
    *   An array of the form FILENAME => SCORE, where score indicates how
    *   well the filename matches the filter criteria.
    *
-   * @see \Tozart\Discovery\Filter\DirectoryFilterInterface::evaluate()
+   * @see \Trupal\Discovery\Filter\DirectoryFilterInterface::evaluate()
    */
   protected function findIn(DirectoryInterface $directory) {
     $matches = [];

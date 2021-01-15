@@ -1,15 +1,15 @@
 <?php
 
-namespace Tozart\Subject;
+namespace Trupal\Subject;
 
-use Tozart\Discovery\DiscoveryInterface;
-use Tozart\Discovery\FactoryBase;
-use Tozart\Model\ModelManagerInterface;
+use Trupal\Discovery\DiscoveryInterface;
+use Trupal\Discovery\FactoryBase;
+use Trupal\Model\ModelManagerInterface;
 
 /**
  * Factory to build models from model definitions.
  *
- * @package Tozart\model
+ * @package Trupal\model
  */
 class SubjectFactory extends FactoryBase {
 
@@ -18,14 +18,14 @@ class SubjectFactory extends FactoryBase {
   /**
    * The model manager.
    *
-   * @var \Tozart\Model\ModelManagerInterface
+   * @var \Trupal\Model\ModelManagerInterface
    */
   protected $_modelManager;
 
   /**
    * The model manager.
    *
-   * @return \Tozart\Model\ModelManagerInterface
+   * @return \Trupal\Model\ModelManagerInterface
    *   A model manager instance.
    */
   protected function modelManager() {
@@ -35,9 +35,9 @@ class SubjectFactory extends FactoryBase {
   /**
    * Create a new subject factory instance.
    *
-   * @param \Tozart\Discovery\DiscoveryInterface $discovery
+   * @param \Trupal\Discovery\DiscoveryInterface $discovery
    *   A discovery service instance.
-   * @param \Tozart\Model\ModelManagerInterface $model_manager
+   * @param \Trupal\Model\ModelManagerInterface $model_manager
    *   A model manager service instance.
    */
   public function __construct(DiscoveryInterface $discovery, ModelManagerInterface $model_manager) {
@@ -51,7 +51,7 @@ class SubjectFactory extends FactoryBase {
    * @param array $specification
    *   The specification.
    *
-   * @return \Tozart\Subject\SubjectInterface
+   * @return \Trupal\Subject\SubjectInterface
    *   A subject object.
    */
   public function createFromSpecification(array $specification) {

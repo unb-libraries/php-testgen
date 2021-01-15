@@ -23,8 +23,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Tozart\\": "src",
-            "Tozart\\Test\\": "tests/phpunit/src"
+            "Trupal\\": "src",
+            "Trupal\\Test\\": "tests/phpunit/src"
         }
     },
     "require-dev": {

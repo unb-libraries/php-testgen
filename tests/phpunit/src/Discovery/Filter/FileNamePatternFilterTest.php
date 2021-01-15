@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\Test\Discovery\Filter;
+namespace Trupal\Test\Discovery\Filter;
 
-use Tozart\Discovery\Filter\FileNamePatternFilter;
+use Trupal\Discovery\Filter\FileNamePatternFilter;
 
 /**
  * Test the FileNamePatternFilter class.
  *
- * @package Tozart\Test\Discovery\Filter
+ * @package Trupal\Test\Discovery\Filter
  */
 class FileNamePatternFilterTest extends DirectoryFilterTestCase {
 

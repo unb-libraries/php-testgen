@@ -1,18 +1,18 @@
 <?php
 
-namespace Tozart;
+namespace Trupal;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Tozart\os\DirectoryInterface;
+use Trupal\os\DirectoryInterface;
 
 /**
  * Where it all begins.
  *
- * @package Tozart
+ * @package Trupal
  */
-final class Tozart {
+final class Trupal {
 
   const PROJECT_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..';
   const CONFIG_DIR = self::PROJECT_ROOT . DIRECTORY_SEPARATOR . 'config';
@@ -25,17 +25,17 @@ final class Tozart {
   protected $_container;
 
   /**
-   * The only Tozart that should ever exist.
+   * The only Trupal that should ever exist.
    *
-   * @var \Tozart\Tozart
+   * @var \Trupal\Trupal
    */
   protected static $_instance;
 
   /**
-   * Create (or retrieve) the only Tozart that should ever exist.
+   * Create (or retrieve) the only Trupal that should ever exist.
    *
-   * @return \Tozart\Tozart
-   *   A Tozart instance.
+   * @return \Trupal\Trupal
+   *   A Trupal instance.
    */
   public static function instance() {
     if (!static::$_instance) {
@@ -60,18 +60,18 @@ final class Tozart {
       $loader = new YamlFileLoader($container, new FileLocator(self::CONFIG_DIR));
       $loader->load('services.yml');
 
-      $container->setParameter('tozart_root', defined('TOZART_ROOT')
-        ? TOZART_ROOT
+      $container->setParameter('Trupal_root', defined('Trupal_ROOT')
+        ? Trupal_ROOT
         : self::PROJECT_ROOT);
       $container->setParameter('model_root', defined('MODEL_ROOT')
         ? MODEL_ROOT
-        : rtrim($container->getParameter('tozart_root')) . DIRECTORY_SEPARATOR . 'models');
+        : rtrim($container->getParameter('Trupal_root')) . DIRECTORY_SEPARATOR . 'models');
       $container->setParameter('subject_root', defined('SUBJECT_ROOT')
         ? SUBJECT_ROOT
-        : rtrim($container->getParameter('tozart_root')) . DIRECTORY_SEPARATOR . 'subjects');
+        : rtrim($container->getParameter('Trupal_root')) . DIRECTORY_SEPARATOR . 'subjects');
       $container->setParameter('template_root', defined('TEMPLATE_ROOT')
         ? TEMPLATE_ROOT
-        : rtrim($container->getParameter('tozart_root')) . DIRECTORY_SEPARATOR . 'templates');
+        : rtrim($container->getParameter('Trupal_root')) . DIRECTORY_SEPARATOR . 'templates');
     }
     catch (\Exception $e) {
       // TODO: Log error during container initialization.
@@ -99,11 +99,11 @@ final class Tozart {
   /**
    * The file system service.
    *
-   * @return \Tozart\os\FileSystem
+   * @return \Trupal\os\FileSystem
    *   A file system service instance.
    */
   public static function fileSystem() {
-    /** @var \Tozart\os\FileSystem $file_system */
+    /** @var \Trupal\os\FileSystem $file_system */
     $file_system = static::container()->get('file_system');
     return $file_system;
   }
@@ -111,11 +111,11 @@ final class Tozart {
   /**
    * The model manager service.
    *
-   * @return \Tozart\Model\ModelManagerInterface
+   * @return \Trupal\Model\ModelManagerInterface
    *   A model manager service instance.
    */
   public static function modelManager() {
-    /** @var \Tozart\Model\ModelManagerInterface $model_manager */
+    /** @var \Trupal\Model\ModelManagerInterface $model_manager */
     $model_manager = static::container()->get('model.manager');
     return $model_manager;
   }
@@ -123,11 +123,11 @@ final class Tozart {
   /**
    * The model factory service.
    *
-   * @return \Tozart\Model\ModelFactory
+   * @return \Trupal\Model\ModelFactory
    *   A model factory service instance.
    */
   public static function modelFactory() {
-    /** @var \Tozart\Model\ModelFactory $model_factory */
+    /** @var \Trupal\Model\ModelFactory $model_factory */
     $model_factory = static::container()->get('model.factory');
     return $model_factory;
   }
@@ -135,18 +135,18 @@ final class Tozart {
   /**
    * The project root directory.
    *
-   * @return \Tozart\os\DirectoryInterface
+   * @return \Trupal\os\DirectoryInterface
    *   A directory object.
    */
   public function root() {
-    $root_path = $this->container()->getParameter('TOZART_ROOT');
+    $root_path = $this->container()->getParameter('Trupal_ROOT');
     return $this->fileSystem()->dir($root_path);
   }
 
   /**
    * The model root directory.
    *
-   * @return \Tozart\os\DirectoryInterface
+   * @return \Trupal\os\DirectoryInterface
    *   A directory object.
    */
   public function modelRoot() {
@@ -157,7 +157,7 @@ final class Tozart {
   /**
    * The subject root directory.
    *
-   * @return \Tozart\os\DirectoryInterface
+   * @return \Trupal\os\DirectoryInterface
    *   A directory object.
    */
   public function subjectRoot() {
@@ -168,7 +168,7 @@ final class Tozart {
   /**
    * The template root directory.
    *
-   * @return \Tozart\os\DirectoryInterface
+   * @return \Trupal\os\DirectoryInterface
    *   A directory object.
    */
   public function templateRoot() {
@@ -179,11 +179,11 @@ final class Tozart {
   /**
    * The file parser manager service.
    *
-   * @return \Tozart\os\parse\FileParserManagerInterface
+   * @return \Trupal\os\parse\FileParserManagerInterface
    *   A file parser manager service instance.
    */
   public static function fileParserManager() {
-    /** @var \Tozart\os\parse\FileParserManagerInterface $file_parser_manager */
+    /** @var \Trupal\os\parse\FileParserManagerInterface $file_parser_manager */
     $file_parser_manager = static::container()->get('file_system.parse.manager');
     return $file_parser_manager;
   }
@@ -191,11 +191,11 @@ final class Tozart {
   /**
    * The subject discovery service.
    *
-   * @return \Tozart\Discovery\DiscoveryInterface
+   * @return \Trupal\Discovery\DiscoveryInterface
    *   A subject discovery service instance.
    */
   public static function subjectDiscovery() {
-    /** @var \Tozart\Discovery\DiscoveryInterface $subject_discovery */
+    /** @var \Trupal\Discovery\DiscoveryInterface $subject_discovery */
     $subject_discovery = static::container()->get('subject.discovery');
     return $subject_discovery;
   }
@@ -203,11 +203,11 @@ final class Tozart {
   /**
    * The subject manager service.
    *
-   * @return \Tozart\Subject\SubjectManager
+   * @return \Trupal\Subject\SubjectManager
    *   A subject manager service instance.
    */
   public static function subjectManager() {
-    /** @var \Tozart\Subject\SubjectManager $subject_manager */
+    /** @var \Trupal\Subject\SubjectManager $subject_manager */
     $subject_manager = static::container()->get('subject.manager');
     return $subject_manager;
   }
@@ -215,11 +215,11 @@ final class Tozart {
   /**
    * The subject factory service.
    *
-   * @return \Tozart\Subject\SubjectFactory
+   * @return \Trupal\Subject\SubjectFactory
    *   A subject factory service instance.
    */
   public static function subjectFactory() {
-    /** @var \Tozart\Subject\SubjectFactory $factory */
+    /** @var \Trupal\Subject\SubjectFactory $factory */
     $factory = static::container()->get('subject.factory');
     return $factory;
   }
@@ -227,9 +227,9 @@ final class Tozart {
   /**
    * Write tests for all discoverable subjects.
    *
-   * @param \Tozart\os\DirectoryInterface|string $subject_root
+   * @param \Trupal\os\DirectoryInterface|string $subject_root
    *   The subject directory or path.
-   * @param \Tozart\os\DirectoryInterface|string $destination
+   * @param \Trupal\os\DirectoryInterface|string $destination
    *   The output directory or path.
    */
   public function generate($subject_root, $destination) {
@@ -255,11 +255,11 @@ final class Tozart {
   /**
    * The template locator service.
    *
-   * @return \Tozart\Discovery\DiscoveryInterface
+   * @return \Trupal\Discovery\DiscoveryInterface
    *   A template locator service instance.
    */
   public static function templateDiscovery() {
-    /** @var \Tozart\Discovery\DiscoveryInterface $template_discovery */
+    /** @var \Trupal\Discovery\DiscoveryInterface $template_discovery */
     $template_discovery = static::container()->get('render.template_discovery');
     return $template_discovery;
   }
@@ -267,11 +267,11 @@ final class Tozart {
   /**
    * The template finder service.
    *
-   * @return \Tozart\render\TemplateFinderInterface
+   * @return \Trupal\render\TemplateFinderInterface
    *   A template finder service instance.
    */
   public static function templateFinder() {
-    /** @var \Tozart\render\TemplateFinderInterface $template_finder */
+    /** @var \Trupal\render\TemplateFinderInterface $template_finder */
     $template_finder = static::container()->get('render.template_finder');
     return $template_finder;
   }
@@ -279,11 +279,11 @@ final class Tozart {
   /**
    * The context factory service.
    *
-   * @return \Tozart\render\RenderContextFactoryInterface
+   * @return \Trupal\render\RenderContextFactoryInterface
    *   A render context factory service instance.
    */
   public static function contextFactory() {
-    /** @var \Tozart\render\RenderContextFactoryInterface $context_factory */
+    /** @var \Trupal\render\RenderContextFactoryInterface $context_factory */
     $context_factory = static::container()->get('render.context_factory');
     return $context_factory;
   }
@@ -291,11 +291,11 @@ final class Tozart {
   /**
    * The printer service.
    *
-   * @return \Tozart\render\RendererInterface
+   * @return \Trupal\render\RendererInterface
    *   A renderer service instance.
    */
   public static function renderer() {
-    /** @var \Tozart\render\RendererInterface $renderer */
+    /** @var \Trupal\render\RendererInterface $renderer */
     $renderer = static::container()->get('render.renderer');
     return $renderer;
   }
@@ -303,11 +303,11 @@ final class Tozart {
   /**
    * The validator factory service.
    *
-   * @return \Tozart\Validation\ValidatorFactoryInterface
+   * @return \Trupal\Validation\ValidatorFactoryInterface
    *   A validator factory instance.
    */
   public static function validatorFactory() {
-    /** @var \Tozart\Validation\ValidatorFactoryInterface $factory */
+    /** @var \Trupal\Validation\ValidatorFactoryInterface $factory */
     $factory = static::container()->get('validator.factory');
     return $factory;
   }
@@ -315,11 +315,11 @@ final class Tozart {
   /**
    * The filter factory service.
    *
-   * @return \Tozart\Discovery\Filter\DirectoryFilterFactoryInterface
+   * @return \Trupal\Discovery\Filter\DirectoryFilterFactoryInterface
    *   A filter factory instance.
    */
   public static function directoryFilterFactory() {
-    /** @var \Tozart\Discovery\Filter\DirectoryFilterFactoryInterface $factory */
+    /** @var \Trupal\Discovery\Filter\DirectoryFilterFactoryInterface $factory */
     $factory = static::container()->get('directory_filter.factory');
     return $factory;
   }

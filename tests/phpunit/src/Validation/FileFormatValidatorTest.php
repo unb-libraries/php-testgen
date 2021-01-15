@@ -1,15 +1,15 @@
 <?php
 
-namespace Tozart\Test\Validation;
+namespace Trupal\Test\Validation;
 
-use Tozart\os\FileInterface;
-use Tozart\os\parse\FileParserInterface;
-use Tozart\Validation\FileFormatValidator;
+use Trupal\os\FileInterface;
+use Trupal\os\parse\FileParserInterface;
+use Trupal\Validation\FileFormatValidator;
 
 /**
  * Test the FileFormatValidator class.
  *
- * @package Tozart\Test\Validation
+ * @package Trupal\Test\Validation
  */
 class FileFormatValidatorTest extends ValidatorTestCase {
 
@@ -23,7 +23,7 @@ class FileFormatValidatorTest extends ValidatorTestCase {
   /**
    * Create a parser test double.
    *
-   * @return \Tozart\os\parse\FileParserInterface
+   * @return \Trupal\os\parse\FileParserInterface
    *   An object pretending to be a file parser.
    */
   protected function createParser() {

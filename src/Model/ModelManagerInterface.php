@@ -1,18 +1,18 @@
 <?php
 
-namespace Tozart\Model;
+namespace Trupal\Model;
 
 /**
  * Interface for model manager implementations.
  *
- * @package Tozart\Model
+ * @package Trupal\Model
  */
 interface ModelManagerInterface {
 
   /**
    * Retrieve all models.
    *
-   * @return \Tozart\Model\ModelInterface[]
+   * @return \Trupal\Model\ModelInterface[]
    *   An array of model instances, keyed
    *   by their types.
    */
@@ -36,7 +36,7 @@ interface ModelManagerInterface {
    * @param string $type
    *   The type.
    *
-   * @return \Tozart\Model\ModelInterface|false
+   * @return \Trupal\Model\ModelInterface|false
    *   A model instance. FALSE if no model
    *   for the given type could be loaded.
    */

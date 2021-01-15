@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\Test\Validation;
+namespace Trupal\Test\Validation;
 
-use Tozart\Validation\ValidatorInterface;
+use Trupal\Validation\ValidatorInterface;
 
 /**
  * Validator without real behaviour, for testing purposes.
  *
- * @package Tozart\Test\Validation
+ * @package Trupal\Test\Validation
  */
 class TestValidator implements ValidatorInterface {
 

@@ -1,27 +1,27 @@
 <?php
 
-namespace Tozart\Discovery;
+namespace Trupal\Discovery;
 
-use Tozart\Tozart;
+use Trupal\Trupal;
 
 /**
  * Base class for factory implementations.
  *
- * @package Tozart\Discovery
+ * @package Trupal\Discovery
  */
 abstract class FactoryBase implements FactoryInterface {
 
   /**
    * A discovery service instance.
    *
-   * @var \Tozart\Discovery\DiscoveryInterface
+   * @var \Trupal\Discovery\DiscoveryInterface
    */
   protected $_discovery;
 
   /**
    * Retrieve the discovery service.
    *
-   * @return \Tozart\Discovery\DiscoveryInterface
+   * @return \Trupal\Discovery\DiscoveryInterface
    *   A discovery object.
    */
   public function discovery() {
@@ -31,7 +31,7 @@ abstract class FactoryBase implements FactoryInterface {
   /**
    * Construct a new ModelFactory instance.
    *
-   * @param \Tozart\Discovery\DiscoveryInterface $discovery
+   * @param \Trupal\Discovery\DiscoveryInterface $discovery
    *   A discovery service instance.
    */
   public function __construct(DiscoveryInterface $discovery) {

@@ -1,25 +1,25 @@
 <?php
 
-namespace Tozart\os;
+namespace Trupal\os;
 
 /**
  * Class reflecting the file system.
  *
- * @package Tozart\os
+ * @package Trupal\os
  */
 class FileSystem {
 
   /**
    * An array of file types known to the file system.
    *
-   * @var \Tozart\os\FileTypeInterface[]
+   * @var \Trupal\os\FileTypeInterface[]
    */
   protected $_fileTypes = [];
 
   /**
    * Retrieve all file types known to the file system.
    *
-   * @return \Tozart\os\FileTypeInterface[]
+   * @return \Trupal\os\FileTypeInterface[]
    *   An array of file type objects.
    */
   public function fileTypes() {
@@ -29,7 +29,7 @@ class FileSystem {
   /**
    * Add the given file type.
    *
-   * @param \Tozart\os\FileTypeInterface $file_type
+   * @param \Trupal\os\FileTypeInterface $file_type
    *   A file type object.
    */
   public function addFileType(FileTypeInterface $file_type) {
@@ -39,7 +39,7 @@ class FileSystem {
   /**
    * Create a new FileSystem instance.
    *
-   * @param \Tozart\os\FileTypeInterface[] $file_types
+   * @param \Trupal\os\FileTypeInterface[] $file_types
    *   An array of supported file types.
    */
   public function __construct(array $file_types) {
@@ -54,7 +54,7 @@ class FileSystem {
    * @param string $name_or_extension
    *   A file type name or extension.
    *
-   * @return \Tozart\os\FileTypeInterface|null
+   * @return \Trupal\os\FileTypeInterface|null
    *   A file type object. NULL if no file type
    *   could be found for the given parameters.
    */
@@ -79,7 +79,7 @@ class FileSystem {
    * @param string $path
    *   The path to the directory.
    *
-   * @return \Tozart\os\DirectoryInterface
+   * @return \Trupal\os\DirectoryInterface
    *   A directory object.
    */
   public function dir(string $path) {
@@ -91,12 +91,12 @@ class FileSystem {
    *
    * @param string $path
    *   The name of the file.
-   * @param \Tozart\os\DirectoryInterface|string $directory
+   * @param \Trupal\os\DirectoryInterface|string $directory
    *   The directory.
    * @param bool $absolute
    *   Whether the given path is absolute.
    *
-   * @return \Tozart\os\FileInterface
+   * @return \Trupal\os\FileInterface
    *   A file object.
    */
   public function file($path, $directory = DIRECTORY_SEPARATOR, $absolute = FALSE) {

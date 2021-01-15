@@ -1,27 +1,27 @@
 <?php
 
-namespace Tozart\Discovery\Filter;
+namespace Trupal\Discovery\Filter;
 
-use Tozart\os\FileTypeInterface;
+use Trupal\os\FileTypeInterface;
 
 /**
  * Filter for sorting out files are of a file type different to the configured.
  *
- * @package Tozart\Discovery\Filter
+ * @package Trupal\Discovery\Filter
  */
 class FileTypeFilter extends FileNamePatternFilter {
 
   /**
    * The file type by which to filter.
    *
-   * @var \Tozart\os\FileTypeInterface
+   * @var \Trupal\os\FileTypeInterface
    */
   protected $_fileType;
 
   /**
    * Retrieve the file type by which to filter.
    *
-   * @return \Tozart\os\FileTypeInterface
+   * @return \Trupal\os\FileTypeInterface
    *   A file type object.
    */
   public function fileType() {
@@ -31,7 +31,7 @@ class FileTypeFilter extends FileNamePatternFilter {
   /**
    * Create a new FileTypeFilter instance.
    *
-   * @param \Tozart\os\FileTypeInterface $file_type
+   * @param \Trupal\os\FileTypeInterface $file_type
    *   A file type object.
    */
   public function __construct(FileTypeInterface $file_type) {

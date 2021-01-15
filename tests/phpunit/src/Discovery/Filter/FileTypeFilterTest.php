@@ -1,14 +1,14 @@
 <?php
 
-namespace Tozart\Test\Discovery\Filter;
+namespace Trupal\Test\Discovery\Filter;
 
-use Tozart\Discovery\Filter\FileTypeFilter;
-use Tozart\os\FileTypeInterface;
+use Trupal\Discovery\Filter\FileTypeFilter;
+use Trupal\os\FileTypeInterface;
 
 /**
  * Test the FileTypeFilterTest class.
  *
- * @package Tozart\Test\Discovery\Filter
+ * @package Trupal\Test\Discovery\Filter
  */
 class FileTypeFilterTest extends DirectoryFilterTestCase {
 
@@ -35,7 +35,7 @@ class FileTypeFilterTest extends DirectoryFilterTestCase {
    * @param array $extensions
    *   Array of file extensions to be associated with the file type.
    *
-   * @return \Tozart\os\FileTypeInterface
+   * @return \Trupal\os\FileTypeInterface
    *   An object pretending to be a file type.
    */
   protected function createFileType(array $extensions) {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Tozart\os\parse;
+namespace Trupal\os\parse;
 
 use Symfony\Component\Yaml\Yaml;
-use Tozart\os\FileInterface;
-use Tozart\Tozart;
+use Trupal\os\FileInterface;
+use Trupal\Trupal;
 
 /**
  * File parser for YAML files.
  *
- * @package Tozart\os\parse
+ * @package Trupal\os\parse
  */
 class YamlParser implements FileParserInterface {
 
@@ -35,7 +35,7 @@ class YamlParser implements FileParserInterface {
    */
   public function getSupportedTypes() {
     return [
-      Tozart::container()
+      Trupal::container()
         ->get('file_system.file_type.yaml'),
     ];
   }

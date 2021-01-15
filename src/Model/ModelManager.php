@@ -1,27 +1,27 @@
 <?php
 
-namespace Tozart\Model;
+namespace Trupal\Model;
 
-use Tozart\Discovery\FactoryInterface;
+use Trupal\Discovery\FactoryInterface;
 
 /**
  * Manager of model instances.
  *
- * @package Tozart\Model
+ * @package Trupal\Model
  */
 class ModelManager implements ModelManagerInterface {
 
   /**
    * The models.
    *
-   * @var \Tozart\Model\ModelInterface[]
+   * @var \Trupal\Model\ModelInterface[]
    */
   protected $_models = [];
 
   /**
    * The model factory service.
    *
-   * @var \Tozart\Discovery\FactoryInterface
+   * @var \Trupal\Discovery\FactoryInterface
    */
   protected $_factory;
 
@@ -35,7 +35,7 @@ class ModelManager implements ModelManagerInterface {
   /**
    * Retrieve the model factory service.
    *
-   * @return \Tozart\Discovery\FactoryInterface
+   * @return \Trupal\Discovery\FactoryInterface
    *   A model factory instance.
    */
   protected function factory() {
@@ -45,7 +45,7 @@ class ModelManager implements ModelManagerInterface {
   /**
    * Create a new model manager instance.
    *
-   * @param \Tozart\Discovery\FactoryInterface $factory
+   * @param \Trupal\Discovery\FactoryInterface $factory
    *   The model factory service.
    */
   public function __construct(FactoryInterface $factory) {
@@ -75,7 +75,7 @@ class ModelManager implements ModelManagerInterface {
   /**
    * Add (or replace) the given model.
    *
-   * @param \Tozart\Model\ModelInterface $model
+   * @param \Trupal\Model\ModelInterface $model
    *   A model instance.
    * @param bool $replace
    *   Whether an existing model should be replaced.

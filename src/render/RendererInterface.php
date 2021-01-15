@@ -1,18 +1,18 @@
 <?php
 
-namespace Tozart\render;
+namespace Trupal\render;
 
 /**
  * Interface for renderer implementations.
  *
- * @package Tozart\render
+ * @package Trupal\render
  */
 interface RendererInterface {
 
   /**
    * Render the given context.
    *
-   * @param \Tozart\render\RenderContextInterface $context
+   * @param \Trupal\render\RenderContextInterface $context
    *   The render context.
    *
    * @return string

@@ -1,32 +1,32 @@
 <?php
 
-namespace Tozart\Test\render;
+namespace Trupal\Test\render;
 
 use PHPUnit\Framework\TestCase;
-use Tozart\Discovery\DiscoveryInterface;
-use Tozart\os\DirectoryInterface;
-use Tozart\os\FileInterface;
-use Tozart\render\TemplateFinder;
-use Tozart\Subject\SubjectInterface;
+use Trupal\Discovery\DiscoveryInterface;
+use Trupal\os\DirectoryInterface;
+use Trupal\os\FileInterface;
+use Trupal\render\TemplateFinder;
+use Trupal\Subject\SubjectInterface;
 
 /**
  * Test the TemplateFinder class.
  *
- * @package Tozart\Test\render
+ * @package Trupal\Test\render
  */
 class TemplateFinderTest extends TestCase {
 
   /**
    * The template finder.
    *
-   * @var \Tozart\render\TemplateFinderInterface
+   * @var \Trupal\render\TemplateFinderInterface
    */
   protected $_templateFinder;
 
   /**
    * Retrieve the template finder.
    *
-   * @return \Tozart\render\TemplateFinderInterface
+   * @return \Trupal\render\TemplateFinderInterface
    *   A template finder object.
    */
   protected function templateFinder() {
@@ -44,7 +44,7 @@ class TemplateFinderTest extends TestCase {
   /**
    * Create a template discovery test double.
    *
-   * @return \Tozart\Discovery\DiscoveryInterface
+   * @return \Trupal\Discovery\DiscoveryInterface
    *   An object pretending to be a discovery.
    */
   protected function createTemplateDiscovery() {
@@ -70,7 +70,7 @@ class TemplateFinderTest extends TestCase {
    *
    * @param string $name
    *   The name of the file.
-   * @param \Tozart\os\DirectoryInterface $directory
+   * @param \Trupal\os\DirectoryInterface $directory
    *   Directory which contains the file.
    *
    * @return \PHPUnit\Framework\MockObject\Stub
@@ -93,7 +93,7 @@ class TemplateFinderTest extends TestCase {
    * @param string $path
    *   The path of the directory.
    *
-   * @return \Tozart\os\DirectoryInterface
+   * @return \Trupal\os\DirectoryInterface
    *   An object pretending to be a directory.
    */
   protected function createDirectory(string $path) {
@@ -106,7 +106,7 @@ class TemplateFinderTest extends TestCase {
   /**
    * Test the findTemplate method.
    *
-   * @param \Tozart\Subject\SubjectInterface $subject
+   * @param \Trupal\Subject\SubjectInterface $subject
    *   A subject for which to find a template.
    * @param string $expected_match
    *   The filename of the template file that is the expected match for the given subject.
@@ -148,7 +148,7 @@ class TemplateFinderTest extends TestCase {
    * @param string $type
    *   A subject type.
    *
-   * @return \Tozart\Subject\SubjectInterface
+   * @return \Trupal\Subject\SubjectInterface
    *   An object pretending to be a subject.
    */
   protected function createSubject(string $id, string $type) {

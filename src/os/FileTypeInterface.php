@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\os;
+namespace Trupal\os;
 
 /**
  * Interface for file type definitions.
  *
- * @package Tozart\os
+ * @package Trupal\os
  */
 interface FileTypeInterface {
 
@@ -21,7 +21,7 @@ interface FileTypeInterface {
   /**
    * Retrieve the parser that processes files of this type.
    *
-   * @return \Tozart\os\parse\FileParserInterface
+   * @return \Trupal\os\parse\FileParserInterface
    *   A file parser object.
    */
   public function getParser();
@@ -46,7 +46,7 @@ interface FileTypeInterface {
   /**
    * Whether the given file type is equivalent to this one.
    *
-   * @param \Tozart\os\FileTypeInterface $file_type
+   * @param \Trupal\os\FileTypeInterface $file_type
    *   The file type to compare.
    *
    * @return bool

@@ -1,39 +1,38 @@
 <?php
 
-namespace Tozart\Test\Subject;
+namespace Trupal\Test\Subject;
 
-use Tozart\Model\ModelInterface;
-use Tozart\Test\TozartTestCase;
-use Tozart\Tozart;
+use Trupal\Test\TrupalTestCase;
+use Trupal\Trupal;
 
-class SubjectFactoryTest extends TozartTestCase {
+class SubjectFactoryTest extends TrupalTestCase {
 
   /**
    * The subject discovery.
    *
-   * @var \Tozart\Discovery\DiscoveryInterface
+   * @var \Trupal\Discovery\DiscoveryInterface
    */
   protected $_subjectDiscovery;
 
   /**
    * Retrieve the subject factory.
    *
-   * @return \Tozart\Discovery\FactoryInterface
+   * @return \Trupal\Discovery\FactoryInterface
    *   A subject factory instance.
    */
   protected function getSubjectFactory() {
-    return Tozart::subjectFactory();
+    return Trupal::subjectFactory();
   }
 
   /**
    * Retrieve the subject discovery.
    *
-   * @return \Tozart\Discovery\SubjectDiscovery
+   * @return \Trupal\Discovery\SubjectDiscovery
    *   A subject discovery instance.
    */
   protected function subjectDiscovery() {
     if (!isset($this->_subjectDiscovery)) {
-      $this->_subjectDiscovery = Tozart::subjectDiscovery();
+      $this->_subjectDiscovery = Trupal::subjectDiscovery();
       $this->_subjectDiscovery->addDirectory($this->subjectRoot());
     }
     return $this->_subjectDiscovery;
@@ -42,11 +41,11 @@ class SubjectFactoryTest extends TozartTestCase {
   /**
    * Retrieve the model manager.
    *
-   * @return \Tozart\Model\ModelManagerInterface
+   * @return \Trupal\Model\ModelManagerInterface
    *   A model manager instance.
    */
   protected function modelManager() {
-    return Tozart::modelManager();
+    return Trupal::modelManager();
   }
 
   /**
@@ -75,7 +74,7 @@ class SubjectFactoryTest extends TozartTestCase {
   public function subjectSpecificationProvider() {
     // TODO: For some reasons, two instances of subject discovery are created (one discovers subjects, the other one does not).
     foreach ($this->subjectDiscovery()->discover() as $filename => $file) {
-      /** @var \Tozart\os\FileInterface $file */
+      /** @var \Trupal\os\FileInterface $file */
       $specification = $file->parse();
       $model = $this->modelManager()
         ->get($specification['type']);

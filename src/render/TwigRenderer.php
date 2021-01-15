@@ -1,6 +1,6 @@
 <?php
 
-namespace Tozart\render;
+namespace Trupal\render;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -8,7 +8,7 @@ use Twig\Loader\FilesystemLoader;
 /**
  * Twig based renderer implementation.
  *
- * @package Tozart\render
+ * @package Trupal\render
  */
 class TwigRenderer implements RendererInterface {
 

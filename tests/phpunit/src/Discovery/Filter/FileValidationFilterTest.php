@@ -1,15 +1,15 @@
 <?php
 
-namespace Tozart\Test\Discovery\Filter;
+namespace Trupal\Test\Discovery\Filter;
 
-use Tozart\Discovery\Filter\FileValidationFilter;
-use Tozart\os\FileInterface;
-use Tozart\Validation\ValidatorInterface;
+use Trupal\Discovery\Filter\FileValidationFilter;
+use Trupal\os\FileInterface;
+use Trupal\Validation\ValidatorInterface;
 
 /**
  * Test the FileValidationFilter class.
  *
- * @package Tozart\Test\Discovery\Filter
+ * @package Trupal\Test\Discovery\Filter
  */
 class FileValidationFilterTest extends DirectoryFilterTestCase {
 
@@ -23,7 +23,7 @@ class FileValidationFilterTest extends DirectoryFilterTestCase {
   /**
    * Create a validator double.
    *
-   * @return \Tozart\Validation\ValidatorInterface
+   * @return \Trupal\Validation\ValidatorInterface
    *   An object pretending to be a validator.
    */
   protected function createValidator() {

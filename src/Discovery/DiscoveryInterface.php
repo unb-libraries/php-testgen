@@ -1,20 +1,20 @@
 <?php
 
-namespace Tozart\Discovery;
+namespace Trupal\Discovery;
 
-use Tozart\Discovery\Filter\DirectoryFilterInterface;
+use Trupal\Discovery\Filter\DirectoryFilterInterface;
 
 /**
  * Interface for discovery implementations.
  *
- * @package Tozart\Discovery
+ * @package Trupal\Discovery
  */
 interface DiscoveryInterface {
 
   /**
    * Retrieve the stack of directory roots in which to search for files.
    *
-   * @return \Tozart\os\DirectoryInterface[]
+   * @return \Trupal\os\DirectoryInterface[]
    *   An array of directories.
    */
   public function directoryStack();
@@ -30,7 +30,7 @@ interface DiscoveryInterface {
   /**
    * Add the given directory root to the stack.
    *
-   * @param \Tozart\os\DirectoryInterface|string $directory
+   * @param \Trupal\os\DirectoryInterface|string $directory
    *   A directory or path.
    */
   public function addDirectory($directory);
@@ -38,7 +38,7 @@ interface DiscoveryInterface {
   /**
    * Retrieve and remove the first element from the stack.
    *
-   * @return \Tozart\os\DirectoryInterface
+   * @return \Trupal\os\DirectoryInterface
    *   A directory instance.
    */
   public function popDirectory();
@@ -51,7 +51,7 @@ interface DiscoveryInterface {
   /**
    * Retrieve the stack of directory filters.
    *
-   * @return \Tozart\Discovery\Filter\DirectoryFilterInterface[]
+   * @return \Trupal\Discovery\Filter\DirectoryFilterInterface[]
    *   An array of directory filter instances.
    */
   public function filterStack();
@@ -67,7 +67,7 @@ interface DiscoveryInterface {
   /**
    * Add the given directory filter to the stack.
    *
-   * @param \Tozart\Discovery\Filter\DirectoryFilterInterface $filter
+   * @param \Trupal\Discovery\Filter\DirectoryFilterInterface $filter
    *   A directory filter instance.
    */
   public function addFilter(DirectoryFilterInterface $filter);
@@ -75,7 +75,7 @@ interface DiscoveryInterface {
   /**
    * Grab the first filter from the stack.
    *
-   * @return \Tozart\Discovery\Filter\DirectoryFilterInterface $filter
+   * @return \Trupal\Discovery\Filter\DirectoryFilterInterface $filter
    *   A directory filter instance.
    */
   public function popFilter();

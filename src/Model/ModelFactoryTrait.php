@@ -1,24 +1,24 @@
 <?php
 
-namespace Tozart\Model;
+namespace Trupal\Model;
 
-use Tozart\Tozart;
+use Trupal\Trupal;
 
 /**
  * Provides dependency injection for the model factory service.
  *
- * @package Tozart\Model
+ * @package Trupal\Model
  */
 trait ModelFactoryTrait {
 
   /**
    * Inject the model factory service.
    *
-   * @return \Tozart\Model\ModelFactory
+   * @return \Trupal\Model\ModelFactory
    *   A model factory object.
    */
   protected static function modelFactory() {
-    return Tozart::modelFactory();
+    return Trupal::modelFactory();
   }
 
 }

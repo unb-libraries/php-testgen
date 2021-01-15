@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\Discovery\Filter;
+namespace Trupal\Discovery\Filter;
 
-use Tozart\os\FileInterface;
+use Trupal\os\FileInterface;
 
 /**
  * Interface for directory filter implementations.
  *
- * @package Tozart\Discovery\Filter
+ * @package Trupal\Discovery\Filter
  */
 interface DirectoryFilterInterface {
 
@@ -41,7 +41,7 @@ interface DirectoryFilterInterface {
   /**
    * Evaluate whether the given file passes the filter criteria.
    *
-   * @param \Tozart\os\FileInterface $file
+   * @param \Trupal\os\FileInterface $file
    *   The file to evaluate.
    *
    * @return bool

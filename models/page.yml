@@ -1,6 +1,6 @@
 type: page
-class: '\Tozart\Model\Model'
-subject_class: '\Tozart\Subject\Page'
+class: '\Trupal\Model\Model'
+subject_class: '\Trupal\Subject\Page'
 # Required subject properties
 requirements:
   - url

@@ -1,21 +1,21 @@
 <?php
 
-namespace Tozart\render;
+namespace Trupal\render;
 
-use Tozart\os\FileInterface;
-use Tozart\Subject\SubjectInterface;
+use Trupal\os\FileInterface;
+use Trupal\Subject\SubjectInterface;
 
 /**
  * Interface for template finders.
  *
- * @package Tozart\render
+ * @package Trupal\render
  */
 interface TemplateFinderInterface {
 
   /**
    * Find a suitable template to render the given subject.
    *
-   * @param \Tozart\Subject\SubjectInterface $subject
+   * @param \Trupal\Subject\SubjectInterface $subject
    *   The subject.
    *
    * @return FileInterface|false

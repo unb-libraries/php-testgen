@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\os;
+namespace Trupal\os;
 
-use Tozart\os\parse\FileParserInterface;
+use Trupal\os\parse\FileParserInterface;
 
 /**
  * Describes features of file types.
  *
- * @package Tozart\os
+ * @package Trupal\os
  */
 class FileType implements FileTypeInterface {
 
@@ -28,7 +28,7 @@ class FileType implements FileTypeInterface {
   /**
    * A parser that processes files of this type.
    *
-   * @var \Tozart\os\parse\FileParserInterface
+   * @var \Trupal\os\parse\FileParserInterface
    */
   protected $_parser;
 
@@ -82,7 +82,7 @@ class FileType implements FileTypeInterface {
    *   A string.
    * @param array $extensions
    *   An array of file extension strings.
-   * @param \Tozart\os\parse\FileParserInterface|null $parser
+   * @param \Trupal\os\parse\FileParserInterface|null $parser
    *   (optional) A file parser instance.
    */
   public function __construct(string $name, array $extensions, FileParserInterface $parser = NULL) {

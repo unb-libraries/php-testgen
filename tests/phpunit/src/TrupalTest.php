@@ -1,43 +1,43 @@
 <?php
 
-namespace Tozart\Test;
+namespace Trupal\Test;
 
 use PHPUnit\Framework\TestCase;
-use Tozart\Discovery\FileSystemDiscovery;
-use Tozart\Discovery\Filter\DirectoryFilterFactory;
-use Tozart\Discovery\Filter\FileTypeFilter;
-use Tozart\Discovery\Filter\FileValidationFilter;
-use Tozart\Model\ModelFactory;
-use Tozart\Model\ModelManager;
-use Tozart\os\FileSystem;
-use Tozart\os\FileType;
-use Tozart\os\parse\FileParserManager;
-use Tozart\os\parse\YamlParser;
-use Tozart\render\RenderContextFactory;
-use Tozart\render\TemplateFinder;
-use Tozart\render\TwigRenderer;
-use Tozart\Subject\SubjectFactory;
-use Tozart\Subject\SubjectManager;
-use Tozart\Tozart;
-use Tozart\Validation\ModelValidator;
-use Tozart\Validation\SubjectValidator;
-use Tozart\Validation\ValidatorFactory;
+use Trupal\Discovery\FileSystemDiscovery;
+use Trupal\Discovery\Filter\DirectoryFilterFactory;
+use Trupal\Discovery\Filter\FileTypeFilter;
+use Trupal\Discovery\Filter\FileValidationFilter;
+use Trupal\Model\ModelFactory;
+use Trupal\Model\ModelManager;
+use Trupal\os\FileSystem;
+use Trupal\os\FileType;
+use Trupal\os\parse\FileParserManager;
+use Trupal\os\parse\YamlParser;
+use Trupal\render\RenderContextFactory;
+use Trupal\render\TemplateFinder;
+use Trupal\render\TwigRenderer;
+use Trupal\Subject\SubjectFactory;
+use Trupal\Subject\SubjectManager;
+use Trupal\Trupal;
+use Trupal\Validation\ModelValidator;
+use Trupal\Validation\SubjectValidator;
+use Trupal\Validation\ValidatorFactory;
 
 /**
- * Test the Tozart class.
+ * Test the Trupal class.
  *
- * @package Tozart\Test
+ * @package Trupal\Test
  */
-class TozartTest extends TestCase {
+class TrupalTest extends TestCase {
 
-  protected $tozart;
+  protected $Trupal;
 
-  protected function tozart() {
-    return $this->tozart;
+  protected function Trupal() {
+    return $this->Trupal;
   }
 
   protected function setUp(): void {
-    $this->tozart = Tozart::instance();
+    $this->Trupal = Trupal::instance();
     parent::setUp();
   }
 
@@ -52,7 +52,7 @@ class TozartTest extends TestCase {
    * @dataProvider serviceProvider
    */
   public function testCreateService(string $service_id, string $expected_interface) {
-    $service = $this->tozart()->container()->get($service_id);
+    $service = $this->Trupal()->container()->get($service_id);
     $this->assertInstanceOf($expected_interface, $service);
   }
 

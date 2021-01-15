@@ -1,28 +1,28 @@
 <?php
 
-namespace Tozart\Discovery\Filter;
+namespace Trupal\Discovery\Filter;
 
-use Tozart\os\FileInterface;
-use Tozart\Validation\ValidatorInterface;
+use Trupal\os\FileInterface;
+use Trupal\Validation\ValidatorInterface;
 
 /**
  * Filter for sorting out files which a configured validator does not validate.
  *
- * @package Tozart\Discovery\Filter
+ * @package Trupal\Discovery\Filter
  */
 class FileValidationFilter implements DirectoryFilterInterface {
 
   /**
    * The validator.
    *
-   * @var \Tozart\Validation\ValidatorInterface
+   * @var \Trupal\Validation\ValidatorInterface
    */
   protected $_validator;
 
   /**
    * Retrieve the validator.
    *
-   * @return \Tozart\Validation\ValidatorInterface
+   * @return \Trupal\Validation\ValidatorInterface
    *   A validator object.
    */
   public function getValidator() {
@@ -32,7 +32,7 @@ class FileValidationFilter implements DirectoryFilterInterface {
   /**
    * Create a new FileValidationFilter instance.
    *
-   * @param \Tozart\Validation\ValidatorInterface $validator
+   * @param \Trupal\Validation\ValidatorInterface $validator
    *   A validator object.
    */
   public function __construct(ValidatorInterface $validator) {

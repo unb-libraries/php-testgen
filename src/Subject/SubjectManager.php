@@ -1,27 +1,27 @@
 <?php
 
-namespace Tozart\Subject;
+namespace Trupal\Subject;
 
-use Tozart\Discovery\FactoryInterface;
+use Trupal\Discovery\FactoryInterface;
 
 /**
  * Manager of subject instances.
  *
- * @package Tozart\Subject
+ * @package Trupal\Subject
  */
 class SubjectManager implements SubjectManagerInterface {
 
   /**
    * The subjects.
    *
-   * @var \Tozart\Subject\SubjectInterface[]
+   * @var \Trupal\Subject\SubjectInterface[]
    */
   protected $_subjects = [];
 
   /**
    * The subject factory.
    *
-   * @var \Tozart\Discovery\FactoryInterface
+   * @var \Trupal\Discovery\FactoryInterface
    */
   protected $_factory;
 
@@ -35,7 +35,7 @@ class SubjectManager implements SubjectManagerInterface {
   /**
    * The subject factory.
    *
-   * @return \Tozart\Discovery\FactoryInterface
+   * @return \Trupal\Discovery\FactoryInterface
    *   A subject factory instance.
    */
   protected function factory() {
@@ -45,7 +45,7 @@ class SubjectManager implements SubjectManagerInterface {
   /**
    * Create a new subject manager instance.
    *
-   * @param \Tozart\Discovery\FactoryInterface $factory
+   * @param \Trupal\Discovery\FactoryInterface $factory
    *   The subject factory.
    */
   public function __construct(FactoryInterface $factory) {
@@ -75,7 +75,7 @@ class SubjectManager implements SubjectManagerInterface {
   /**
    * Add (or replace) the given model.
    *
-   * @param \Tozart\Subject\SubjectInterface $subject
+   * @param \Trupal\Subject\SubjectInterface $subject
    *   A model instance.
    * @param bool $replace
    *   Whether an existing model should be replaced.

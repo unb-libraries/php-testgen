@@ -1,28 +1,28 @@
 <?php
 
-namespace Tozart\Test\Validation;
+namespace Trupal\Test\Validation;
 
 use PHPUnit\Framework\TestCase;
-use Tozart\Validation\ValidatorFactory;
+use Trupal\Validation\ValidatorFactory;
 
 /**
  * Test the ValidatorFactoryTest class.
  *
- * @package Tozart\Test\Validation
+ * @package Trupal\Test\Validation
  */
 class ValidatorFactoryTest extends TestCase {
 
   /**
    * The validator factory to test.
    *
-   * @var \Tozart\Validation\ValidatorFactoryInterface
+   * @var \Trupal\Validation\ValidatorFactoryInterface
    */
   protected $_factory;
 
   /**
    * Retrieve the validator factory to test.
    *
-   * @return \Tozart\Validation\ValidatorFactoryInterface
+   * @return \Trupal\Validation\ValidatorFactoryInterface
    *   A validator factory object.
    */
   protected function factory() {

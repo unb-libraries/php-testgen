@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\Discovery\Filter;
+namespace Trupal\Discovery\Filter;
 
-use Tozart\os\FileInterface;
+use Trupal\os\FileInterface;
 
 /**
  * Filter for sorting out files that do not match a configured name pattern.
  *
- * @package Tozart\Discovery\Filter
+ * @package Trupal\Discovery\Filter
  */
 class FileNamePatternFilter implements DirectoryFilterInterface {
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\Discovery\Filter;
+namespace Trupal\Discovery\Filter;
 
 /**
  * Factory to build validators of different types.
  *
- * @package Tozart\Discovery\Filter
+ * @package Trupal\Discovery\Filter
  */
 class DirectoryFilterFactory implements DirectoryFilterFactoryInterface {
 

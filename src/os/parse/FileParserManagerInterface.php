@@ -1,25 +1,25 @@
 <?php
 
-namespace Tozart\os\parse;
+namespace Trupal\os\parse;
 
 /**
  * Interface for file parser managers.
  *
- * @package Tozart\os\parse
+ * @package Trupal\os\parse
  */
 interface FileParserManagerInterface {
 
   /**
    * Retrieve all available file parsers.
    *
-   * @return \Tozart\os\parse\FileParserInterface[]
+   * @return \Trupal\os\parse\FileParserInterface[]
    *   An array of file parser instances.
    */
   public function parsers();
   /**
    * Add the given file parser.
    *
-   * @param \Tozart\os\parse\FileParserInterface $parser
+   * @param \Trupal\os\parse\FileParserInterface $parser
    *   A file parser object.
    */
   public function addParser(FileParserInterface $parser);
@@ -29,7 +29,7 @@ interface FileParserManagerInterface {
    * @param string $id
    *   A file type name.
    *
-   * @return \Tozart\os\parse\FileParserInterface|null
+   * @return \Trupal\os\parse\FileParserInterface|null
    *   A file parser object, if one exists to parse
    *   the given type.
    */
@@ -38,7 +38,7 @@ interface FileParserManagerInterface {
   /**
    * Retrieve the file's content in a structured form.
    *
-   * @param \Tozart\os\FileInterface|string $file
+   * @param \Trupal\os\FileInterface|string $file
    *   The file to parse.
    *
    * @return mixed

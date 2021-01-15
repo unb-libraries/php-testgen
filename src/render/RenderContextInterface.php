@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\render;
+namespace Trupal\render;
 
 /**
  * Interface for RenderContext implementations.
  *
  * A render context tells a renderer how to render a subject.
  *
- * @package Tozart\render
+ * @package Trupal\render
  */
 interface RenderContextInterface {
 
@@ -22,7 +22,7 @@ interface RenderContextInterface {
   /**
    * Retrieve the template file.
    *
-   * @return \Tozart\os\FileInterface
+   * @return \Trupal\os\FileInterface
    */
   public function getTemplate();
 

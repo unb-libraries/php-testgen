@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\Test\Validation;
+namespace Trupal\Test\Validation;
 
-use Tozart\Validation\SpecificationValidator;
+use Trupal\Validation\SpecificationValidator;
 
 /**
  * Testable extension of abstract SpecificationValidator.
  *
- * @package Tozart\Test\Validation
+ * @package Trupal\Test\Validation
  */
 class TestableSpecificationValidator extends SpecificationValidator {
 

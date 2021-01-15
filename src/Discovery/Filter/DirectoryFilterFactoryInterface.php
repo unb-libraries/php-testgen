@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\Discovery\Filter;
+namespace Trupal\Discovery\Filter;
 
 /**
  * Interface for filter factory implementations.
  *
- * @package Tozart\Discovery\Filter
+ * @package Trupal\Discovery\Filter
  */
 interface DirectoryFilterFactoryInterface {
 
@@ -18,7 +18,7 @@ interface DirectoryFilterFactoryInterface {
    *   An array containing options to initially
    *   configure the filter.
    *
-   * @return \Tozart\Discovery\Filter\DirectoryFilterInterface
+   * @return \Trupal\Discovery\Filter\DirectoryFilterInterface
    */
   public function create(string $type, array $configuration);
 

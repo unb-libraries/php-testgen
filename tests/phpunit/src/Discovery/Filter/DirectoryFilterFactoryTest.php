@@ -1,28 +1,28 @@
 <?php
 
-namespace Tozart\Test\Discovery\Filter;
+namespace Trupal\Test\Discovery\Filter;
 
 use PHPUnit\Framework\TestCase;
-use Tozart\Discovery\Filter\DirectoryFilterFactory;
+use Trupal\Discovery\Filter\DirectoryFilterFactory;
 
 /**
  * Test the DirectoryFilterFactory class.
  *
- * @package Tozart\Test\Discovery\Filter
+ * @package Trupal\Test\Discovery\Filter
  */
 class DirectoryFilterFactoryTest extends TestCase {
 
   /**
    * The filter factory to test.
    *
-   * @var \Tozart\Discovery\Filter\DirectoryFilterFactoryInterface
+   * @var \Trupal\Discovery\Filter\DirectoryFilterFactoryInterface
    */
   protected $_factory;
 
   /**
    * Retrieve the filter factory to test.
    *
-   * @return \Tozart\Discovery\Filter\DirectoryFilterFactoryInterface
+   * @return \Trupal\Discovery\Filter\DirectoryFilterFactoryInterface
    *   A directory filter factory object.
    */
   protected function factory() {

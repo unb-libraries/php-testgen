@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\Discovery;
+namespace Trupal\Discovery;
 
 /**
  * Interface for factory implementations.
  *
- * @package Tozart\Discovery
+ * @package Trupal\Discovery
  */
 interface FactoryInterface {
 

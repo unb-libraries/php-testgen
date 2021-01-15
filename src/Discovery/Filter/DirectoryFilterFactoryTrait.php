@@ -1,24 +1,24 @@
 <?php
 
-namespace Tozart\Discovery\Filter;
+namespace Trupal\Discovery\Filter;
 
-use Tozart\Tozart;
+use Trupal\Trupal;
 
 /**
  * Dependency injection for the directory filter factory service.
  *
- * @package Tozart\Discovery\Filter
+ * @package Trupal\Discovery\Filter
  */
 trait DirectoryFilterFactoryTrait {
 
   /**
    * Inject the directory filter factory service.
    *
-   * @return \Tozart\Discovery\Filter\DirectoryFilterFactoryInterface
+   * @return \Trupal\Discovery\Filter\DirectoryFilterFactoryInterface
    *   A directory filter factory instance.
    */
   protected static function directoryFilterFactory() {
-    return Tozart::directoryFilterFactory();
+    return Trupal::directoryFilterFactory();
   }
 
 }

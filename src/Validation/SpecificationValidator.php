@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\Validation;
+namespace Trupal\Validation;
 
-use Tozart\os\FileInterface;
+use Trupal\os\FileInterface;
 
 /**
  * Validator for specification files.
  *
- * @package Tozart\Validation
+ * @package Trupal\Validation
  */
 abstract class SpecificationValidator extends FileFormatValidator {
 
@@ -29,7 +29,7 @@ abstract class SpecificationValidator extends FileFormatValidator {
   /**
    * Build the complete specification array.
    *
-   * @param \Tozart\os\FileInterface $file
+   * @param \Trupal\os\FileInterface $file
    * @return array|mixed
    */
   protected function buildSpecification(FileInterface $file) {

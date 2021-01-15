@@ -1,27 +1,27 @@
 <?php
 
-namespace Tozart\Validation;
+namespace Trupal\Validation;
 
-use Tozart\os\parse\FileParserInterface;
+use Trupal\os\parse\FileParserInterface;
 
 /**
  * Validator of file formats.
  *
- * @package Tozart\Validation
+ * @package Trupal\Validation
  */
 class FileFormatValidator implements ValidatorInterface {
 
   /**
    * The parser to determine a file's format validity.
    *
-   * @var \Tozart\os\parse\FileParserInterface
+   * @var \Trupal\os\parse\FileParserInterface
    */
   protected $_parser;
 
   /**
    * Retrieve the file type that determines the expected format for validation.
    *
-   * @return \Tozart\os\parse\FileParserInterface
+   * @return \Trupal\os\parse\FileParserInterface
    *   A file type object.
    */
   public function getParser() {
@@ -47,7 +47,7 @@ class FileFormatValidator implements ValidatorInterface {
   /**
    * Create anew FileFormatValidator instance.
    *
-   * @param \Tozart\os\parse\FileParserInterface $parser
+   * @param \Trupal\os\parse\FileParserInterface $parser
    *   A file parser.
    */
   public function __construct(FileParserInterface $parser) {

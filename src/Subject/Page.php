@@ -1,11 +1,11 @@
 <?php
 
-namespace Tozart\Subject;
+namespace Trupal\Subject;
 
 /**
  * Subject of type "page".
  *
- * @package Tozart\Subject
+ * @package Trupal\Subject
  */
 class Page extends SubjectBase {
 

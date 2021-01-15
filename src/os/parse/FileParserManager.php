@@ -1,14 +1,14 @@
 <?php
 
-namespace Tozart\os\parse;
+namespace Trupal\os\parse;
 
-use Tozart\os\DependencyInjection\FileSystemTrait;
-use Tozart\Tozart;
+use Trupal\os\DependencyInjection\FileSystemTrait;
+use Trupal\Trupal;
 
 /**
  * Manager of file parser instances.
  *
- * @package Tozart\os\parse
+ * @package Trupal\os\parse
  */
 class FileParserManager implements FileParserManagerInterface {
 
@@ -17,14 +17,14 @@ class FileParserManager implements FileParserManagerInterface {
   /**
    * Available file parsers.
    *
-   * @var \Tozart\os\parse\FileParserInterface[]
+   * @var \Trupal\os\parse\FileParserInterface[]
    */
   protected $_parsers;
 
   /**
    * Retrieve all available file parsers.
    *
-   * @return \Tozart\os\parse\FileParserInterface[]
+   * @return \Trupal\os\parse\FileParserInterface[]
    *   An array of file parser instances.
    */
   public function parsers() {
@@ -46,7 +46,7 @@ class FileParserManager implements FileParserManagerInterface {
   /**
    * Add the given file parser.
    *
-   * @param \Tozart\os\parse\FileParserInterface $parser
+   * @param \Trupal\os\parse\FileParserInterface $parser
    *   A file parser object.
    */
   public function addParser(FileParserInterface $parser) {
@@ -59,7 +59,7 @@ class FileParserManager implements FileParserManagerInterface {
    * @param string $id
    *   A file type name.
    *
-   * @return \Tozart\os\parse\FileParserInterface|null
+   * @return \Trupal\os\parse\FileParserInterface|null
    *   A file parser object, if one exists to parse
    *   the given type.
    */

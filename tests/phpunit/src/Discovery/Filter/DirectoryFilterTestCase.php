@@ -1,29 +1,29 @@
 <?php
 
-namespace Tozart\Test\Discovery\Filter;
+namespace Trupal\Test\Discovery\Filter;
 
 use PHPUnit\Framework\TestCase;
-use Tozart\Discovery\Filter\DirectoryFilterInterface;
-use Tozart\os\FileInterface;
+use Trupal\Discovery\Filter\DirectoryFilterInterface;
+use Trupal\os\FileInterface;
 
 /**
  * Test case for directory filter tests.
  *
- * @package Tozart\Test\Discovery\Filter
+ * @package Trupal\Test\Discovery\Filter
  */
 abstract class DirectoryFilterTestCase extends TestCase {
 
   /**
    * The filter to test.
    *
-   * @var \Tozart\Discovery\Filter\FileTypeFilter
+   * @var \Trupal\Discovery\Filter\FileTypeFilter
    */
   protected $_filter;
 
   /**
    * Retrieve the filter to test.
    *
-   * @return \Tozart\Discovery\Filter\FileTypeFilter
+   * @return \Trupal\Discovery\Filter\FileTypeFilter
    */
   protected function filter() {
     return $this->_filter;
@@ -40,7 +40,7 @@ abstract class DirectoryFilterTestCase extends TestCase {
   /**
    * Create a filter instance to test.
    *
-   * @return \Tozart\Discovery\Filter\DirectoryFilterInterface
+   * @return \Trupal\Discovery\Filter\DirectoryFilterInterface
    *   A directory filter object.
    */
   abstract protected function createFilter();
@@ -55,7 +55,7 @@ abstract class DirectoryFilterTestCase extends TestCase {
   /**
    * Test the "evaluate" method.
    *
-   * @param \Tozart\os\FileInterface $file
+   * @param \Trupal\os\FileInterface $file
    *   A file.
    * @param bool $should_pass
    *   Whether the file is expected to pass.

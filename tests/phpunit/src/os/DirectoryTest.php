@@ -1,14 +1,14 @@
 <?php
 
-namespace Tozart\Test\os;
+namespace Trupal\Test\os;
 
-use Tozart\os\Directory;
-use Tozart\os\FileInterface;
+use Trupal\os\Directory;
+use Trupal\os\FileInterface;
 
 /**
  * Test creating and interacting with instances of the Directory class.
  *
- * @package Tozart\Test
+ * @package Trupal\Test
  */
 class DirectoryTest extends FileSystemTestCase {
 

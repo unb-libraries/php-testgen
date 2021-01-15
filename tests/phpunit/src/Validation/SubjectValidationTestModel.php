@@ -1,13 +1,13 @@
 <?php
 
-namespace Tozart\Test\Validation;
+namespace Trupal\Test\Validation;
 
-use Tozart\Model\Model;
+use Trupal\Model\Model;
 
 /**
  * Model to verify subject validation.
  *
- * @package Tozart\Validation
+ * @package Trupal\Validation
  */
 class SubjectValidationTestModel extends Model {
 

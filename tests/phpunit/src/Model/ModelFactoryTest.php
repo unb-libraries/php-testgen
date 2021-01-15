@@ -1,34 +1,34 @@
 <?php
 
-namespace Tozart\Test\Model;
+namespace Trupal\Test\Model;
 
-use Tozart\Model\ModelInterface;
-use Tozart\Test\TozartTestCase;
-use Tozart\Tozart;
+use Trupal\Model\ModelInterface;
+use Trupal\Test\TrupalTestCase;
+use Trupal\Trupal;
 
 /**
  * Test class for testing model creation.
  *
- * @package Tozart\Test\Model
+ * @package Trupal\Test\Model
  */
-class ModelFactoryTest extends TozartTestCase {
+class ModelFactoryTest extends TrupalTestCase {
 
   /**
    * A model factory instance.
    *
-   * @var \Tozart\Model\ModelFactory
+   * @var \Trupal\Model\ModelFactory
    */
   protected static $_modelFactory;
 
   /**
    * Retrieve a model factory instance.
    *
-   * @return \Tozart\Model\ModelFactory
+   * @return \Trupal\Model\ModelFactory
    *   A model factory object.
    */
   protected static function modelFactory() {
     if (!isset(static::$_modelFactory)) {
-      static::$_modelFactory = Tozart::modelFactory();
+      static::$_modelFactory = Trupal::modelFactory();
     }
     return static::$_modelFactory;
   }

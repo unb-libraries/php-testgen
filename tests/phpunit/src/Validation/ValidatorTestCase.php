@@ -1,29 +1,29 @@
 <?php
 
-namespace Tozart\Test\Validation;
+namespace Trupal\Test\Validation;
 
 use PHPUnit\Framework\TestCase;
-use Tozart\os\FileInterface;
-use Tozart\Validation\ValidatorInterface;
+use Trupal\os\FileInterface;
+use Trupal\Validation\ValidatorInterface;
 
 /**
  * Test case for validator tests.
  *
- * @package Tozart\Test\Validation
+ * @package Trupal\Test\Validation
  */
 abstract class ValidatorTestCase extends TestCase {
 
   /**
    * The validator to test.
    *
-   * @var \Tozart\Validation\ValidatorInterface
+   * @var \Trupal\Validation\ValidatorInterface
    */
   protected $_validator;
 
   /**
    * Retrieve the validator to test.
    *
-   * @return \Tozart\Validation\ValidatorInterface
+   * @return \Trupal\Validation\ValidatorInterface
    *   A validator object.
    */
   protected function validator() {
@@ -41,7 +41,7 @@ abstract class ValidatorTestCase extends TestCase {
   /**
    * Create a validator instance to test.
    *
-   * @return \Tozart\Validation\ValidatorInterface
+   * @return \Trupal\Validation\ValidatorInterface
    *   A validator object.
    */
   abstract protected function createValidator();
@@ -56,7 +56,7 @@ abstract class ValidatorTestCase extends TestCase {
   /**
    * Test the "validate" method.
    *
-   * @param \Tozart\os\FileInterface $file
+   * @param \Trupal\os\FileInterface $file
    *   A file.
    * @param bool $should_pass
    *   Whether the file is expected to pass.

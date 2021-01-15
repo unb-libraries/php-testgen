@@ -1,24 +1,24 @@
 <?php
 
-namespace Tozart\os\parse;
+namespace Trupal\os\parse;
 
-use Tozart\Tozart;
+use Trupal\Trupal;
 
 /**
  * Provides dependency injection for the file parser manager service.
  *
- * @package Tozart\os\parse
+ * @package Trupal\os\parse
  */
 trait FileParserManagerTrait {
 
   /**
    * Inject the file parser manager service.
    *
-   * @return \Tozart\os\parse\FileParserManagerInterface
+   * @return \Trupal\os\parse\FileParserManagerInterface
    *   A file parser manager object.
    */
   protected static function parserManager() {
-    return Tozart::fileParserManager();
+    return Trupal::fileParserManager();
   }
 
 }
