@@ -12,27 +12,30 @@
          stopOnFailure="true">
     <testsuites>
         <testsuite name="default">
-            <file>tests/phpunit/src/ApplicationTest.php</file>
             <directory>tests/phpunit/src/os</directory>
+            <directory>tests/phpunit/src/Discovery</directory>
+            <directory>tests/phpunit/src/Validation</directory>
+            <directory>tests/phpunit/src/Model</directory>
             <directory>tests/phpunit/src/Subject</directory>
             <directory>tests/phpunit/src/render</directory>
         </testsuite>
         <testsuite name="os">
-            <file>tests/phpunit/src/ApplicationTest.php</file>
-            <file>tests/phpunit/src/os/DirectoryTest.php</file>
-            <file>tests/phpunit/src/os/FileTest.php</file>
+            <directory>tests/phpunit/src/os</directory>
         </testsuite>
         <testsuite name="discovery">
-            <file>tests/phpunit/src/ApplicationTest.php</file>
             <directory>tests/phpunit/src/Discovery</directory>
         </testsuite>
+        <testsuite name="validation">
+            <directory>tests/phpunit/src/Validation</directory>
+        </testsuite>
         <testsuite name="model">
-            <file>tests/phpunit/src/ApplicationTest.php</file>
             <directory>tests/phpunit/src/Model</directory>
         </testsuite>
         <testsuite name="subject">
-            <file>tests/phpunit/src/ApplicationTest.php</file>
             <directory>tests/phpunit/src/Subject</directory>
+        </testsuite>
+        <testsuite name="render">
+            <directory>tests/phpunit/src/render</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -40,11 +43,4 @@
             <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
-    <php>
-        <const name="TOZART_ROOT" value="tests/phpunit" />
-        <const name="ASSET_ROOT" value="tests/phpunit/assets" />
-        <const name="MODEL_ROOT" value="tests/phpunit/assets/models" />
-        <const name="SUBJECT_ROOT" value="tests/phpunit/assets/subjects" />
-        <const name="TEMPLATE_ROOT" value="tests/phpunit/assets/templates" />
-    </php>
 </phpunit>
