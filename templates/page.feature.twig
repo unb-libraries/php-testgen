@@ -17,12 +17,8 @@ Feature: Visit a page
 
   {% if grant_access is not empty %}
   Background:
-    Given users:
-    | name | mail | roles |
-    {% for user_role in grant_access %}
-      {% set user = "user_%s"|format(loop.index) %}
-      {{ "| %s | %s@example.com | %s |" | format(user, user, user_role) }}
-    {% endfor %}
+    {% set vars = {'user_roles': grant_access} %}
+    {%- include '_user_table.feature.twig' with vars only -%}
 
     {% for user_role in grant_access %}
       {% set user = "user_%s"|format(loop.index) %}
