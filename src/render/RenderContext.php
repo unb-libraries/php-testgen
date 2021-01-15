@@ -40,6 +40,16 @@ class RenderContext implements RenderContextInterface {
   }
 
   /**
+   * {@inheritDoc}
+   */
+  public function getOutputExtension() {
+    if (preg_match('/.*\.feature\.\w/', $this->getTemplate()->name())) {
+      return 'feature';
+    }
+    return '';
+  }
+
+  /**
    * Create a new RenderContext instance.
    *
    * @param array $bindings

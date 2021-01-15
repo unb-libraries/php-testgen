@@ -243,9 +243,7 @@ final class Tozart {
       if ($specification = $this->fileParserManager()->parse($filepath)) {
         if ($subject = $this->subjectFactory()->createFromSpecification($specification)) {
           if (($context = $this->contextFactory()->create($subject)) && ($content = $this->renderer()->render($context))) {
-
-            // TODO: Use unique names for each subject.
-            $test_case = $destination->put($context->getTemplate()->name());
+            $test_case = $destination->put("{$subject->getId()}.{$context->getOutputExtension()}");
             $test_case->setContent($content);
           }
         }

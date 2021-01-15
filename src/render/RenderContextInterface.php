@@ -26,6 +26,14 @@ interface RenderContextInterface {
    */
   public function getTemplate();
 
+  /**
+   * Retrieve the output file extension.
+   *
+   * @return string
+   *   A string.
+   */
+  public function getOutputExtension();
+
 
 
 }
