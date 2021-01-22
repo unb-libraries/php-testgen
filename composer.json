@@ -1,5 +1,5 @@
 {
-    "name": "unb-libraries/php-testgen",
+    "name": "unb-libraries/trupal",
     "description": "Auto-generate automated testing.",
     "type": "library",
     "license": "MIT",
