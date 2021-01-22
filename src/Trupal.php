@@ -231,8 +231,13 @@ final class Trupal {
    *   The subject directory or path.
    * @param \Trupal\os\DirectoryInterface|string $destination
    *   The output directory or path.
+   *
+   * @return array
+   *   File paths to the generated test cases.
    */
   public function generate($subject_root, $destination) {
+    $paths = [];
+
     if (is_string($destination)) {
       $destination = $this->fileSystem()->dir($destination);
     }
@@ -245,11 +250,13 @@ final class Trupal {
           if (($context = $this->contextFactory()->create($subject)) && ($content = $this->renderer()->render($context))) {
             $test_case = $destination->put("{$subject->getId()}.{$context->getOutputExtension()}");
             $test_case->setContent($content);
+            $paths = $test_case->path();
           }
         }
       }
     }
     self::subjectDiscovery()->popDirectory();
+    return $paths;
   }
 
   /**
