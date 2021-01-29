@@ -250,7 +250,7 @@ final class Trupal {
           if (($context = $this->contextFactory()->create($subject)) && ($content = $this->renderer()->render($context))) {
             $test_case = $destination->put("{$subject->getId()}.{$context->getOutputExtension()}");
             $test_case->setContent($content);
-            $paths = $test_case->path();
+            $paths[] = $test_case->path();
           }
         }
       }
