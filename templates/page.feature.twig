@@ -8,10 +8,10 @@ Feature: Visit a page
 
 {% if public %}
 
-  Scenario: Grant public acccess
+  Scenario: Grant public access
     Given I am not logged in
-    When I go to {{url}}
     Then I should get an HTTP 200 response
+    When I go to "{{ path }}"
 
 {% else %}
 
@@ -31,7 +31,7 @@ Feature: Visit a page
 
   Scenario: Deny acccess to unauthenticated users
     Given I am not logged in
-    When I go to {{url}}
+    When I go to "{{ path }}"
     Then I should get an HTTP 403 response
 
 {% endif %}

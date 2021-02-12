@@ -10,30 +10,30 @@ namespace Trupal\Subject;
 class Page extends SubjectBase {
 
   /**
-   * The URL of the page.
+   * The path under which the page should be accessible.
    *
    * @var string
    */
-  protected $_url;
+  protected $path;
 
   /**
-   * Retrieve the URL of the page.
+   * Retrieve the path under which the page should be accessible.
    *
    * @return string
    *   A URL formatted string.
    */
-  public function getUrl() {
-    return $this->_url;
+  public function getPath() {
+    return $this->path;
   }
 
   /**
-   * Set the URL of the page.
+   * Set the path under which the page should be accessible.
    *
    * @param string $url
    *   A URL formatted string.
    */
-  public function setUrl($url) {
-    $this->_url = $url;
+  public function setPath($url) {
+    $this->path = $url;
   }
 
 }

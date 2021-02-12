@@ -3,7 +3,7 @@ class: '\Trupal\Model\Model'
 subject_class: '\Trupal\Subject\Page'
 # Required subject properties
 requirements:
-  - url
+  - path
 # Optional model properties
 options:
   public: TRUE
