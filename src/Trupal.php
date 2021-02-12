@@ -12,7 +12,7 @@ use Trupal\os\DirectoryInterface;
  *
  * @package Trupal
  */
-final class Trupal {
+final class Trupal implements TrupalInterface {
 
   const PROJECT_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..';
   const CONFIG_DIR = self::PROJECT_ROOT . DIRECTORY_SEPARATOR . 'config';
