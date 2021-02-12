@@ -10,8 +10,12 @@ Feature: Visit a page
 
   Scenario: Grant public access
     Given I am not logged in
-    Then I should get an HTTP 200 response
     When I go to "{{ path }}"
+    {% if title %}
+    Then I should see "{{ title }}"
+    {% else %}
+    Then the response status code should be 200
+    {% endif %}
 
 {% else %}
 

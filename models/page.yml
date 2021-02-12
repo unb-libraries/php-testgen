@@ -6,5 +6,6 @@ requirements:
   - path
 # Optional model properties
 options:
+  title: ''
   public: TRUE
   grant_access: { }
