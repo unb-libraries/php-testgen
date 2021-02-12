@@ -1,0 +1,15 @@
+type: form
+class: '\Trupal\Model\Model'
+subject_class: '\Trupal\Subject\Form'
+# Required subject properties
+requirements:
+  - path
+  - destination
+  - fields
+# Optional model properties
+options:
+  public: TRUE
+  title: ''
+  success_message: ''
+  submit_label: Submit
+  grant_access: { }

@@ -1,0 +1,37 @@
+# Behat Page Access Test
+# Ref : phase2/behat-suite
+
+Feature: Fill a form
+  As an internet user
+  In order to fill a form
+  I need to be able enter values into fields
+
+{% if public %}
+
+  Scenario: Submit the form
+    Given I am not logged in
+    When I go to "{{ path }}"
+    {% if title %}
+    Then I should see "{{ title }}"
+    And I should see a "form" element
+    {% else %}
+    Then I should see a "form" element
+    {% endif %}
+    When I fill in the following:
+    {% for field,value in fields %}
+    | {{ field }} | {{ value }} |
+    {% endfor %}
+    And I press "{{ submit_label }}"
+    Then I should be on "{{ destination }}"
+    {% if success_message %}
+    And I should see "{{ success_message }}"
+    {% endif %}
+
+{% else %}
+
+  Scenario: Deny acccess to unauthenticated users
+    Given I am not logged in
+    When I go to {{ path }}
+    Then the response status code should be 403
+
+{% endif %}
