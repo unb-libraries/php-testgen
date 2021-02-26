@@ -17,8 +17,8 @@
     "prefer-stable": true,
     "require": {
         "symfony/config": "^4.4",
-        "symfony/dependency-injection": "^3.4",
-        "symfony/yaml": "^3.4",
+        "symfony/dependency-injection": "^4.4",
+        "symfony/yaml": "^4.4",
         "twig/twig": "^1.4"
     },
     "autoload": {
