@@ -23,8 +23,29 @@ abstract class Command extends SymfonyCommand {
   /**
    * {@inheritDoc}
    */
-  protected function execute(InputInterface $input, OutputInterface $output) {
-    return self::SUCCESS;
+  final protected function execute(InputInterface $input, OutputInterface $output) {
+    try {
+      $this->doExecute($input, $output);
+      if (defined(self::SUCCESS)) {
+        return self::SUCCESS;
+      }
+      return 0;
+    }
+    catch (\Exception $e) {
+      if (defined(self::FAILURE)) {
+        return self::FAILURE;
+      }
+      return 1;
+    }
   }
 
+  /**
+   * Do the actual command execution.
+   *
+   * @param \Symfony\Component\Console\Input\InputInterface $input
+   *   Command line input.
+   * @param \Symfony\Component\Console\Output\OutputInterface $output
+   *   Command line output.
+   */
+  abstract protected function doExecute(InputInterface $input, OutputInterface $output);
 }
