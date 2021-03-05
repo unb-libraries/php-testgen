@@ -17,6 +17,7 @@
     "prefer-stable": true,
     "require": {
         "symfony/config": "^4.4",
+        "symfony/console": "~3",
         "symfony/dependency-injection": "^4.4",
         "symfony/yaml": "^4.4",
         "twig/twig": "^1.4"
@@ -24,7 +25,9 @@
     "autoload": {
         "psr-4": {
             "Trupal\\": "src",
-            "Trupal\\Test\\": "tests/phpunit/src"
+            "Trupal\\Test\\": "tests/phpunit/src",
+            "Trupal\\Console\\": "Console/src",
+            "Trupal\\Console\\Test\\": "Console/tests/phpunit/src"
         }
     },
     "require-dev": {
