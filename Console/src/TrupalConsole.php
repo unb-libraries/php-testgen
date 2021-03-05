@@ -53,6 +53,7 @@ class TrupalConsole extends Application {
     parent::__construct('TRUPAL', 'DEV');
     $this->trupal = Trupal::instance();
     $this->initContainer();
+    $this->initCommands();
   }
 
   /**
@@ -85,3 +86,33 @@ class TrupalConsole extends Application {
     $this->addCommands($this->findCommands());
   }
 
+  /**
+   * Find available console commands.
+   *
+   * @return array
+   *   An array of TrupalConsole commands.
+   *
+   * @throws \Exception
+   */
+  public function findCommands() {
+    $commands = [];
+    $command_services = $this->container()
+      ->findTaggedServiceIds($this->getCommandTagName());
+    foreach ($command_services as $service_id => $tags) {
+      $commands[] = $this->container()
+        ->get($service_id);
+    }
+    return $commands;
+  }
+
+  /**
+   * Get the tag name that identifies TrupalConsole commands.
+   *
+   * @return string
+   *   A string.
+   */
+  public function getCommandTagName() {
+    return self::COMMAND_TAG;
+  }
+
+}
