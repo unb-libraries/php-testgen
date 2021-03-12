@@ -1,1 +1,6 @@
 services:
+  command.generate:
+    class: Trupal\Console\Command\GenerateTestsCommand
+    arguments: ['@trupal']
+    tags:
+      - console.command.trupal

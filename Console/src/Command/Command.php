@@ -32,13 +32,6 @@ abstract class Command extends SymfonyCommand {
   }
 
   /**
-   * {@inheritDoc}
-   */
-  public static function getDefaultName() {
-    return "trupal:" . parent::getDefaultName();
-  }
-
-  /**
    * GenerateTestsCommand constructor.
    *
    * @param \Trupal\Core\TrupalInterface $trupal
