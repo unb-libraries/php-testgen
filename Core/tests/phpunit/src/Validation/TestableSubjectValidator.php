@@ -1,29 +1,29 @@
 <?php
 
-namespace Trupal\Test\Validation;
+namespace Trupal\Core\Test\Validation;
 
-use Trupal\Discovery\FactoryInterface;
-use Trupal\os\parse\FileParserInterface;
-use Trupal\Validation\SubjectValidator;
+use Trupal\Core\Discovery\FactoryInterface;
+use Trupal\Core\os\parse\FileParserInterface;
+use Trupal\Core\Validation\SubjectValidator;
 
 /**
  * Subject validator without real behaviour, for testing purposes.
  *
- * @package Trupal\Test\Validation
+ * @package Trupal\Core\Test\Validation
  */
 class TestableSubjectValidator extends SubjectValidator {
 
   /**
    * The model factory.
    *
-   * @var \Trupal\Discovery\FactoryInterface
+   * @var \Trupal\Core\Discovery\FactoryInterface
    */
   protected static $_modelFactory;
 
   /**
    * Retrieve the model factory.
    *
-   * @return \Trupal\Discovery\FactoryInterface
+   * @return \Trupal\Core\Discovery\FactoryInterface
    *   A factory object.
    */
   protected static function modelFactory() {
@@ -33,9 +33,9 @@ class TestableSubjectValidator extends SubjectValidator {
   /**
    * Create a new TestableSubjectValidator instance.
    *
-   * @param \Trupal\os\parse\FileParserInterface $parser
+   * @param \Trupal\Core\os\parse\FileParserInterface $parser
    *   A file parser.
-   * @param \Trupal\Discovery\FactoryInterface $model_factory
+   * @param \Trupal\Core\Discovery\FactoryInterface $model_factory
    *   A model factory.
    */
   public function __construct(FileParserInterface $parser, FactoryInterface $model_factory) {

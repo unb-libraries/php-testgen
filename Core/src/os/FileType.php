@@ -1,13 +1,13 @@
 <?php
 
-namespace Trupal\os;
+namespace Trupal\Core\os;
 
-use Trupal\os\parse\FileParserInterface;
+use Trupal\Core\os\parse\FileParserInterface;
 
 /**
  * Describes features of file types.
  *
- * @package Trupal\os
+ * @package Trupal\Core\os
  */
 class FileType implements FileTypeInterface {
 
@@ -28,7 +28,7 @@ class FileType implements FileTypeInterface {
   /**
    * A parser that processes files of this type.
    *
-   * @var \Trupal\os\parse\FileParserInterface
+   * @var \Trupal\Core\os\parse\FileParserInterface
    */
   protected $_parser;
 
@@ -82,7 +82,7 @@ class FileType implements FileTypeInterface {
    *   A string.
    * @param array $extensions
    *   An array of file extension strings.
-   * @param \Trupal\os\parse\FileParserInterface|null $parser
+   * @param \Trupal\Core\os\parse\FileParserInterface|null $parser
    *   (optional) A file parser instance.
    */
   public function __construct(string $name, array $extensions, FileParserInterface $parser = NULL) {

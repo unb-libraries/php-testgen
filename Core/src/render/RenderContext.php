@@ -1,13 +1,13 @@
 <?php
 
-namespace Trupal\render;
+namespace Trupal\Core\render;
 
-use Trupal\os\FileInterface;
+use Trupal\Core\os\FileInterface;
 
 /**
  * Data structure class containing render information.
  *
- * @package Trupal\render
+ * @package Trupal\Core\render
  */
 class RenderContext implements RenderContextInterface {
 
@@ -21,7 +21,7 @@ class RenderContext implements RenderContextInterface {
   /**
    * The template file.
    *
-   * @var \Trupal\os\FileInterface
+   * @var \Trupal\Core\os\FileInterface
    */
   protected $_template;
 
@@ -54,7 +54,7 @@ class RenderContext implements RenderContextInterface {
    *
    * @param array $bindings
    *   An array of variable names and values.
-   * @param \Trupal\os\FileInterface $template
+   * @param \Trupal\Core\os\FileInterface $template
    *   A template file.
    */
   public function __construct(array $bindings, FileInterface $template) {

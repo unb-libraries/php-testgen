@@ -1,20 +1,20 @@
 <?php
 
-namespace Trupal\os\DependencyInjection;
+namespace Trupal\Core\os\DependencyInjection;
 
-use Trupal\Trupal;
+use Trupal\Core\Trupal;
 
 /**
  * Dependency injection of the filesystem service.
  *
- * @package Trupal\os
+ * @package Trupal\Core\os
  */
 trait FileSystemTrait {
 
   /**
    * Inject the file system service.
    *
-   * @return \Trupal\os\FileSystem
+   * @return \Trupal\Core\os\FileSystem
    *   A file system service instance.
    */
   public static function fileSystem() {

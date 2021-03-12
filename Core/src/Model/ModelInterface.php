@@ -1,6 +1,6 @@
 <?php
 
-namespace Trupal\Model;
+namespace Trupal\Core\Model;
 
 /**
  * Public interface for model implementations.
@@ -9,7 +9,7 @@ namespace Trupal\Model;
  * each subject must define in order to
  * generate test cases from it.
  *
- * @package Trupal\Model
+ * @package Trupal\Core\Model
  */
 interface ModelInterface {
 

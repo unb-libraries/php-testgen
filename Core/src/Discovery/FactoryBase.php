@@ -7,21 +7,21 @@ use Trupal\Core\Trupal;
 /**
  * Base class for factory implementations.
  *
- * @package Trupal\Discovery
+ * @package Trupal\Core\Discovery
  */
 abstract class FactoryBase implements FactoryInterface {
 
   /**
    * A discovery service instance.
    *
-   * @var \Trupal\Discovery\DiscoveryInterface
+   * @var \Trupal\Core\Discovery\DiscoveryInterface
    */
   protected $_discovery;
 
   /**
    * Retrieve the discovery service.
    *
-   * @return \Trupal\Discovery\DiscoveryInterface
+   * @return \Trupal\Core\Discovery\DiscoveryInterface
    *   A discovery object.
    */
   public function discovery() {
@@ -31,7 +31,7 @@ abstract class FactoryBase implements FactoryInterface {
   /**
    * Construct a new ModelFactory instance.
    *
-   * @param \Trupal\Discovery\DiscoveryInterface $discovery
+   * @param \Trupal\Core\Discovery\DiscoveryInterface $discovery
    *   A discovery service instance.
    */
   public function __construct(DiscoveryInterface $discovery) {

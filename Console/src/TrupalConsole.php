@@ -5,7 +5,7 @@ namespace Trupal\Console;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Trupal\Trupal;
+use Trupal\Core\Trupal;
 
 /**
  * The TrupalConsole main class.
@@ -19,14 +19,14 @@ class TrupalConsole extends Application {
   /**
    * The Trupal core application.
    *
-   * @var \Trupal\Trupal
+   * @var \Trupal\Core\Trupal
    */
   protected $trupal;
 
   /**
    * Get the Trupal core application.
    *
-   * @return \Trupal\Trupal
+   * @return \Trupal\Core\Trupal
    *   A Trupal instance.
    */
   protected function trupal() {

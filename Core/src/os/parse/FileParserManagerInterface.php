@@ -12,14 +12,14 @@ interface FileParserManagerInterface {
   /**
    * Retrieve all available file parsers.
    *
-   * @return \Trupal\os\parse\FileParserInterface[]
+   * @return \Trupal\Core\os\parse\FileParserInterface[]
    *   An array of file parser instances.
    */
   public function parsers();
   /**
    * Add the given file parser.
    *
-   * @param \Trupal\os\parse\FileParserInterface $parser
+   * @param \Trupal\Core\os\parse\FileParserInterface $parser
    *   A file parser object.
    */
   public function addParser(FileParserInterface $parser);
@@ -29,7 +29,7 @@ interface FileParserManagerInterface {
    * @param string $id
    *   A file type name.
    *
-   * @return \Trupal\os\parse\FileParserInterface|null
+   * @return \Trupal\Core\os\parse\FileParserInterface|null
    *   A file parser object, if one exists to parse
    *   the given type.
    */
@@ -38,7 +38,7 @@ interface FileParserManagerInterface {
   /**
    * Retrieve the file's content in a structured form.
    *
-   * @param \Trupal\os\FileInterface|string $file
+   * @param \Trupal\Core\os\FileInterface|string $file
    *   The file to parse.
    *
    * @return mixed

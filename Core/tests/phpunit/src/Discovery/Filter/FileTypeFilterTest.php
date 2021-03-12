@@ -1,14 +1,14 @@
 <?php
 
-namespace Trupal\Test\Discovery\Filter;
+namespace Trupal\Core\Test\Discovery\Filter;
 
-use Trupal\Discovery\Filter\FileTypeFilter;
-use Trupal\os\FileTypeInterface;
+use Trupal\Core\Discovery\Filter\FileTypeFilter;
+use Trupal\Core\os\FileTypeInterface;
 
 /**
  * Test the FileTypeFilterTest class.
  *
- * @package Trupal\Test\Discovery\Filter
+ * @package Trupal\Core\Test\Discovery\Filter
  */
 class FileTypeFilterTest extends DirectoryFilterTestCase {
 
@@ -35,7 +35,7 @@ class FileTypeFilterTest extends DirectoryFilterTestCase {
    * @param array $extensions
    *   Array of file extensions to be associated with the file type.
    *
-   * @return \Trupal\os\FileTypeInterface
+   * @return \Trupal\Core\os\FileTypeInterface
    *   An object pretending to be a file type.
    */
   protected function createFileType(array $extensions) {

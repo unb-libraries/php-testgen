@@ -1,15 +1,15 @@
 <?php
 
-namespace Trupal\Test\Validation;
+namespace Trupal\Core\Test\Validation;
 
 use Symfony\Component\Yaml\Yaml;
-use Trupal\os\FileInterface;
-use Trupal\os\parse\FileParserInterface;
+use Trupal\Core\os\FileInterface;
+use Trupal\Core\os\parse\FileParserInterface;
 
 /**
  * Test the SpecificationValidator class.
  *
- * @package Trupal\Test\Validation
+ * @package Trupal\Core\Test\Validation
  */
 class SpecificationValidatorTest extends ValidatorTestCase {
 
@@ -23,7 +23,7 @@ class SpecificationValidatorTest extends ValidatorTestCase {
   /**
    * Create a parser test double.
    *
-   * @return \Trupal\os\parse\FileParserInterface
+   * @return \Trupal\Core\os\parse\FileParserInterface
    *   An object pretending to be a file parser.
    */
   protected function createParser() {

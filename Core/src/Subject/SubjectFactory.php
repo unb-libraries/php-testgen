@@ -1,15 +1,15 @@
 <?php
 
-namespace Trupal\Subject;
+namespace Trupal\Core\Subject;
 
-use Trupal\Discovery\DiscoveryInterface;
-use Trupal\Discovery\FactoryBase;
-use Trupal\Model\ModelManagerInterface;
+use Trupal\Core\Discovery\DiscoveryInterface;
+use Trupal\Core\Discovery\FactoryBase;
+use Trupal\Core\Model\ModelManagerInterface;
 
 /**
  * Factory to build models from model definitions.
  *
- * @package Trupal\model
+ * @package Trupal\Core\model
  */
 class SubjectFactory extends FactoryBase {
 
@@ -18,14 +18,14 @@ class SubjectFactory extends FactoryBase {
   /**
    * The model manager.
    *
-   * @var \Trupal\Model\ModelManagerInterface
+   * @var \Trupal\Core\Model\ModelManagerInterface
    */
   protected $_modelManager;
 
   /**
    * The model manager.
    *
-   * @return \Trupal\Model\ModelManagerInterface
+   * @return \Trupal\Core\Model\ModelManagerInterface
    *   A model manager instance.
    */
   protected function modelManager() {
@@ -35,9 +35,9 @@ class SubjectFactory extends FactoryBase {
   /**
    * Create a new subject factory instance.
    *
-   * @param \Trupal\Discovery\DiscoveryInterface $discovery
+   * @param \Trupal\Core\Discovery\DiscoveryInterface $discovery
    *   A discovery service instance.
-   * @param \Trupal\Model\ModelManagerInterface $model_manager
+   * @param \Trupal\Core\Model\ModelManagerInterface $model_manager
    *   A model manager service instance.
    */
   public function __construct(DiscoveryInterface $discovery, ModelManagerInterface $model_manager) {
@@ -51,7 +51,7 @@ class SubjectFactory extends FactoryBase {
    * @param array $specification
    *   The specification.
    *
-   * @return \Trupal\Subject\SubjectInterface
+   * @return \Trupal\Core\Subject\SubjectInterface
    *   A subject object.
    */
   public function createFromSpecification(array $specification) {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Trupal\os\DependencyInjection;
+namespace Trupal\Core\os\DependencyInjection;
 
-use Trupal\Trupal;
+use Trupal\Core\Trupal;
 
 /**
  * Dependency injection for file parsers.
  *
- * @package Trupal\os\DependencyInjection
+ * @package Trupal\Core\os\DependencyInjection
  */
 trait FileParsingTrait {
 
@@ -17,7 +17,7 @@ trait FileParsingTrait {
    * @param string $type
    *   A file type.
    *
-   * @return \Trupal\os\parse\FileParserInterface|null
+   * @return \Trupal\Core\os\parse\FileParserInterface|null
    *   A file parser object.
    */
   public static function parser(string $type) {

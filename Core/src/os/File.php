@@ -1,13 +1,13 @@
 <?php
 
-namespace Trupal\os;
+namespace Trupal\Core\os;
 
-use Trupal\os\DependencyInjection\FileSystemTrait;
+use Trupal\Core\os\DependencyInjection\FileSystemTrait;
 
 /**
  * Class to interact with a file in the filesystem.
  *
- * @package Trupal\os
+ * @package Trupal\Core\os
  */
 class File implements FileInterface {
 
@@ -23,14 +23,14 @@ class File implements FileInterface {
   /**
    * The directory which contains the file.
    *
-   * @var \Trupal\os\DirectoryInterface
+   * @var \Trupal\Core\os\DirectoryInterface
    */
   protected $directory;
 
   /**
    * The type of the file.
    *
-   * @var \Trupal\os\FileTypeInterface
+   * @var \Trupal\Core\os\FileTypeInterface
    */
   protected $type;
 
@@ -116,7 +116,7 @@ class File implements FileInterface {
    *
    * @param string $name
    *   Name of the file.
-   * @param \Trupal\os\DirectoryInterface $directory
+   * @param \Trupal\Core\os\DirectoryInterface $directory
    *   Directory which contains the file.
    */
   public function __construct($name, DirectoryInterface $directory) {

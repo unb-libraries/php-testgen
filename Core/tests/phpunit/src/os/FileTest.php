@@ -1,29 +1,29 @@
 <?php
 
-namespace Trupal\Test\os;
+namespace Trupal\Core\Test\os;
 
-use Trupal\os\Directory;
-use Trupal\os\File;
-use Trupal\os\FileType;
+use Trupal\Core\os\Directory;
+use Trupal\Core\os\File;
+use Trupal\Core\os\FileType;
 
 /**
  * Test creating and interacting with instances of the File class.
  *
- * @package Trupal\Test
+ * @package Trupal\Core\Test
  */
 class FileTest extends FileSystemTestCase {
 
   /**
    * Test directory.
    *
-   * @var \Trupal\os\DirectoryInterface
+   * @var \Trupal\Core\os\DirectoryInterface
    */
   protected $directory;
 
   /**
    * Retrieve the test directory.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory instance.
    */
   protected function directory() {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Trupal\Test\Discovery\Filter;
+namespace Trupal\Core\Test\Discovery\Filter;
 
-use Trupal\Discovery\Filter\FileValidationFilter;
-use Trupal\os\FileInterface;
-use Trupal\Validation\ValidatorInterface;
+use Trupal\Core\Discovery\Filter\FileValidationFilter;
+use Trupal\Core\os\FileInterface;
+use Trupal\Core\Validation\ValidatorInterface;
 
 /**
  * Test the FileValidationFilter class.
  *
- * @package Trupal\Test\Discovery\Filter
+ * @package Trupal\Core\Test\Discovery\Filter
  */
 class FileValidationFilterTest extends DirectoryFilterTestCase {
 
@@ -23,7 +23,7 @@ class FileValidationFilterTest extends DirectoryFilterTestCase {
   /**
    * Create a validator double.
    *
-   * @return \Trupal\Validation\ValidatorInterface
+   * @return \Trupal\Core\Validation\ValidatorInterface
    *   An object pretending to be a validator.
    */
   protected function createValidator() {

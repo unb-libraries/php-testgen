@@ -1,21 +1,21 @@
 <?php
 
-namespace Trupal\render;
+namespace Trupal\Core\render;
 
-use Trupal\os\FileInterface;
-use Trupal\Subject\SubjectInterface;
+use Trupal\Core\os\FileInterface;
+use Trupal\Core\Subject\SubjectInterface;
 
 /**
  * Interface for template finders.
  *
- * @package Trupal\render
+ * @package Trupal\Core\render
  */
 interface TemplateFinderInterface {
 
   /**
    * Find a suitable template to render the given subject.
    *
-   * @param \Trupal\Subject\SubjectInterface $subject
+   * @param \Trupal\Core\Subject\SubjectInterface $subject
    *   The subject.
    *
    * @return FileInterface|false

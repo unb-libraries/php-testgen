@@ -1,29 +1,29 @@
 <?php
 
-namespace Trupal\Test\Validation;
+namespace Trupal\Core\Test\Validation;
 
 use PHPUnit\Framework\TestCase;
-use Trupal\os\FileInterface;
-use Trupal\Validation\ValidatorInterface;
+use Trupal\Core\os\FileInterface;
+use Trupal\Core\Validation\ValidatorInterface;
 
 /**
  * Test case for validator tests.
  *
- * @package Trupal\Test\Validation
+ * @package Trupal\Core\Test\Validation
  */
 abstract class ValidatorTestCase extends TestCase {
 
   /**
    * The validator to test.
    *
-   * @var \Trupal\Validation\ValidatorInterface
+   * @var \Trupal\Core\Validation\ValidatorInterface
    */
   protected $_validator;
 
   /**
    * Retrieve the validator to test.
    *
-   * @return \Trupal\Validation\ValidatorInterface
+   * @return \Trupal\Core\Validation\ValidatorInterface
    *   A validator object.
    */
   protected function validator() {
@@ -41,7 +41,7 @@ abstract class ValidatorTestCase extends TestCase {
   /**
    * Create a validator instance to test.
    *
-   * @return \Trupal\Validation\ValidatorInterface
+   * @return \Trupal\Core\Validation\ValidatorInterface
    *   A validator object.
    */
   abstract protected function createValidator();
@@ -56,7 +56,7 @@ abstract class ValidatorTestCase extends TestCase {
   /**
    * Test the "validate" method.
    *
-   * @param \Trupal\os\FileInterface $file
+   * @param \Trupal\Core\os\FileInterface $file
    *   A file.
    * @param bool $should_pass
    *   Whether the file is expected to pass.

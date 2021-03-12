@@ -1,23 +1,23 @@
 <?php
 
-namespace Trupal\render;
+namespace Trupal\Core\render;
 
-use Trupal\Subject\SubjectInterface;
+use Trupal\Core\Subject\SubjectInterface;
 
 /**
  * Interface for render context factories.
  *
- * @package Trupal\render
+ * @package Trupal\Core\render
  */
 interface RenderContextFactoryInterface {
 
   /**
    * Create a context to render the given subject.
    *
-   * @param \Trupal\Subject\SubjectInterface $subject
+   * @param \Trupal\Core\Subject\SubjectInterface $subject
    *   The subject.
    *
-   * @return \Trupal\render\RenderContextInterface
+   * @return \Trupal\Core\render\RenderContextInterface
    *   A render context instance.
    */
   public function create(SubjectInterface $subject);

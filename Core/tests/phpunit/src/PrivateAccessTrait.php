@@ -1,11 +1,11 @@
 <?php
 
-namespace Trupal\Test;
+namespace Trupal\Core\Test;
 
 /**
  * Trait to test protected or private methods.
  *
- * @package Trupal\Test
+ * @package Trupal\Core\Test
  */
 trait PrivateAccessTrait {
 

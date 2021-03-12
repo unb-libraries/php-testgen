@@ -1,6 +1,6 @@
 <?php
 
-namespace Trupal;
+namespace Trupal\Core;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 final class Trupal implements TrupalInterface {
 
-  const PROJECT_ROOT = __DIR__ . DIRECTORY_SEPARATOR;
+  const PROJECT_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..';
   const CONFIG_DIR = self::PROJECT_ROOT . DIRECTORY_SEPARATOR . 'config';
 
   /**
@@ -26,14 +26,14 @@ final class Trupal implements TrupalInterface {
   /**
    * The only Trupal that should ever exist.
    *
-   * @var \Trupal\Trupal
+   * @var \Trupal\Core\Trupal
    */
   protected static $_instance;
 
   /**
    * Create (or retrieve) the only Trupal that should ever exist.
    *
-   * @return \Trupal\Trupal
+   * @return \Trupal\Core\Trupal
    *   A Trupal instance.
    */
   public static function instance() {
@@ -47,7 +47,6 @@ final class Trupal implements TrupalInterface {
    * Create a new TestGen instance.
    */
   private function __construct() {
-    parent::__construct('TRUPAL', 'DEV');
     try {
       $this->_container = $this->initContainer();
       $this->initCommands();
@@ -78,6 +77,8 @@ final class Trupal implements TrupalInterface {
       $container->setParameter('template_root', defined('TEMPLATE_ROOT')
         ? TEMPLATE_ROOT
         : rtrim($container->getParameter('Trupal_root')) . DIRECTORY_SEPARATOR . 'templates');
+
+      $container->set('trupal', $this);
     }
     catch (\Exception $e) {
       // TODO: Log error during container initialization.
@@ -119,11 +120,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The file system service.
    *
-   * @return \Trupal\os\FileSystem
+   * @return \Trupal\Core\os\FileSystem
    *   A file system service instance.
    */
   public static function fileSystem() {
-    /** @var \Trupal\os\FileSystem $file_system */
+    /** @var \Trupal\Core\os\FileSystem $file_system */
     $file_system = static::container()->get('file_system');
     return $file_system;
   }
@@ -131,11 +132,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The model manager service.
    *
-   * @return \Trupal\Model\ModelManagerInterface
+   * @return \Trupal\Core\Model\ModelManagerInterface
    *   A model manager service instance.
    */
   public static function modelManager() {
-    /** @var \Trupal\Model\ModelManagerInterface $model_manager */
+    /** @var \Trupal\Core\Model\ModelManagerInterface $model_manager */
     $model_manager = static::container()->get('model.manager');
     return $model_manager;
   }
@@ -143,11 +144,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The model factory service.
    *
-   * @return \Trupal\Model\ModelFactory
+   * @return \Trupal\Core\Model\ModelFactory
    *   A model factory service instance.
    */
   public static function modelFactory() {
-    /** @var \Trupal\Model\ModelFactory $model_factory */
+    /** @var \Trupal\Core\Model\ModelFactory $model_factory */
     $model_factory = static::container()->get('model.factory');
     return $model_factory;
   }
@@ -155,7 +156,7 @@ final class Trupal implements TrupalInterface {
   /**
    * The project root directory.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory object.
    */
   public function root() {
@@ -166,7 +167,7 @@ final class Trupal implements TrupalInterface {
   /**
    * The model root directory.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory object.
    */
   public function modelRoot() {
@@ -177,7 +178,7 @@ final class Trupal implements TrupalInterface {
   /**
    * The subject root directory.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory object.
    */
   public function subjectRoot() {
@@ -188,7 +189,7 @@ final class Trupal implements TrupalInterface {
   /**
    * The template root directory.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory object.
    */
   public function templateRoot() {
@@ -199,11 +200,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The file parser manager service.
    *
-   * @return \Trupal\os\parse\FileParserManagerInterface
+   * @return \Trupal\Core\os\parse\FileParserManagerInterface
    *   A file parser manager service instance.
    */
   public static function fileParserManager() {
-    /** @var \Trupal\os\parse\FileParserManagerInterface $file_parser_manager */
+    /** @var \Trupal\Core\os\parse\FileParserManagerInterface $file_parser_manager */
     $file_parser_manager = static::container()->get('file_system.parse.manager');
     return $file_parser_manager;
   }
@@ -211,11 +212,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The subject discovery service.
    *
-   * @return \Trupal\Discovery\DiscoveryInterface
+   * @return \Trupal\Core\Discovery\DiscoveryInterface
    *   A subject discovery service instance.
    */
   public static function subjectDiscovery() {
-    /** @var \Trupal\Discovery\DiscoveryInterface $subject_discovery */
+    /** @var \Trupal\Core\Discovery\DiscoveryInterface $subject_discovery */
     $subject_discovery = static::container()->get('subject.discovery');
     return $subject_discovery;
   }
@@ -223,11 +224,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The subject manager service.
    *
-   * @return \Trupal\Subject\SubjectManager
+   * @return \Trupal\Core\Subject\SubjectManager
    *   A subject manager service instance.
    */
   public static function subjectManager() {
-    /** @var \Trupal\Subject\SubjectManager $subject_manager */
+    /** @var \Trupal\Core\Subject\SubjectManager $subject_manager */
     $subject_manager = static::container()->get('subject.manager');
     return $subject_manager;
   }
@@ -235,11 +236,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The subject factory service.
    *
-   * @return \Trupal\Subject\SubjectFactory
+   * @return \Trupal\Core\Subject\SubjectFactory
    *   A subject factory service instance.
    */
   public static function subjectFactory() {
-    /** @var \Trupal\Subject\SubjectFactory $factory */
+    /** @var \Trupal\Core\Subject\SubjectFactory $factory */
     $factory = static::container()->get('subject.factory');
     return $factory;
   }
@@ -247,9 +248,9 @@ final class Trupal implements TrupalInterface {
   /**
    * Write tests for all discoverable subjects.
    *
-   * @param \Trupal\os\DirectoryInterface|string $subject_root
+   * @param \Trupal\Core\os\DirectoryInterface|string $subject_root
    *   The subject directory or path.
-   * @param \Trupal\os\DirectoryInterface|string $destination
+   * @param \Trupal\Core\os\DirectoryInterface|string $destination
    *   The output directory or path.
    *
    * @return array
@@ -282,11 +283,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The template locator service.
    *
-   * @return \Trupal\Discovery\DiscoveryInterface
+   * @return \Trupal\Core\Discovery\DiscoveryInterface
    *   A template locator service instance.
    */
   public static function templateDiscovery() {
-    /** @var \Trupal\Discovery\DiscoveryInterface $template_discovery */
+    /** @var \Trupal\Core\Discovery\DiscoveryInterface $template_discovery */
     $template_discovery = static::container()->get('render.template_discovery');
     return $template_discovery;
   }
@@ -294,11 +295,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The template finder service.
    *
-   * @return \Trupal\render\TemplateFinderInterface
+   * @return \Trupal\Core\render\TemplateFinderInterface
    *   A template finder service instance.
    */
   public static function templateFinder() {
-    /** @var \Trupal\render\TemplateFinderInterface $template_finder */
+    /** @var \Trupal\Core\render\TemplateFinderInterface $template_finder */
     $template_finder = static::container()->get('render.template_finder');
     return $template_finder;
   }
@@ -306,11 +307,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The context factory service.
    *
-   * @return \Trupal\render\RenderContextFactoryInterface
+   * @return \Trupal\Core\render\RenderContextFactoryInterface
    *   A render context factory service instance.
    */
   public static function contextFactory() {
-    /** @var \Trupal\render\RenderContextFactoryInterface $context_factory */
+    /** @var \Trupal\Core\render\RenderContextFactoryInterface $context_factory */
     $context_factory = static::container()->get('render.context_factory');
     return $context_factory;
   }
@@ -318,11 +319,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The printer service.
    *
-   * @return \Trupal\render\RendererInterface
+   * @return \Trupal\Core\render\RendererInterface
    *   A renderer service instance.
    */
   public static function renderer() {
-    /** @var \Trupal\render\RendererInterface $renderer */
+    /** @var \Trupal\Core\render\RendererInterface $renderer */
     $renderer = static::container()->get('render.renderer');
     return $renderer;
   }
@@ -330,11 +331,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The validator factory service.
    *
-   * @return \Trupal\Validation\ValidatorFactoryInterface
+   * @return \Trupal\Core\Validation\ValidatorFactoryInterface
    *   A validator factory instance.
    */
   public static function validatorFactory() {
-    /** @var \Trupal\Validation\ValidatorFactoryInterface $factory */
+    /** @var \Trupal\Core\Validation\ValidatorFactoryInterface $factory */
     $factory = static::container()->get('validator.factory');
     return $factory;
   }
@@ -342,11 +343,11 @@ final class Trupal implements TrupalInterface {
   /**
    * The filter factory service.
    *
-   * @return \Trupal\Discovery\Filter\DirectoryFilterFactoryInterface
+   * @return \Trupal\Core\Discovery\Filter\DirectoryFilterFactoryInterface
    *   A filter factory instance.
    */
   public static function directoryFilterFactory() {
-    /** @var \Trupal\Discovery\Filter\DirectoryFilterFactoryInterface $factory */
+    /** @var \Trupal\Core\Discovery\Filter\DirectoryFilterFactoryInterface $factory */
     $factory = static::container()->get('directory_filter.factory');
     return $factory;
   }

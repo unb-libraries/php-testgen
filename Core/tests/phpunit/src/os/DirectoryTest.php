@@ -1,14 +1,14 @@
 <?php
 
-namespace Trupal\Test\os;
+namespace Trupal\Core\Test\os;
 
-use Trupal\os\Directory;
-use Trupal\os\FileInterface;
+use Trupal\Core\os\Directory;
+use Trupal\Core\os\FileInterface;
 
 /**
  * Test creating and interacting with instances of the Directory class.
  *
- * @package Trupal\Test
+ * @package Trupal\Core\Test
  */
 class DirectoryTest extends FileSystemTestCase {
 

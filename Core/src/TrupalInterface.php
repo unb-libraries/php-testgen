@@ -1,6 +1,6 @@
 <?php
 
-namespace Trupal;
+namespace Trupal\Core;
 
 /**
  * Interface for the Trupal root.
@@ -12,7 +12,7 @@ interface TrupalInterface {
   /**
    * Create (or retrieve) the only Trupal that should ever exist.
    *
-   * @return \Trupal\Trupal
+   * @return \Trupal\Core\Trupal
    *   A Trupal instance.
    */
   public static function instance();
@@ -28,7 +28,7 @@ interface TrupalInterface {
   /**
    * The file system service.
    *
-   * @return \Trupal\os\FileSystem
+   * @return \Trupal\Core\os\FileSystem
    *   A file system service instance.
    */
   public static function fileSystem();
@@ -36,7 +36,7 @@ interface TrupalInterface {
   /**
    * The model manager service.
    *
-   * @return \Trupal\Model\ModelManagerInterface
+   * @return \Trupal\Core\Model\ModelManagerInterface
    *   A model manager service instance.
    */
   public static function modelManager();
@@ -44,7 +44,7 @@ interface TrupalInterface {
   /**
    * The model factory service.
    *
-   * @return \Trupal\Model\ModelFactory
+   * @return \Trupal\Core\Model\ModelFactory
    *   A model factory service instance.
    */
   public static function modelFactory();
@@ -52,7 +52,7 @@ interface TrupalInterface {
   /**
    * The project root directory.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory object.
    */
   public function root();
@@ -60,7 +60,7 @@ interface TrupalInterface {
   /**
    * The model root directory.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory object.
    */
   public function modelRoot();
@@ -68,7 +68,7 @@ interface TrupalInterface {
   /**
    * The subject root directory.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory object.
    */
   public function subjectRoot();
@@ -76,7 +76,7 @@ interface TrupalInterface {
   /**
    * The template root directory.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory object.
    */
   public function templateRoot();
@@ -84,7 +84,7 @@ interface TrupalInterface {
   /**
    * The file parser manager service.
    *
-   * @return \Trupal\os\parse\FileParserManagerInterface
+   * @return \Trupal\Core\os\parse\FileParserManagerInterface
    *   A file parser manager service instance.
    */
   public static function fileParserManager();
@@ -92,7 +92,7 @@ interface TrupalInterface {
   /**
    * The subject discovery service.
    *
-   * @return \Trupal\Discovery\DiscoveryInterface
+   * @return \Trupal\Core\Discovery\DiscoveryInterface
    *   A subject discovery service instance.
    */
   public static function subjectDiscovery();
@@ -100,7 +100,7 @@ interface TrupalInterface {
   /**
    * The subject manager service.
    *
-   * @return \Trupal\Subject\SubjectManager
+   * @return \Trupal\Core\Subject\SubjectManager
    *   A subject manager service instance.
    */
   public static function subjectManager();
@@ -108,7 +108,7 @@ interface TrupalInterface {
   /**
    * The subject factory service.
    *
-   * @return \Trupal\Subject\SubjectFactory
+   * @return \Trupal\Core\Subject\SubjectFactory
    *   A subject factory service instance.
    */
   public static function subjectFactory();
@@ -116,9 +116,9 @@ interface TrupalInterface {
   /**
    * Write tests for all discoverable subjects.
    *
-   * @param \Trupal\os\DirectoryInterface|string $subject_root
+   * @param \Trupal\Core\os\DirectoryInterface|string $subject_root
    *   The subject directory or path.
-   * @param \Trupal\os\DirectoryInterface|string $destination
+   * @param \Trupal\Core\os\DirectoryInterface|string $destination
    *   The output directory or path.
    *
    * @return array
@@ -129,7 +129,7 @@ interface TrupalInterface {
   /**
    * The template locator service.
    *
-   * @return \Trupal\Discovery\DiscoveryInterface
+   * @return \Trupal\Core\Discovery\DiscoveryInterface
    *   A template locator service instance.
    */
   public static function templateDiscovery();
@@ -137,7 +137,7 @@ interface TrupalInterface {
   /**
    * The template finder service.
    *
-   * @return \Trupal\render\TemplateFinderInterface
+   * @return \Trupal\Core\render\TemplateFinderInterface
    *   A template finder service instance.
    */
   public static function templateFinder();
@@ -145,7 +145,7 @@ interface TrupalInterface {
   /**
    * The context factory service.
    *
-   * @return \Trupal\render\RenderContextFactoryInterface
+   * @return \Trupal\Core\render\RenderContextFactoryInterface
    *   A render context factory service instance.
    */
   public static function contextFactory();
@@ -153,7 +153,7 @@ interface TrupalInterface {
   /**
    * The printer service.
    *
-   * @return \Trupal\render\RendererInterface
+   * @return \Trupal\Core\render\RendererInterface
    *   A renderer service instance.
    */
   public static function renderer();
@@ -161,7 +161,7 @@ interface TrupalInterface {
   /**
    * The validator factory service.
    *
-   * @return \Trupal\Validation\ValidatorFactoryInterface
+   * @return \Trupal\Core\Validation\ValidatorFactoryInterface
    *   A validator factory instance.
    */
   public static function validatorFactory();
@@ -169,7 +169,7 @@ interface TrupalInterface {
   /**
    * The filter factory service.
    *
-   * @return \Trupal\Discovery\Filter\DirectoryFilterFactoryInterface
+   * @return \Trupal\Core\Discovery\Filter\DirectoryFilterFactoryInterface
    *   A filter factory instance.
    */
   public static function directoryFilterFactory();

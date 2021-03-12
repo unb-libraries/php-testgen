@@ -1,32 +1,32 @@
 <?php
 
-namespace Trupal\Test\render;
+namespace Trupal\Core\Test\render;
 
 use PHPUnit\Framework\TestCase;
-use Trupal\Discovery\DiscoveryInterface;
-use Trupal\os\DirectoryInterface;
-use Trupal\os\FileInterface;
-use Trupal\render\TemplateFinder;
-use Trupal\Subject\SubjectInterface;
+use Trupal\Core\Discovery\DiscoveryInterface;
+use Trupal\Core\os\DirectoryInterface;
+use Trupal\Core\os\FileInterface;
+use Trupal\Core\render\TemplateFinder;
+use Trupal\Core\Subject\SubjectInterface;
 
 /**
  * Test the TemplateFinder class.
  *
- * @package Trupal\Test\render
+ * @package Trupal\Core\Test\render
  */
 class TemplateFinderTest extends TestCase {
 
   /**
    * The template finder.
    *
-   * @var \Trupal\render\TemplateFinderInterface
+   * @var \Trupal\Core\render\TemplateFinderInterface
    */
   protected $_templateFinder;
 
   /**
    * Retrieve the template finder.
    *
-   * @return \Trupal\render\TemplateFinderInterface
+   * @return \Trupal\Core\render\TemplateFinderInterface
    *   A template finder object.
    */
   protected function templateFinder() {
@@ -44,7 +44,7 @@ class TemplateFinderTest extends TestCase {
   /**
    * Create a template discovery test double.
    *
-   * @return \Trupal\Discovery\DiscoveryInterface
+   * @return \Trupal\Core\Discovery\DiscoveryInterface
    *   An object pretending to be a discovery.
    */
   protected function createTemplateDiscovery() {
@@ -70,7 +70,7 @@ class TemplateFinderTest extends TestCase {
    *
    * @param string $name
    *   The name of the file.
-   * @param \Trupal\os\DirectoryInterface $directory
+   * @param \Trupal\Core\os\DirectoryInterface $directory
    *   Directory which contains the file.
    *
    * @return \PHPUnit\Framework\MockObject\Stub
@@ -93,7 +93,7 @@ class TemplateFinderTest extends TestCase {
    * @param string $path
    *   The path of the directory.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   An object pretending to be a directory.
    */
   protected function createDirectory(string $path) {
@@ -106,7 +106,7 @@ class TemplateFinderTest extends TestCase {
   /**
    * Test the findTemplate method.
    *
-   * @param \Trupal\Subject\SubjectInterface $subject
+   * @param \Trupal\Core\Subject\SubjectInterface $subject
    *   A subject for which to find a template.
    * @param string $expected_match
    *   The filename of the template file that is the expected match for the given subject.
@@ -148,7 +148,7 @@ class TemplateFinderTest extends TestCase {
    * @param string $type
    *   A subject type.
    *
-   * @return \Trupal\Subject\SubjectInterface
+   * @return \Trupal\Core\Subject\SubjectInterface
    *   An object pretending to be a subject.
    */
   protected function createSubject(string $id, string $type) {

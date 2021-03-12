@@ -54,7 +54,7 @@ class FileSystem {
    * @param string $name_or_extension
    *   A file type name or extension.
    *
-   * @return \Trupal\os\FileTypeInterface|null
+   * @return \Trupal\Core\os\FileTypeInterface|null
    *   A file type object. NULL if no file type
    *   could be found for the given parameters.
    */
@@ -79,7 +79,7 @@ class FileSystem {
    * @param string $path
    *   The path to the directory.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory object.
    */
   public function dir(string $path) {
@@ -91,12 +91,12 @@ class FileSystem {
    *
    * @param string $path
    *   The name of the file.
-   * @param \Trupal\os\DirectoryInterface|string $directory
+   * @param \Trupal\Core\os\DirectoryInterface|string $directory
    *   The directory.
    * @param bool $absolute
    *   Whether the given path is absolute.
    *
-   * @return \Trupal\os\FileInterface
+   * @return \Trupal\Core\os\FileInterface
    *   A file object.
    */
   public function file($path, $directory = DIRECTORY_SEPARATOR, $absolute = FALSE) {

@@ -1,32 +1,32 @@
 <?php
 
-namespace Trupal\Test;
+namespace Trupal\Core\Test;
 
 use PHPUnit\Framework\TestCase;
-use Trupal\Discovery\FileSystemDiscovery;
-use Trupal\Discovery\Filter\DirectoryFilterFactory;
-use Trupal\Discovery\Filter\FileTypeFilter;
-use Trupal\Discovery\Filter\FileValidationFilter;
-use Trupal\Model\ModelFactory;
-use Trupal\Model\ModelManager;
-use Trupal\os\FileSystem;
-use Trupal\os\FileType;
-use Trupal\os\parse\FileParserManager;
-use Trupal\os\parse\YamlParser;
-use Trupal\render\RenderContextFactory;
-use Trupal\render\TemplateFinder;
-use Trupal\render\TwigRenderer;
-use Trupal\Subject\SubjectFactory;
-use Trupal\Subject\SubjectManager;
-use Trupal\Trupal;
-use Trupal\Validation\ModelValidator;
-use Trupal\Validation\SubjectValidator;
-use Trupal\Validation\ValidatorFactory;
+use Trupal\Core\Discovery\FileSystemDiscovery;
+use Trupal\Core\Discovery\Filter\DirectoryFilterFactory;
+use Trupal\Core\Discovery\Filter\FileTypeFilter;
+use Trupal\Core\Discovery\Filter\FileValidationFilter;
+use Trupal\Core\Model\ModelFactory;
+use Trupal\Core\Model\ModelManager;
+use Trupal\Core\os\FileSystem;
+use Trupal\Core\os\FileType;
+use Trupal\Core\os\parse\FileParserManager;
+use Trupal\Core\os\parse\YamlParser;
+use Trupal\Core\render\RenderContextFactory;
+use Trupal\Core\render\TemplateFinder;
+use Trupal\Core\render\TwigRenderer;
+use Trupal\Core\Subject\SubjectFactory;
+use Trupal\Core\Subject\SubjectManager;
+use Trupal\Core\Trupal;
+use Trupal\Core\Validation\ModelValidator;
+use Trupal\Core\Validation\SubjectValidator;
+use Trupal\Core\Validation\ValidatorFactory;
 
 /**
  * Test the Trupal class.
  *
- * @package Trupal\Test
+ * @package Trupal\Core\Test
  */
 class TrupalTest extends TestCase {
 

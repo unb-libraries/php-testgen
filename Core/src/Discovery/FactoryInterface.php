@@ -1,11 +1,11 @@
 <?php
 
-namespace Trupal\Discovery;
+namespace Trupal\Core\Discovery;
 
 /**
  * Interface for factory implementations.
  *
- * @package Trupal\Discovery
+ * @package Trupal\Core\Discovery
  */
 interface FactoryInterface {
 

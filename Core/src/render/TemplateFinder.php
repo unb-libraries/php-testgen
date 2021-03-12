@@ -94,9 +94,9 @@ class TemplateFinder implements TemplateFinderInterface {
   /**
    * Calculate a score value indicating how well suitable the given template file is to render the given subject.
    *
-   * @param \Trupal\os\FileInterface $file
+   * @param \Trupal\Core\os\FileInterface $file
    *   The template file.
-   * @param \Trupal\Subject\SubjectInterface $subject
+   * @param \Trupal\Core\Subject\SubjectInterface $subject
    *   The subject.
    *
    * @return float|int

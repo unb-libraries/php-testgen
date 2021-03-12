@@ -1,18 +1,18 @@
 <?php
 
-namespace Trupal\Model;
+namespace Trupal\Core\Model;
 
 /**
  * Interface for model manager implementations.
  *
- * @package Trupal\Model
+ * @package Trupal\Core\Model
  */
 interface ModelManagerInterface {
 
   /**
    * Retrieve all models.
    *
-   * @return \Trupal\Model\ModelInterface[]
+   * @return \Trupal\Core\Model\ModelInterface[]
    *   An array of model instances, keyed
    *   by their types.
    */
@@ -36,7 +36,7 @@ interface ModelManagerInterface {
    * @param string $type
    *   The type.
    *
-   * @return \Trupal\Model\ModelInterface|false
+   * @return \Trupal\Core\Model\ModelInterface|false
    *   A model instance. FALSE if no model
    *   for the given type could be loaded.
    */

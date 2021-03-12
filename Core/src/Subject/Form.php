@@ -1,11 +1,11 @@
 <?php
 
-namespace Trupal\Subject;
+namespace Trupal\Core\Subject;
 
 /**
  * Subject of type "Form".
  *
- * @package Trupal\Subject
+ * @package Trupal\Core\Subject
  */
 class Form extends Page {
 

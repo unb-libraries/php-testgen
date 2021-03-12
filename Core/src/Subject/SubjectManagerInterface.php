@@ -5,14 +5,14 @@ namespace Trupal\Core\Subject;
 /**
  * Interface for subject manager implementations.
  *
- * @package Trupal\Subject
+ * @package Trupal\Core\Subject
  */
 interface SubjectManagerInterface {
 
   /**
    * Retrieve all subjects.
    *
-   * @return \Trupal\Subject\SubjectInterface[]
+   * @return \Trupal\Core\Subject\SubjectInterface[]
    *   An array of subject instances, keyed
    *   by their IDs.
    */
@@ -36,7 +36,7 @@ interface SubjectManagerInterface {
    * @param string $id
    *   A string.
    *
-   * @return \Trupal\Subject\SubjectInterface
+   * @return \Trupal\Core\Subject\SubjectInterface
    *   A subject instance.
    */
   public function get($id);

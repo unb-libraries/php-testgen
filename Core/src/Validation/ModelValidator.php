@@ -2,14 +2,14 @@
 
 namespace Trupal\Core\Validation;
 
-use Trupal\Model\Model;
-use Trupal\Model\ModelInterface;
-use Trupal\Subject\SubjectInterface;
+use Trupal\Core\Model\Model;
+use Trupal\Core\Model\ModelInterface;
+use Trupal\Core\Subject\SubjectInterface;
 
 /**
  * Validator for model specifications.
  *
- * @package Trupal\Validation
+ * @package Trupal\Core\Validation
  */
 class ModelValidator extends SpecificationValidator {
 
@@ -120,7 +120,7 @@ class ModelValidator extends SpecificationValidator {
    * @return bool
    *   TRUE if property is an array.
    *
-   * @see \Trupal\Validation\SpecificationValidator::validateProperty().
+   * @see \Trupal\Core\Validation\SpecificationValidator::validateProperty().
    */
   protected function validateRequirements($requirements, string $property, array $specification) {
     if (!is_array($requirements)) {
@@ -146,7 +146,7 @@ class ModelValidator extends SpecificationValidator {
    *   each property is assigned a default
    *   value.
    *
-   * @see \Trupal\Validation\SpecificationValidator::validateProperty().
+   * @see \Trupal\Core\Validation\SpecificationValidator::validateProperty().
    */
   protected function validateOptions($options, string $property, array $specification) {
     if (!is_array($options)) {

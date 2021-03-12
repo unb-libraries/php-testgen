@@ -1,29 +1,29 @@
 <?php
 
-namespace Trupal\Test\Model;
+namespace Trupal\Core\Test\Model;
 
-use Trupal\Model\ModelInterface;
-use Trupal\Test\TrupalTestCase;
-use Trupal\Trupal;
+use Trupal\Core\Model\ModelInterface;
+use Trupal\Core\Test\TrupalTestCase;
+use Trupal\Core\Trupal;
 
 /**
  * Test class for testing model creation.
  *
- * @package Trupal\Test\Model
+ * @package Trupal\Core\Test\Model
  */
 class ModelFactoryTest extends TrupalTestCase {
 
   /**
    * A model factory instance.
    *
-   * @var \Trupal\Model\ModelFactory
+   * @var \Trupal\Core\Model\ModelFactory
    */
   protected static $_modelFactory;
 
   /**
    * Retrieve a model factory instance.
    *
-   * @return \Trupal\Model\ModelFactory
+   * @return \Trupal\Core\Model\ModelFactory
    *   A model factory object.
    */
   protected static function modelFactory() {

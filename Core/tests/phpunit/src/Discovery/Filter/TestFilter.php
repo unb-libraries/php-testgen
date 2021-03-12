@@ -1,14 +1,14 @@
 <?php
 
-namespace Trupal\Test\Discovery\Filter;
+namespace Trupal\Core\Test\Discovery\Filter;
 
-use Trupal\Discovery\Filter\DirectoryFilterInterface;
-use Trupal\os\FileInterface;
+use Trupal\Core\Discovery\Filter\DirectoryFilterInterface;
+use Trupal\Core\os\FileInterface;
 
 /**
  * Filter without real behaviour, for testing purposes.
  *
- * @package Trupal\Test\Discovery\Filter
+ * @package Trupal\Core\Test\Discovery\Filter
  */
 
 class TestFilter implements DirectoryFilterInterface {

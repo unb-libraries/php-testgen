@@ -1,8 +1,8 @@
 <?php
 
-namespace Trupal\Test\Subject;
+namespace Trupal\Core\Test\Subject;
 
-use Trupal\Subject\SubjectBase;
+use Trupal\Core\Subject\SubjectBase;
 
 class ExampleSubject extends SubjectBase {
 }

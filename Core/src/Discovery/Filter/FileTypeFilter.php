@@ -2,26 +2,26 @@
 
 namespace Trupal\Core\Discovery\Filter;
 
-use Trupal\os\FileTypeInterface;
+use Trupal\Core\os\FileTypeInterface;
 
 /**
  * Filter for sorting out files are of a file type different to the configured.
  *
- * @package Trupal\Discovery\Filter
+ * @package Trupal\Core\Discovery\Filter
  */
 class FileTypeFilter extends FileNamePatternFilter {
 
   /**
    * The file type by which to filter.
    *
-   * @var \Trupal\os\FileTypeInterface
+   * @var \Trupal\Core\os\FileTypeInterface
    */
   protected $_fileType;
 
   /**
    * Retrieve the file type by which to filter.
    *
-   * @return \Trupal\os\FileTypeInterface
+   * @return \Trupal\Core\os\FileTypeInterface
    *   A file type object.
    */
   public function fileType() {
@@ -31,7 +31,7 @@ class FileTypeFilter extends FileNamePatternFilter {
   /**
    * Create a new FileTypeFilter instance.
    *
-   * @param \Trupal\os\FileTypeInterface $file_type
+   * @param \Trupal\Core\os\FileTypeInterface $file_type
    *   A file type object.
    */
   public function __construct(FileTypeInterface $file_type) {

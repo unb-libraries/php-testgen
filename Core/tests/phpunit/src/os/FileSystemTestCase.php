@@ -1,9 +1,9 @@
 <?php
 
-namespace Trupal\Test\os;
+namespace Trupal\Core\Test\os;
 
 use PHPUnit\Framework\TestCase;
-use Trupal\os\DependencyInjection\FileSystemTrait;
+use Trupal\Core\os\DependencyInjection\FileSystemTrait;
 
 abstract class FileSystemTestCase extends TestCase {
 

@@ -1,23 +1,23 @@
 <?php
 
-namespace Trupal\Test\Subject;
+namespace Trupal\Core\Test\Subject;
 
-use Trupal\Test\TrupalTestCase;
-use Trupal\Trupal;
+use Trupal\Core\Test\TrupalTestCase;
+use Trupal\Core\Trupal;
 
 class SubjectFactoryTest extends TrupalTestCase {
 
   /**
    * The subject discovery.
    *
-   * @var \Trupal\Discovery\DiscoveryInterface
+   * @var \Trupal\Core\Discovery\DiscoveryInterface
    */
   protected $_subjectDiscovery;
 
   /**
    * Retrieve the subject factory.
    *
-   * @return \Trupal\Discovery\FactoryInterface
+   * @return \Trupal\Core\Discovery\FactoryInterface
    *   A subject factory instance.
    */
   protected function getSubjectFactory() {
@@ -27,7 +27,7 @@ class SubjectFactoryTest extends TrupalTestCase {
   /**
    * Retrieve the subject discovery.
    *
-   * @return \Trupal\Discovery\SubjectDiscovery
+   * @return \Trupal\Core\Discovery\SubjectDiscovery
    *   A subject discovery instance.
    */
   protected function subjectDiscovery() {
@@ -41,7 +41,7 @@ class SubjectFactoryTest extends TrupalTestCase {
   /**
    * Retrieve the model manager.
    *
-   * @return \Trupal\Model\ModelManagerInterface
+   * @return \Trupal\Core\Model\ModelManagerInterface
    *   A model manager instance.
    */
   protected function modelManager() {
@@ -74,7 +74,7 @@ class SubjectFactoryTest extends TrupalTestCase {
   public function subjectSpecificationProvider() {
     // TODO: For some reasons, two instances of subject discovery are created (one discovers subjects, the other one does not).
     foreach ($this->subjectDiscovery()->discover() as $filename => $file) {
-      /** @var \Trupal\os\FileInterface $file */
+      /** @var \Trupal\Core\os\FileInterface $file */
       $specification = $file->parse();
       $model = $this->modelManager()
         ->get($specification['type']);

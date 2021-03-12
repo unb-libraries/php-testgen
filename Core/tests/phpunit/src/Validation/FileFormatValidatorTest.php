@@ -1,15 +1,15 @@
 <?php
 
-namespace Trupal\Test\Validation;
+namespace Trupal\Core\Test\Validation;
 
-use Trupal\os\FileInterface;
-use Trupal\os\parse\FileParserInterface;
-use Trupal\Validation\FileFormatValidator;
+use Trupal\Core\os\FileInterface;
+use Trupal\Core\os\parse\FileParserInterface;
+use Trupal\Core\Validation\FileFormatValidator;
 
 /**
  * Test the FileFormatValidator class.
  *
- * @package Trupal\Test\Validation
+ * @package Trupal\Core\Test\Validation
  */
 class FileFormatValidatorTest extends ValidatorTestCase {
 
@@ -23,7 +23,7 @@ class FileFormatValidatorTest extends ValidatorTestCase {
   /**
    * Create a parser test double.
    *
-   * @return \Trupal\os\parse\FileParserInterface
+   * @return \Trupal\Core\os\parse\FileParserInterface
    *   An object pretending to be a file parser.
    */
   protected function createParser() {

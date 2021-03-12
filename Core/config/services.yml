@@ -2,53 +2,53 @@ parameters:
   model_root: '%model_root%'
   template_root: '%template_root%'
   validators:
-    - Trupal\Validation\FileFormatValidator
-    - Trupal\Validation\ModelValidator
-    - Trupal\Validation\SpecificationValidator
-    - Trupal\Validation\SubjectValidator
+    - Trupal\Core\Validation\FileFormatValidator
+    - Trupal\Core\Validation\ModelValidator
+    - Trupal\Core\Validation\SpecificationValidator
+    - Trupal\Core\Validation\SubjectValidator
   directory_filters:
-    - Trupal\Discovery\Filter\FileNamePatternFilter
-    - Trupal\Discovery\Filter\FileTypeFilter
-    - Trupal\Discovery\Filter\FileValidationFilter
+    - Trupal\Core\Discovery\Filter\FileNamePatternFilter
+    - Trupal\Core\Discovery\Filter\FileTypeFilter
+    - Trupal\Core\Discovery\Filter\FileValidationFilter
 
 services:
   # File system
   file_system.file_type.yaml:
-    class: Trupal\os\FileType
+    class: Trupal\Core\os\FileType
     arguments:
       - YAML
       - [yml, yaml]
       - '@file_system.parse.yaml'
     public: FALSE
   file_system.file_type.twig:
-    class: Trupal\os\FileType
+    class: Trupal\Core\os\FileType
     arguments:
       - TWIG
       - [twig]
     public: FALSE
   file_system.parse.yaml:
-    class: Trupal\os\parse\YamlParser
+    class: Trupal\Core\os\parse\YamlParser
   file_system.parse.manager:
-    class: Trupal\os\parse\FileParserManager
+    class: Trupal\Core\os\parse\FileParserManager
     arguments:
       - ['@file_system.parse.yaml']
   file_system:
-    class: Trupal\os\FileSystem
+    class: Trupal\Core\os\FileSystem
     arguments:
       - ['@file_system.file_type.yaml', '@file_system.file_type.twig']
 
   # Validation
   validator.factory:
-    class: Trupal\Validation\ValidatorFactory
+    class: Trupal\Core\Validation\ValidatorFactory
     arguments: ['%validators%']
   validator.model:
-    class: Trupal\Validation\ModelValidator
+    class: Trupal\Core\Validation\ModelValidator
     factory: ['@validator.factory', create]
     arguments:
       - model
       - parser: '@file_system.parse.yaml'
   validator.subject:
-    class: Trupal\Validation\SubjectValidator
+    class: Trupal\Core\Validation\SubjectValidator
     factory: ['@validator.factory', create]
     arguments:
       - subject
@@ -56,28 +56,28 @@ services:
 
   # Filter
   directory_filter.factory:
-    class: Trupal\Discovery\Filter\DirectoryFilterFactory
+    class: Trupal\Core\Discovery\Filter\DirectoryFilterFactory
     arguments: ['%directory_filters%']
   directory_filter.filetype.yaml:
-    class: Trupal\Discovery\Filter\FileTypeFilter
+    class: Trupal\Core\Discovery\Filter\FileTypeFilter
     factory: ['@directory_filter.factory', create]
     arguments:
       - file_type
       - file_type: '@file_system.file_type.yaml'
   directory_filter.filetype.twig:
-    class: Trupal\Discovery\Filter\FileTypeFilter
+    class: Trupal\Core\Discovery\Filter\FileTypeFilter
     factory: ['@directory_filter.factory', create]
     arguments:
       - file_type
       - file_type: '@file_system.file_type.twig'
   directory_filter.model:
-    class: Trupal\Discovery\Filter\FileValidationFilter
+    class: Trupal\Core\Discovery\Filter\FileValidationFilter
     factory: ['@directory_filter.factory', create]
     arguments:
       - validate
       - validator: '@validator.model'
   directory_filter.subject:
-    class: Trupal\Discovery\Filter\FileValidationFilter
+    class: Trupal\Core\Discovery\Filter\FileValidationFilter
     factory: ['@directory_filter.factory', create]
     arguments:
       - validate
@@ -85,51 +85,51 @@ services:
 
   # Models
   model.discovery:
-    class: Trupal\Discovery\FileSystemDiscovery
+    class: Trupal\Core\Discovery\FileSystemDiscovery
     arguments:
       - ['%model_root%']
       - ['@directory_filter.filetype.yaml']
       - '@file_system.file_type.yaml'
   model.factory:
-    class: Trupal\Model\ModelFactory
+    class: Trupal\Core\Model\ModelFactory
     arguments:
       - '@model.discovery'
   model.manager:
-    class: Trupal\Model\ModelManager
+    class: Trupal\Core\Model\ModelManager
     arguments:
       - '@model.factory'
 
   # Subjects
   subject.discovery:
-    class: Trupal\Discovery\FileSystemDiscovery
+    class: Trupal\Core\Discovery\FileSystemDiscovery
     arguments:
       - []
       - ['@directory_filter.filetype.yaml']
       - '@file_system.file_type.yaml'
   subject.factory:
-    class: Trupal\Subject\SubjectFactory
+    class: Trupal\Core\Subject\SubjectFactory
     arguments:
       - '@subject.discovery'
       - '@model.manager'
   subject.manager:
-    class: Trupal\Subject\SubjectManager
+    class: Trupal\Core\Subject\SubjectManager
     arguments:
       - '@subject.factory'
 
   # Templates
   render.template_discovery:
-    class: Trupal\Discovery\FileSystemDiscovery
+    class: Trupal\Core\Discovery\FileSystemDiscovery
     arguments:
       - ['%template_root%']
       - ['@directory_filter.filetype.twig']
       - '@file_system.file_type.twig'
   render.template_finder:
-    class: Trupal\render\TemplateFinder
+    class: Trupal\Core\render\TemplateFinder
     arguments:
       - '@render.template_discovery'
   render.context_factory:
-    class: Trupal\render\RenderContextFactory
+    class: Trupal\Core\render\RenderContextFactory
     arguments:
       - '@render.template_finder'
   render.renderer:
-    class: 'Trupal\render\TwigRenderer'
+    class: 'Trupal\Core\render\TwigRenderer'

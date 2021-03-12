@@ -1,6 +1,6 @@
 type: form
-class: '\Trupal\Model\Model'
-subject_class: '\Trupal\Subject\Form'
+class: '\Trupal\Core\Model\Model'
+subject_class: '\Trupal\Core\Subject\Form'
 # Required subject properties
 requirements:
   - path

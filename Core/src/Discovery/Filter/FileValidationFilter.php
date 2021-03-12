@@ -2,27 +2,27 @@
 
 namespace Trupal\Core\Discovery\Filter;
 
-use Trupal\os\FileInterface;
-use Trupal\Validation\ValidatorInterface;
+use Trupal\Core\os\FileInterface;
+use Trupal\Core\Validation\ValidatorInterface;
 
 /**
  * Filter for sorting out files which a configured validator does not validate.
  *
- * @package Trupal\Discovery\Filter
+ * @package Trupal\Core\Discovery\Filter
  */
 class FileValidationFilter implements DirectoryFilterInterface {
 
   /**
    * The validator.
    *
-   * @var \Trupal\Validation\ValidatorInterface
+   * @var \Trupal\Core\Validation\ValidatorInterface
    */
   protected $_validator;
 
   /**
    * Retrieve the validator.
    *
-   * @return \Trupal\Validation\ValidatorInterface
+   * @return \Trupal\Core\Validation\ValidatorInterface
    *   A validator object.
    */
   public function getValidator() {
@@ -32,7 +32,7 @@ class FileValidationFilter implements DirectoryFilterInterface {
   /**
    * Create a new FileValidationFilter instance.
    *
-   * @param \Trupal\Validation\ValidatorInterface $validator
+   * @param \Trupal\Core\Validation\ValidatorInterface $validator
    *   A validator object.
    */
   public function __construct(ValidatorInterface $validator) {

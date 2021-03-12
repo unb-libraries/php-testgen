@@ -1,27 +1,27 @@
 <?php
 
-namespace Trupal\Model;
+namespace Trupal\Core\Model;
 
-use Trupal\Discovery\FactoryInterface;
+use Trupal\Core\Discovery\FactoryInterface;
 
 /**
  * Manager of model instances.
  *
- * @package Trupal\Model
+ * @package Trupal\Core\Model
  */
 class ModelManager implements ModelManagerInterface {
 
   /**
    * The models.
    *
-   * @var \Trupal\Model\ModelInterface[]
+   * @var \Trupal\Core\Model\ModelInterface[]
    */
   protected $_models = [];
 
   /**
    * The model factory service.
    *
-   * @var \Trupal\Discovery\FactoryInterface
+   * @var \Trupal\Core\Discovery\FactoryInterface
    */
   protected $_factory;
 
@@ -35,7 +35,7 @@ class ModelManager implements ModelManagerInterface {
   /**
    * Retrieve the model factory service.
    *
-   * @return \Trupal\Discovery\FactoryInterface
+   * @return \Trupal\Core\Discovery\FactoryInterface
    *   A model factory instance.
    */
   protected function factory() {
@@ -45,7 +45,7 @@ class ModelManager implements ModelManagerInterface {
   /**
    * Create a new model manager instance.
    *
-   * @param \Trupal\Discovery\FactoryInterface $factory
+   * @param \Trupal\Core\Discovery\FactoryInterface $factory
    *   The model factory service.
    */
   public function __construct(FactoryInterface $factory) {
@@ -75,7 +75,7 @@ class ModelManager implements ModelManagerInterface {
   /**
    * Add (or replace) the given model.
    *
-   * @param \Trupal\Model\ModelInterface $model
+   * @param \Trupal\Core\Model\ModelInterface $model
    *   A model instance.
    * @param bool $replace
    *   Whether an existing model should be replaced.

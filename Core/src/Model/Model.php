@@ -1,11 +1,11 @@
 <?php
 
-namespace Trupal\Model;
+namespace Trupal\Core\Model;
 
 /**
  * Class to represent a model specification.
  *
- * @package Trupal\Model
+ * @package Trupal\Core\Model
  */
 class Model implements ModelInterface {
 

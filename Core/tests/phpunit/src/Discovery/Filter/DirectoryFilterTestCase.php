@@ -1,29 +1,29 @@
 <?php
 
-namespace Trupal\Test\Discovery\Filter;
+namespace Trupal\Core\Test\Discovery\Filter;
 
 use PHPUnit\Framework\TestCase;
-use Trupal\Discovery\Filter\DirectoryFilterInterface;
-use Trupal\os\FileInterface;
+use Trupal\Core\Discovery\Filter\DirectoryFilterInterface;
+use Trupal\Core\os\FileInterface;
 
 /**
  * Test case for directory filter tests.
  *
- * @package Trupal\Test\Discovery\Filter
+ * @package Trupal\Core\Test\Discovery\Filter
  */
 abstract class DirectoryFilterTestCase extends TestCase {
 
   /**
    * The filter to test.
    *
-   * @var \Trupal\Discovery\Filter\FileTypeFilter
+   * @var \Trupal\Core\Discovery\Filter\FileTypeFilter
    */
   protected $_filter;
 
   /**
    * Retrieve the filter to test.
    *
-   * @return \Trupal\Discovery\Filter\FileTypeFilter
+   * @return \Trupal\Core\Discovery\Filter\FileTypeFilter
    */
   protected function filter() {
     return $this->_filter;
@@ -40,7 +40,7 @@ abstract class DirectoryFilterTestCase extends TestCase {
   /**
    * Create a filter instance to test.
    *
-   * @return \Trupal\Discovery\Filter\DirectoryFilterInterface
+   * @return \Trupal\Core\Discovery\Filter\DirectoryFilterInterface
    *   A directory filter object.
    */
   abstract protected function createFilter();
@@ -55,7 +55,7 @@ abstract class DirectoryFilterTestCase extends TestCase {
   /**
    * Test the "evaluate" method.
    *
-   * @param \Trupal\os\FileInterface $file
+   * @param \Trupal\Core\os\FileInterface $file
    *   A file.
    * @param bool $should_pass
    *   Whether the file is expected to pass.

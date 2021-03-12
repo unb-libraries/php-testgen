@@ -1,28 +1,28 @@
 <?php
 
-namespace Trupal\Test\Discovery\Filter;
+namespace Trupal\Core\Test\Discovery\Filter;
 
 use PHPUnit\Framework\TestCase;
-use Trupal\Discovery\Filter\DirectoryFilterFactory;
+use Trupal\Core\Discovery\Filter\DirectoryFilterFactory;
 
 /**
  * Test the DirectoryFilterFactory class.
  *
- * @package Trupal\Test\Discovery\Filter
+ * @package Trupal\Core\Test\Discovery\Filter
  */
 class DirectoryFilterFactoryTest extends TestCase {
 
   /**
    * The filter factory to test.
    *
-   * @var \Trupal\Discovery\Filter\DirectoryFilterFactoryInterface
+   * @var \Trupal\Core\Discovery\Filter\DirectoryFilterFactoryInterface
    */
   protected $_factory;
 
   /**
    * Retrieve the filter factory to test.
    *
-   * @return \Trupal\Discovery\Filter\DirectoryFilterFactoryInterface
+   * @return \Trupal\Core\Discovery\Filter\DirectoryFilterFactoryInterface
    *   A directory filter factory object.
    */
   protected function factory() {

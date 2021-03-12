@@ -1,20 +1,20 @@
 <?php
 
-namespace Trupal\Discovery;
+namespace Trupal\Core\Discovery;
 
-use Trupal\Discovery\Filter\DirectoryFilterInterface;
+use Trupal\Core\Discovery\Filter\DirectoryFilterInterface;
 
 /**
  * Interface for discovery implementations.
  *
- * @package Trupal\Discovery
+ * @package Trupal\Core\Discovery
  */
 interface DiscoveryInterface {
 
   /**
    * Retrieve the stack of directory roots in which to search for files.
    *
-   * @return \Trupal\os\DirectoryInterface[]
+   * @return \Trupal\Core\os\DirectoryInterface[]
    *   An array of directories.
    */
   public function directoryStack();
@@ -30,7 +30,7 @@ interface DiscoveryInterface {
   /**
    * Add the given directory root to the stack.
    *
-   * @param \Trupal\os\DirectoryInterface|string $directory
+   * @param \Trupal\Core\os\DirectoryInterface|string $directory
    *   A directory or path.
    */
   public function addDirectory($directory);
@@ -38,7 +38,7 @@ interface DiscoveryInterface {
   /**
    * Retrieve and remove the first element from the stack.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory instance.
    */
   public function popDirectory();
@@ -51,7 +51,7 @@ interface DiscoveryInterface {
   /**
    * Retrieve the stack of directory filters.
    *
-   * @return \Trupal\Discovery\Filter\DirectoryFilterInterface[]
+   * @return \Trupal\Core\Discovery\Filter\DirectoryFilterInterface[]
    *   An array of directory filter instances.
    */
   public function filterStack();
@@ -67,7 +67,7 @@ interface DiscoveryInterface {
   /**
    * Add the given directory filter to the stack.
    *
-   * @param \Trupal\Discovery\Filter\DirectoryFilterInterface $filter
+   * @param \Trupal\Core\Discovery\Filter\DirectoryFilterInterface $filter
    *   A directory filter instance.
    */
   public function addFilter(DirectoryFilterInterface $filter);
@@ -75,7 +75,7 @@ interface DiscoveryInterface {
   /**
    * Grab the first filter from the stack.
    *
-   * @return \Trupal\Discovery\Filter\DirectoryFilterInterface $filter
+   * @return \Trupal\Core\Discovery\Filter\DirectoryFilterInterface $filter
    *   A directory filter instance.
    */
   public function popFilter();

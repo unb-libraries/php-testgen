@@ -1,27 +1,27 @@
 <?php
 
-namespace Trupal\render;
+namespace Trupal\Core\render;
 
-use Trupal\Subject\SubjectInterface;
+use Trupal\Core\Subject\SubjectInterface;
 
 /**
  * Factory for creating render context instances.
  *
- * @package Trupal\render
+ * @package Trupal\Core\render
  */
 class RenderContextFactory implements RenderContextFactoryInterface {
 
   /**
    * The template finder.
    *
-   * @var \Trupal\render\TemplateFinderInterface
+   * @var \Trupal\Core\render\TemplateFinderInterface
    */
   protected $_templateFinder;
 
   /**
    * Retrieve the template finder.
    *
-   * @return \Trupal\render\TemplateFinderInterface
+   * @return \Trupal\Core\render\TemplateFinderInterface
    *   A template finder object.
    */
   protected function templateFinder() {
@@ -31,7 +31,7 @@ class RenderContextFactory implements RenderContextFactoryInterface {
   /**
    * Create a new RenderContextFactory instance.
    *
-   * @param \Trupal\render\TemplateFinderInterface $template_finder
+   * @param \Trupal\Core\render\TemplateFinderInterface $template_finder
    *   A template finder object.
    */
   public function __construct(TemplateFinderInterface $template_finder) {

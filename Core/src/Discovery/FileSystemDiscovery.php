@@ -1,15 +1,15 @@
 <?php
 
-namespace Trupal\Discovery;
+namespace Trupal\Core\Discovery;
 
-use Trupal\Discovery\Filter\DirectoryFilterInterface;
-use Trupal\os\DependencyInjection\FileSystemTrait;
-use Trupal\os\DirectoryInterface;
+use Trupal\Core\Discovery\Filter\DirectoryFilterInterface;
+use Trupal\Core\os\DependencyInjection\FileSystemTrait;
+use Trupal\Core\os\DirectoryInterface;
 
 /**
  * Base class for discovery implementations.
  *
- * @package Trupal\os
+ * @package Trupal\Core\os
  */
 class FileSystemDiscovery implements DiscoveryInterface {
 
@@ -18,14 +18,14 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Stack of directory roots in which to search for files.
    *
-   * @var \Trupal\os\DirectoryInterface[]
+   * @var \Trupal\Core\os\DirectoryInterface[]
    */
   protected $_directoryStack = [];
 
   /**
    * Stack of directory filters.
    *
-   * @var \Trupal\Discovery\Filter\DirectoryFilterInterface[]
+   * @var \Trupal\Core\Discovery\Filter\DirectoryFilterInterface[]
    */
   protected $_filterStack = [];
 
@@ -71,7 +71,7 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Add the given directory root to the stack.
    *
-   * @param \Trupal\os\DirectoryInterface|string $directory
+   * @param \Trupal\Core\os\DirectoryInterface|string $directory
    *   A directory or path.
    */
   public function addDirectory($directory) {
@@ -84,7 +84,7 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Retrieve and remove the first element from the stack.
    *
-   * @return \Trupal\os\DirectoryInterface
+   * @return \Trupal\Core\os\DirectoryInterface
    *   A directory instance.
    */
   public function popDirectory() {
@@ -113,7 +113,7 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Add the given directory filter to the stack.
    *
-   * @param \Trupal\Discovery\Filter\DirectoryFilterInterface $filter
+   * @param \Trupal\Core\Discovery\Filter\DirectoryFilterInterface $filter
    *   A directory filter instance.
    */
   public function addFilter(DirectoryFilterInterface $filter) {
@@ -123,7 +123,7 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Grab the first filter from the stack.
    *
-   * @return \Trupal\Discovery\Filter\DirectoryFilterInterface $filter
+   * @return \Trupal\Core\Discovery\Filter\DirectoryFilterInterface $filter
    *   A directory filter instance.
    */
   public function popFilter() {
@@ -140,7 +140,7 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Retrieve the best match out of all located files.
    *
-   * @return \Trupal\os\FileInterface
+   * @return \Trupal\Core\os\FileInterface
    *   A file instance.
    */
   public function get() {
@@ -164,14 +164,14 @@ class FileSystemDiscovery implements DiscoveryInterface {
   /**
    * Find files inside the given directory that match the filter criteria.
    *
-   * @param \Trupal\os\DirectoryInterface $directory
+   * @param \Trupal\Core\os\DirectoryInterface $directory
    *   A directory instance.
    *
-   * @return \Trupal\os\FileInterface[]
+   * @return \Trupal\Core\os\FileInterface[]
    *   An array of the form FILENAME => SCORE, where score indicates how
    *   well the filename matches the filter criteria.
    *
-   * @see \Trupal\Discovery\Filter\DirectoryFilterInterface::evaluate()
+   * @see \Trupal\Core\Discovery\Filter\DirectoryFilterInterface::evaluate()
    */
   protected function findIn(DirectoryInterface $directory) {
     $matches = [];

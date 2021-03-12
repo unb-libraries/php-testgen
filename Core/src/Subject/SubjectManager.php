@@ -1,27 +1,27 @@
 <?php
 
-namespace Trupal\Subject;
+namespace Trupal\Core\Subject;
 
-use Trupal\Discovery\FactoryInterface;
+use Trupal\Core\Discovery\FactoryInterface;
 
 /**
  * Manager of subject instances.
  *
- * @package Trupal\Subject
+ * @package Trupal\Core\Subject
  */
 class SubjectManager implements SubjectManagerInterface {
 
   /**
    * The subjects.
    *
-   * @var \Trupal\Subject\SubjectInterface[]
+   * @var \Trupal\Core\Subject\SubjectInterface[]
    */
   protected $_subjects = [];
 
   /**
    * The subject factory.
    *
-   * @var \Trupal\Discovery\FactoryInterface
+   * @var \Trupal\Core\Discovery\FactoryInterface
    */
   protected $_factory;
 
@@ -35,7 +35,7 @@ class SubjectManager implements SubjectManagerInterface {
   /**
    * The subject factory.
    *
-   * @return \Trupal\Discovery\FactoryInterface
+   * @return \Trupal\Core\Discovery\FactoryInterface
    *   A subject factory instance.
    */
   protected function factory() {
@@ -45,7 +45,7 @@ class SubjectManager implements SubjectManagerInterface {
   /**
    * Create a new subject manager instance.
    *
-   * @param \Trupal\Discovery\FactoryInterface $factory
+   * @param \Trupal\Core\Discovery\FactoryInterface $factory
    *   The subject factory.
    */
   public function __construct(FactoryInterface $factory) {
@@ -75,7 +75,7 @@ class SubjectManager implements SubjectManagerInterface {
   /**
    * Add (or replace) the given model.
    *
-   * @param \Trupal\Subject\SubjectInterface $subject
+   * @param \Trupal\Core\Subject\SubjectInterface $subject
    *   A model instance.
    * @param bool $replace
    *   Whether an existing model should be replaced.

@@ -1,20 +1,20 @@
 <?php
 
-namespace Trupal\Model;
+namespace Trupal\Core\Model;
 
-use Trupal\Trupal;
+use Trupal\Core\Trupal;
 
 /**
  * Provides dependency injection for the model factory service.
  *
- * @package Trupal\Model
+ * @package Trupal\Core\Model
  */
 trait ModelFactoryTrait {
 
   /**
    * Inject the model factory service.
    *
-   * @return \Trupal\Model\ModelFactory
+   * @return \Trupal\Core\Model\ModelFactory
    *   A model factory object.
    */
   protected static function modelFactory() {

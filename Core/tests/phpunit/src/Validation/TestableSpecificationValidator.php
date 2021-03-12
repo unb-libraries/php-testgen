@@ -1,13 +1,13 @@
 <?php
 
-namespace Trupal\Test\Validation;
+namespace Trupal\Core\Test\Validation;
 
-use Trupal\Validation\SpecificationValidator;
+use Trupal\Core\Validation\SpecificationValidator;
 
 /**
  * Testable extension of abstract SpecificationValidator.
  *
- * @package Trupal\Test\Validation
+ * @package Trupal\Core\Test\Validation
  */
 class TestableSpecificationValidator extends SpecificationValidator {
 

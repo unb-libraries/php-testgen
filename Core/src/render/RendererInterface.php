@@ -1,18 +1,18 @@
 <?php
 
-namespace Trupal\render;
+namespace Trupal\Core\render;
 
 /**
  * Interface for renderer implementations.
  *
- * @package Trupal\render
+ * @package Trupal\Core\render
  */
 interface RendererInterface {
 
   /**
    * Render the given context.
    *
-   * @param \Trupal\render\RenderContextInterface $context
+   * @param \Trupal\Core\render\RenderContextInterface $context
    *   The render context.
    *
    * @return string

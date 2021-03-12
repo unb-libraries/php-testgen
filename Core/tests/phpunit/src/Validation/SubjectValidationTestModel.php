@@ -1,13 +1,13 @@
 <?php
 
-namespace Trupal\Test\Validation;
+namespace Trupal\Core\Test\Validation;
 
-use Trupal\Model\Model;
+use Trupal\Core\Model\Model;
 
 /**
  * Model to verify subject validation.
  *
- * @package Trupal\Validation
+ * @package Trupal\Core\Validation
  */
 class SubjectValidationTestModel extends Model {
 

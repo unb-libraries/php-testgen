@@ -1,33 +1,33 @@
 <?php
 
-namespace Trupal\Test\Discovery;
+namespace Trupal\Core\Test\Discovery;
 
 use PHPUnit\Framework\TestCase;
-use Trupal\Discovery\FileSystemDiscovery;
-use Trupal\Discovery\Filter\DirectoryFilterInterface;
-use Trupal\os\DirectoryInterface;
-use Trupal\os\FileInterface;
+use Trupal\Core\Discovery\FileSystemDiscovery;
+use Trupal\Core\Discovery\Filter\DirectoryFilterInterface;
+use Trupal\Core\os\DirectoryInterface;
+use Trupal\Core\os\FileInterface;
 
 /**
  * Test the FileSystemDiscovery class.
  *
- * @covers \Trupal\Discovery\FileSystemDiscovery
+ * @covers \Trupal\Core\Discovery\FileSystemDiscovery
  *
- * @package Trupal\Test\Discovery
+ * @package Trupal\Core\Test\Discovery
  */
 class FileSystemDiscoveryTest extends TestCase {
 
   /**
    * The discovery.
    *
-   * @var \Trupal\Discovery\DiscoveryInterface
+   * @var \Trupal\Core\Discovery\DiscoveryInterface
    */
   protected $_discovery;
 
   /**
    * Retrieve the discovery.
    *
-   * @return \Trupal\Discovery\DiscoveryInterface
+   * @return \Trupal\Core\Discovery\DiscoveryInterface
    *   A discovery object.
    */
   protected function discovery() {

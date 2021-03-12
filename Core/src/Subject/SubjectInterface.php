@@ -1,11 +1,11 @@
 <?php
 
-namespace Trupal\Subject;
+namespace Trupal\Core\Subject;
 
 /**
  * Interface for subject implementations.
  *
- * @package Trupal\Subject
+ * @package Trupal\Core\Subject
  */
 interface SubjectInterface {
 
@@ -28,7 +28,7 @@ interface SubjectInterface {
   /**
    * The model which the subject is build from.
    *
-   * @return \Trupal\Model\ModelInterface
+   * @return \Trupal\Core\Model\ModelInterface
    *   A model instance.
    */
   public function getModel();

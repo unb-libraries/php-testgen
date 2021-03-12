@@ -1,14 +1,14 @@
 <?php
 
-namespace Trupal\Model;
+namespace Trupal\Core\Model;
 
-use Trupal\Discovery\FactoryBase;
-use Trupal\Trupal;
+use Trupal\Core\Discovery\FactoryBase;
+use Trupal\Core\Trupal;
 
 /**
  * Factory for creating model instances.
  *
- * @package Trupal\Model
+ * @package Trupal\Core\Model
  */
 class ModelFactory extends FactoryBase {
 

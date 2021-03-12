@@ -1,13 +1,13 @@
 <?php
 
-namespace Trupal\Test\Discovery\Filter;
+namespace Trupal\Core\Test\Discovery\Filter;
 
-use Trupal\Discovery\Filter\FileNamePatternFilter;
+use Trupal\Core\Discovery\Filter\FileNamePatternFilter;
 
 /**
  * Test the FileNamePatternFilter class.
  *
- * @package Trupal\Test\Discovery\Filter
+ * @package Trupal\Core\Test\Discovery\Filter
  */
 class FileNamePatternFilterTest extends DirectoryFilterTestCase {
 

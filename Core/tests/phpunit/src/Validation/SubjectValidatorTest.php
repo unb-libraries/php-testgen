@@ -1,16 +1,16 @@
 <?php
 
-namespace Trupal\Test\Validation;
+namespace Trupal\Core\Test\Validation;
 
-use Trupal\Discovery\FactoryInterface;
-use Trupal\Test\Subject\ExampleSubject;
+use Trupal\Core\Discovery\FactoryInterface;
+use Trupal\Core\Test\Subject\ExampleSubject;
 
 /**
  * Test the SubjectValidator class.
  *
- * @covers \Trupal\Validation\SubjectValidator
+ * @covers \Trupal\Core\Validation\SubjectValidator
  *
- * @package Trupal\Test\Validation
+ * @package Trupal\Core\Test\Validation
  */
 class SubjectValidatorTest extends SpecificationValidatorTest {
 
@@ -24,7 +24,7 @@ class SubjectValidatorTest extends SpecificationValidatorTest {
   /**
    * Create a model factory test double.
    *
-   * @return \Trupal\Discovery\FactoryInterface
+   * @return \Trupal\Core\Discovery\FactoryInterface
    *   An object pretending to be a model factory.
    */
   protected function createModelFactory() {
@@ -39,7 +39,7 @@ class SubjectValidatorTest extends SpecificationValidatorTest {
   /**
    * Create a model test double.
    *
-   * @return \Trupal\Model\ModelInterface
+   * @return \Trupal\Core\Model\ModelInterface
    *   An object pretending to be a model.
    */
   protected function createModel() {

@@ -1,28 +1,28 @@
 <?php
 
-namespace Trupal\Test\Validation;
+namespace Trupal\Core\Test\Validation;
 
 use PHPUnit\Framework\TestCase;
-use Trupal\Validation\ValidatorFactory;
+use Trupal\Core\Validation\ValidatorFactory;
 
 /**
  * Test the ValidatorFactoryTest class.
  *
- * @package Trupal\Test\Validation
+ * @package Trupal\Core\Test\Validation
  */
 class ValidatorFactoryTest extends TestCase {
 
   /**
    * The validator factory to test.
    *
-   * @var \Trupal\Validation\ValidatorFactoryInterface
+   * @var \Trupal\Core\Validation\ValidatorFactoryInterface
    */
   protected $_factory;
 
   /**
    * Retrieve the validator factory to test.
    *
-   * @return \Trupal\Validation\ValidatorFactoryInterface
+   * @return \Trupal\Core\Validation\ValidatorFactoryInterface
    *   A validator factory object.
    */
   protected function factory() {

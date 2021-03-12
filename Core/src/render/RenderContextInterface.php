@@ -1,13 +1,13 @@
 <?php
 
-namespace Trupal\render;
+namespace Trupal\Core\render;
 
 /**
  * Interface for RenderContext implementations.
  *
  * A render context tells a renderer how to render a subject.
  *
- * @package Trupal\render
+ * @package Trupal\Core\render
  */
 interface RenderContextInterface {
 
@@ -22,7 +22,7 @@ interface RenderContextInterface {
   /**
    * Retrieve the template file.
    *
-   * @return \Trupal\os\FileInterface
+   * @return \Trupal\Core\os\FileInterface
    */
   public function getTemplate();
 

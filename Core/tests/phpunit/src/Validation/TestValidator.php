@@ -1,13 +1,13 @@
 <?php
 
-namespace Trupal\Test\Validation;
+namespace Trupal\Core\Test\Validation;
 
-use Trupal\Validation\ValidatorInterface;
+use Trupal\Core\Validation\ValidatorInterface;
 
 /**
  * Validator without real behaviour, for testing purposes.
  *
- * @package Trupal\Test\Validation
+ * @package Trupal\Core\Test\Validation
  */
 class TestValidator implements ValidatorInterface {
 

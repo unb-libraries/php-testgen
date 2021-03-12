@@ -1,11 +1,11 @@
 <?php
 
-namespace Trupal\Discovery\Filter;
+namespace Trupal\Core\Discovery\Filter;
 
 /**
  * Interface for filter factory implementations.
  *
- * @package Trupal\Discovery\Filter
+ * @package Trupal\Core\Discovery\Filter
  */
 interface DirectoryFilterFactoryInterface {
 
@@ -18,7 +18,7 @@ interface DirectoryFilterFactoryInterface {
    *   An array containing options to initially
    *   configure the filter.
    *
-   * @return \Trupal\Discovery\Filter\DirectoryFilterInterface
+   * @return \Trupal\Core\Discovery\Filter\DirectoryFilterInterface
    */
   public function create(string $type, array $configuration);
 

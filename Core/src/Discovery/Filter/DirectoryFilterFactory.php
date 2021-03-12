@@ -1,11 +1,11 @@
 <?php
 
-namespace Trupal\Discovery\Filter;
+namespace Trupal\Core\Discovery\Filter;
 
 /**
  * Factory to build validators of different types.
  *
- * @package Trupal\Discovery\Filter
+ * @package Trupal\Core\Discovery\Filter
  */
 class DirectoryFilterFactory implements DirectoryFilterFactoryInterface {
 

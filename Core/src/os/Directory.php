@@ -243,7 +243,7 @@ class Directory extends \Directory implements DirectoryInterface {
   /**
    * Retrieve all files contained in this directory.
    *
-   * @return \Trupal\os\FileInterface[]
+   * @return \Trupal\Core\os\FileInterface[]
    *   Array of File instances.
    */
   public function files() {
