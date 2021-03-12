@@ -26,13 +26,13 @@ abstract class Command extends SymfonyCommand {
   final protected function execute(InputInterface $input, OutputInterface $output) {
     try {
       $this->doExecute($input, $output);
-      if (defined(self::SUCCESS)) {
+      if (defined(self::class . '::SUCCESS')) {
         return self::SUCCESS;
       }
       return 0;
     }
     catch (\Exception $e) {
-      if (defined(self::FAILURE)) {
+      if (defined(self::class . '::FAILURE')) {
         return self::FAILURE;
       }
       return 1;
