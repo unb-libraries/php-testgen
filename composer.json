@@ -24,8 +24,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Trupal\\Core\\": "src",
-            "Trupal\\Core\\Test\\": "tests/phpunit/src",
+            "Trupal\\Core\\": "Core/src",
+            "Trupal\\Core\\Test\\": "Core/tests/phpunit/src",
             "Trupal\\Console\\": "Console/src",
             "Trupal\\Console\\Test\\": "Console/tests/phpunit/src"
         }
