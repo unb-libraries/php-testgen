@@ -24,6 +24,13 @@ class Page extends SubjectBase {
   protected $path;
 
   /**
+   * Paths to which the page may redirect.
+   *
+   * @var array
+   */
+  protected $redirects;
+
+  /**
    * Retrieve the title of the page.
    *
    * @return string
@@ -61,6 +68,22 @@ class Page extends SubjectBase {
    */
   public function setPath($url) {
     $this->path = $url;
+  }
+
+  /**
+   * Get paths to which the page may redirect.
+   *
+   * @param string $event
+   *   The event at which the page should redirect.
+   *
+   * @return string|false
+   *   A path. False if no redirect exists for the given event.
+   */
+  public function getRedirect(string $event) {
+    if (array_key_exists($event, $this->redirects)) {
+      return $this->redirects[$event];
+    }
+    return FALSE;
   }
 
 }

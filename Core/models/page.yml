@@ -9,3 +9,6 @@ options:
   title: ''
   public: TRUE
   grant_access: { }
+  redirects:
+    permission_denied: ''
+    login_required: ''

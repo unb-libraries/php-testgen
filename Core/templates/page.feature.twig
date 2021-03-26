@@ -42,6 +42,10 @@ Feature: {{ title }}
   Scenario: Deny acccess to unauthenticated users
     Given I am not logged in
     When I go to "{{ path }}"
+    {% if redirects.login_required %}
+    Then I should be on "{{ redirects.login_required }}"
+    {% else %}
     Then the response status code should be 403
+    {% endif %}
 
 {% endif %}
