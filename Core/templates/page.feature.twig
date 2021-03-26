@@ -1,7 +1,9 @@
-# Behat Page Access Test
+# Test accessing the {{ title }} page
 # Ref : phase2/behat-suite
+# http://behat-drupal-extension.readthedocs.io/en/3.1/drupalapi.htm
 
-Feature: Visit a page
+@api
+Feature: {{ title }}
   As an internet user
   In order to use a website
   I need to be able to access a page.
@@ -12,7 +14,7 @@ Feature: Visit a page
     Given I am not logged in
     When I go to "{{ path }}"
     {% if title %}
-    Then I should see "{{ title }}"
+    Then I should see the heading "{{ title }}"
     {% else %}
     Then the response status code should be 200
     {% endif %}
@@ -25,17 +27,21 @@ Feature: Visit a page
     {%- include '_user_table.feature.twig' with vars only -%}
 
     {% for user_role in grant_access %}
-      {% set user = "user_%s"|format(loop.index) %}
+      {% set user = "User %s"|format(loop.index) %}
       Scenario: Grant acccess to {{ user }}
-        Given I am logged in as {{ user }}
-        When I go to {{url}}
-        Then I should get an HTTP 200 response
+        Given I am logged in as "{{ user }}"
+        When I go to "{{ path }}"
+        {% if title %}
+        Then I should see the heading "{{ title }}"
+        {% else %}
+        Then the response status code should be 200
+      {% endif %}
     {% endfor %}
   {% endif %}
 
   Scenario: Deny acccess to unauthenticated users
     Given I am not logged in
     When I go to "{{ path }}"
-    Then I should get an HTTP 403 response
+    Then the response status code should be 403
 
 {% endif %}

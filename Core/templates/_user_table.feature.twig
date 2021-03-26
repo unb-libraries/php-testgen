@@ -1,5 +1,5 @@
 Given users:
 | name | mail | roles |
 {% for user_role in user_roles %}
-| user_{{ loop.index }} | user_{{ loop.index}}@example.com | {{ user_role }} |
+| User {{ loop.index }} | user_{{ loop.index}}@example.com | {{ user_role }} |
 {% endfor %}
