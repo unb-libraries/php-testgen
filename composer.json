@@ -1,5 +1,5 @@
 {
-    "name": "unb-libraries/trupal",
+    "name": "trupal/trupal",
     "description": "Auto-generate automated testing.",
     "type": "library",
     "license": "MIT",
