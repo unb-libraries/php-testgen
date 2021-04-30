@@ -13,8 +13,8 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 final class Trupal implements TrupalInterface {
 
-  const PROJECT_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..';
-  const CONFIG_DIR = self::PROJECT_ROOT . DIRECTORY_SEPARATOR . 'config';
+  const PROJECT_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
+  const EXT_ROOT = self::PROJECT_ROOT . DIRECTORY_SEPARATOR . 'extend';
 
   /**
    * The application container.
@@ -49,7 +49,6 @@ final class Trupal implements TrupalInterface {
   private function __construct() {
     try {
       $this->_container = $this->initContainer();
-      $this->initCommands();
     }
     catch (\Exception $e) {
       echo $e->getMessage();
@@ -62,8 +61,8 @@ final class Trupal implements TrupalInterface {
   protected function initContainer() {
     $container = new ContainerBuilder();
     try {
-      $loader = new YamlFileLoader($container, new FileLocator(self::CONFIG_DIR));
-      $loader->load('services.yml');
+      $loader = new YamlFileLoader($container, new FileLocator(self::PROJECT_ROOT));
+      $loader->load('Core/config/services.yml');
 
       $container->setParameter('Trupal_root', defined('Trupal_ROOT')
         ? Trupal_ROOT
@@ -79,6 +78,7 @@ final class Trupal implements TrupalInterface {
         : rtrim($container->getParameter('Trupal_root')) . DIRECTORY_SEPARATOR . 'templates');
 
       $container->set('trupal', $this);
+      $this->loadExtensions($loader);
     }
     catch (\Exception $e) {
       // TODO: Log error during container initialization.
@@ -91,15 +91,48 @@ final class Trupal implements TrupalInterface {
   }
 
   /**
-   * Initialize console commands.
+   * Load all extensions.
    *
-   * @throws \Exception
+   * @param \Symfony\Component\DependencyInjection\Loader\YamlFileLoader $service_loader
+   *   A service file loader.
    */
-  protected function initCommands() {
-    $service_ids = $this->_container->findTaggedServiceIds('console.command');
-    foreach ($service_ids as $service_id => $tags) {
-      $command = $this->_container->get($service_id);
-      $this->add($command);
+  protected function loadExtensions(YamlFileLoader $service_loader) {
+    foreach (['system', 'user'] as $ext_type) {
+      $ext_root = self::EXT_ROOT . DIRECTORY_SEPARATOR . $ext_type;
+      if (file_exists($ext_root)) {
+        foreach (scandir($ext_root) as $ext_name) {
+          if (!($ext_name === '.' || $ext_name === '..')) {
+            $this->loadExtension($service_loader, $ext_name, $ext_type);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Load the single extension with the given name and type.
+   *
+   * @param \Symfony\Component\DependencyInjection\Loader\YamlFileLoader $service_loader
+   *   A service file service loader.
+   * @param string $ext_name
+   *   The name of the extension.
+   * @param string $ext_type
+   *   The extension type, either 'system' or 'user'.
+   */
+  protected function loadExtension(YamlFileLoader $service_loader, string $ext_name, string $ext_type) {
+    $ext_dir = self::EXT_ROOT . DIRECTORY_SEPARATOR . $ext_type . DIRECTORY_SEPARATOR . $ext_name;
+    if (file_exists($ext_dir) && is_dir($ext_dir)) {
+      $service_file = $ext_dir . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'services.yml';
+      if (file_exists($service_file)) {
+        try {
+          $service_loader->load($service_file);
+        }
+        catch (\Exception $e) {
+          // @todo Handle the exception.
+          return;
+        }
+
+      }
     }
   }
 
