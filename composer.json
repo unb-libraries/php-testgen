@@ -27,14 +27,14 @@
         "psr-4": {
             "Trupal\\Core\\": "Core/src",
             "Trupal\\Core\\Test\\": "Core/tests/phpunit/src",
-            "Trupal\\Console\\": "Console/src",
-            "Trupal\\Console\\Test\\": "Console/tests/phpunit/src"
+            "Trupal\\Console\\": "extend/system/console/src",
+            "Trupal\\Console\\Test\\": "extend/system/console/tests/phpunit/src"
         }
     },
     "require-dev": {
         "phpunit/phpunit": "^8.4"
     },
     "extra": {
-        "trupal-extension-install-path": "extend/"
+        "trupal-extension-install-path": "extend/user"
     }
 }

@@ -1,0 +1,3 @@
+project_root: TRUPAL_ROOT
+service_files:
+  - TRUPAL_ROOT/Core/config/services.yml

@@ -49,11 +49,19 @@ class TrupalConsole extends Application {
    *
    * @throws \Exception
    */
-  public function __construct() {
-    parent::__construct('TRUPAL', 'DEV');
+  public function __construct($settings = []) {
+    $settings = array_merge_recursive($this->defaultSettings(), $settings);
+    parent::__construct($settings['name'], $settings['version']);
     $this->trupal = Trupal::instance();
     $this->initContainer();
     $this->initCommands();
+  }
+
+  protected function defaultSettings() {
+    return [
+      'name' => 'TRUPAL',
+      'version' => 'DEV',
+    ];
   }
 
   /**
